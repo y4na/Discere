@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up - Discere</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'users/css/register-css.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="left-section">
+                <h1 class="auth-header">Sign Up to Discere</h1>
+                <hr class="custom-hr"/>
+                
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    
+                    <!-- Step 1: Personal Information -->
+                    <div id="step-one-form">
+                        <span class="form-label-2">PERSONAL INFORMATION</span>
+                        <span class="form-label-3">Step 01 of 02</span>
+                        
+                        <span class="form-label">USERNAME</span>
+                        <div class="input-icon">
+                            <i class="fa fa-user"></i>
+                            <input type="text" name="username" placeholder="Enter your username" required>
+                        </div>
+    
+                        <span class="form-label">FIRST NAME</span>
+                        <div class="input-icon">
+                            <i class="fa fa-address-card"></i>
+                            <input type="text" name="first_name" placeholder="Enter your first name" required>
+                        </div>
+    
+                        <span class="form-label">LAST NAME</span>
+                        <div class="input-icon">
+                            <i class="fa fa-address-card"></i>
+                            <input type="text" name="last_name" placeholder="Enter your last name" required>
+                        </div>
+    
+                        <button type="button" class="next-btn" onclick="showStepTwo()">NEXT</button>
+                        <hr class="custom-hr-2"/>
+                    </div>
+    
+                    <!-- Step 2: Credentials -->
+                    <div id="step-two-form" style="display: none;">
+                        <span class="form-label-2">CREATE CREDENTIALS</span>
+                        <span class="form-label-3">Step 02 of 02</span>
+                        
+                        <span class="form-label">EMAIL ADDRESS</span>
+                        <div class="input-icon">
+                            <i class="fa fa-envelope"></i>
+                            <input type="email" name="email" placeholder="Enter your email address" required>
+                        </div>
+    
+                        <span class="form-label">PASSWORD</span>
+                        <div class="input-icon">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" name="password" placeholder="Enter your password" required>
+                        </div>
+    
+                        <span class="form-label">CONFIRM PASSWORD</span>
+                        <div class="input-icon">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" name="password_confirm" placeholder="Confirm your password" required>
+                        </div>
+    
+                        <button type="submit" class="submit-btn">SIGN UP</button>
+                    </div>
+                </form>
+    
+                <div class="signin-link">
+                    Already have an account? &nbsp&nbsp&nbsp <a href="{% url 'login' %}">Sign in</a>
+                </div>
+            </div>
+            
+            <div class="right-section">
+                <img src="{% static 'users/images/discere-logo.png' %}" alt="Logo">
+                <h1>Be a part of Discere!</h1>
+                <i class="fas fa-ellipsis-h"></i>
+                <hr class="custom-hr-3"/>
+                <span>Join us today! Create an account to <br>start your journey and unlock all<br>the benefits we have to offer.</span>
+                <hr class="custom-hr-3"/>
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </div>
+        
+	<script src="{% static 'users/js/form-transition.js' %}"></script>
+</body>
+</html>
