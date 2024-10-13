@@ -8,7 +8,7 @@
         <title>Sign Up - Discere</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'users/css/register-css.css' %}">
+        <link rel="stylesheet" href="{% static 'auth/css/register-css.css' %}">
     </head>
     <body>
         <div class="container">
@@ -21,8 +21,8 @@
                     
                     <!-- Step 1: Personal Information -->
                     <div id="step-one-form">
-                        <span class="form-label-2">PERSONAL INFORMATION</span>
-                        <span class="form-label-3">Step 01 of 02</span>
+						<span class="form-label-2">PERSONAL INFORMATION</span>
+						<span class="form-label-3">Step 01 of 02</span>
                         
                         <span class="form-label">USERNAME</span>
                         <div class="input-icon">
@@ -43,7 +43,6 @@
                         </div>
     
                         <button type="button" class="next-btn" onclick="showStepTwo()">NEXT</button>
-                        <hr class="custom-hr-2"/>
                     </div>
     
                     <!-- Step 2: Credentials -->
@@ -61,25 +60,28 @@
                         <div class="input-icon">
                             <i class="fa fa-lock"></i>
                             <input type="password" name="password" placeholder="Enter your password" required>
-                        </div>
+							<i class="fa fa-eye-slash"></i>
+						</div>
     
                         <span class="form-label">CONFIRM PASSWORD</span>
                         <div class="input-icon">
                             <i class="fa fa-lock"></i>
                             <input type="password" name="password_confirm" placeholder="Confirm your password" required>
-                        </div>
+							<i class="fa fa-eye-slash"></i>
+						</div>
     
                         <button type="submit" class="submit-btn">SIGN UP</button>
                     </div>
                 </form>
     
+				<hr class="custom-hr-2"/>
                 <div class="signin-link">
                     Already have an account? &nbsp&nbsp&nbsp <a href="{% url 'login' %}">Sign in</a>
                 </div>
             </div>
             
             <div class="right-section">
-                <img src="{% static 'users/images/discere-logo.png' %}" alt="Logo">
+                <img src="{% static 'auth/images/discere-logo.png' %}" alt="Logo">
                 <h1>Be a part of Discere!</h1>
                 <i class="fas fa-ellipsis-h"></i>
                 <hr class="custom-hr-3"/>
@@ -89,6 +91,6 @@
             </div>
         </div>
         
-	<script src="{% static 'users/js/form-transition.js' %}"></script>
+	<script src="{% static 'auth/js/form-transition.js' %}"></script>
 </body>
 </html>

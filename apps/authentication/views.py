@@ -23,7 +23,7 @@ def login_view(request):
     else:
         form = AuthenticationForm()
         
-    return render(request, 'users/login.html', {'form': form})
+    return render(request, 'auth/login.html', {'form': form})
 
 # Signup form
 class SignUpForm(forms.ModelForm):
@@ -72,9 +72,9 @@ def signup_view(request):
     else:
         form = SignUpForm()
     
-    return render(request, 'users/signup.html', {'form': form})
+    return render(request, 'auth/signup.html', {'form': form})
 
 
 # home
 def home_view(request):
-    return render(request, 'users/home.html')
+    return render(request, 'auth/home.html')
