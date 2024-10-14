@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib import messages
@@ -75,6 +75,12 @@ def signup_view(request):
     return render(request, 'auth/signup.html', {'form': form})
 
 
-# home
 def home_view(request):
-    return render(request, 'auth/home.html')
+    if request.user.is_authenticated:
+        return render(request, 'dashboard/base.html', {'user': request.user})
+    else:
+        return redirect('login') 
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

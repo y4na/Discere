@@ -1,0 +1,15 @@
+{
+  "name": "discere",
+  "version": "1.0.0",
+  "description": "Discere is a web app designed to enhance learning through customizable flashcards, study sets, and quizzes. Built for students and lifelong learners, Discere makes studying interactive and efficient.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss build theme/static_src/src/styles.css -o theme/static/styles.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^3.4.13"
+  }
+}
