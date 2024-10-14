@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,8 +51,10 @@
 				</form>
 				<hr class="custom-hr-2"/>
                 <div class="google-btn">
-                    <img src="{% static 'users/images/google-logo.png' %}" alt="Google Logo" width="20">
-                    <span>Sign in with Google</span>
+                    <a href="{% provider_login_url 'google' %}">
+                        <img src="{% static 'users/images/google-logo.png' %}" alt="Google Logo" width="20">
+                        <span>Sign in with Google</span>
+                    </a>
                 </div>
             </form>
 			
