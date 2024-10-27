@@ -4,6 +4,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib import messages
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import PasswordResetDoneView
+from django.urls import reverse_lazy
+
 
 # Login view
 def login_view(request):
@@ -78,3 +82,15 @@ def signup_view(request):
 # home
 def home_view(request):
     return render(request, 'users/home.html')
+
+# forgot-password
+class CustomPasswordResetView(auth_views.PasswordResetView):
+    email_template_name = 'users/forgot-password/password_reset_email.html'  # Specify your custom email template
+    template_name = 'users/forgot-password/password_reset_form.html'  # The template for the form
+    success_url = '/accounts/password_reset/done/'  # Where to redirect after successful email sending
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'users/forgot-password/password_reset_done.html'  # Specify your custom template
+    success_url = reverse_lazy('password_reset_done')  # URL to redirect after a successful reset
+
+
