@@ -23,3 +23,5 @@ def user_profile(request):
     }
     return render(request, 'dashboard/user_settings.html', context)
 
+def library(request):
+    return render(request, 'dashboard/library.html')
