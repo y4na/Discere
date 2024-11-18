@@ -7,6 +7,9 @@ from django.contrib import messages
 
 # Login view
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard_home')
+
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -15,14 +18,14 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home') 
+                return redirect('dashboard_home')
             else:
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid form submission.")
     else:
         form = AuthenticationForm()
-        
+
     return render(request, 'auth/login.html', {'form': form})
 
 # Signup form

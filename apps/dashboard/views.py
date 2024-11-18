@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def home(request):
+def dashboard_home(request):
     return render(request, 'dashboard/home.html')
 
 def user_settings(request):
