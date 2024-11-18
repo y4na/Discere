@@ -1,12 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, update_session_auth_hash
+from django.http import JsonResponse
+import json
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 def dashboard_home(request):
     return render(request, 'dashboard/home.html')
 
 def user_settings(request):
-    return render(request, 'dashboard/user_settings.html')
+        user = request.user  
+        context = {
+            'user': user 
+        }
+        return render(request, 'dashboard/user_settings.html')
 
 @login_required
 def user_profile(request):
@@ -22,6 +31,8 @@ def user_profile(request):
     }
     return render(request, 'dashboard/user_settings.html', context)
 
+
+    
 def library(request):
     return render(request, 'dashboard/library.html')
 

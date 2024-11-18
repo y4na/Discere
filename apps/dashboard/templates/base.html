@@ -7,14 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% tailwind_css %}
-
-    {% comment %} icon cdn kay gikapoy ko dl naa raman diay cdn AHHAHAHAHH {% endcomment %}
-    <script src="https://unpkg.com/feather-icons"></script>
-
+    <link href="{% static 'path/to/your/css/globals.css' %}" rel="stylesheet">
     <title>Discere</title>
 </head>
 
-<body class="h-screen w-full bg-darkgreen-gradient font-outfit">
+<body class="h-screen w-full bg-darkgreen-gradient font-outfit overflow-x-hidden">
     <header>
         <nav class="top-0 z-50 flex items-center justify-between w-full h-24 text-darkgreen px-5">
             <div class="flex items-center">
@@ -54,7 +51,7 @@
                             </div>
                         </div>
 
-                        <div class="border-b"></div>
+                        
                         <div class="py-2 px-4">
 
                             <a href="#" class="py-2 text-darkgreen hover:bg-gray-100 flex items-center">
@@ -86,11 +83,7 @@
             
             <script>
               feather.replace();
-            </script>
-            
-            
-            
-            
+            </script>    
         </nav>
 
       <!-- Sidebar Default -->
@@ -98,7 +91,7 @@
         <button id="menu-button" class="flex justify-center items-center mb-4 pt-8">
             <img src="{% static 'icons/menu-bar.svg' %}" alt="Menu Icon" class="h-8 w-8">
         </button>
-        <a href="{% url 'home' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
+        <a href="{% url 'dashboard_home' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
             <img src="{% static 'icons/home.svg' %}" alt="Icon 1" class="h-14 w-14 mt-20">
         </a>
         <a href="{% url 'library' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
@@ -146,14 +139,19 @@
 
     </header>
 
-    <main class="flex flex-row h-full text-darkgreen">
-        <div class="bg-white1 flex-grow ml-[102px] px-10 py-10 rounded-t-3xl">
+    <main class="flex flex-row h-screen text-darkgreen">
+        <div class="bg-white1 flex-grow ml-[102px] px-10 py-10 rounded-t-3xl min-h-full">
             {% block main_content %}
-           
             {% endblock %}
         </div>
     </main>
     
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            feather.replace(); 
+        });
+    </script>
     <script src="{% static 'dashboard/js/home.js' %}"></script>
 </body>
 </html>

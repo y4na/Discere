@@ -1,36 +1,221 @@
+
+<script src="https://unpkg.com/feather-icons"></script>
+<script>feather.replace()</script>
+
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}User Profile{% endblock %}
+{% block title %}Discere{% endblock %}
 
 {% block main_content %}
-    <div class="bg-white rounded-lg shadow-md p-6 lg:p-8 max-w-4xl mx-auto my-10">  
-        <h1 class="text-3xl font-bold mb-4">User Profile</h1> 
-        <div class="flex items-center mt-5 mb-6"> 
-            <img src="{% static 'global-images/default-user-profile.png' %}" alt="Profile Picture" class="h-24 w-24 rounded-full">
-            <div class="ml-5">
-                <h2 class="text-2xl font-semibold">{{ user.username }}</h2>
-                <p class="text-gray-600">{{ user.email }}</p>
-                <p class="mt-2">{{ user.userprofile.bio }}</p>
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-xl font-bold" style="font-size: 36px">Settings</h1>
+    </div>
+        
+    <div class="w-full h-px bg-black bg-opacity-10 my-4"></div>
+
+    <h1 class="text-darkgreen font-bold mb-4">Personal Information</h1>
+
+    <div class="bg-white p-6 rounded-lg border border-gray-300 flex items-start space-x-8">
+        <div class="flex flex-col items-center">
+    
+            <div class="relative group overflow-hidden w-48 h-48 rounded-full border-2 shadow-sm">
+                <img src="{% static 'global-images/default-user-profile.png' %}" 
+                     alt="Current Profile Picture" 
+                     class="w-full h-full object-cover">
+                
+                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <img src="{% static 'icons/edit.svg' %}" class="w-5 h-5 fill-current" alt="edit prof icon">
+                </div>
             </div>
+            <h1 class="font-semibold mt-2">{{ user.username }}</h1>
+            <div class="flex flex-col space-y-4 mt-4">
+                <button class="px-4 py-2 text-sm bg-white text-darkgreen font-semibold border-2 border-darkgreen rounded-full hover:bg-gray-100 h-12 w-full">
+                    Remove Picture
+                </button>
+                <button class="px-4 py-2 text-sm bg-darkgreen text-white font-semibold rounded-full hover:bg-darkgreen/80 h-12 w-full">
+                    Change Picture
+                </button>
+            </div>
+            
         </div>
 
-        <h3 class="text-xl font-semibold mb-2">Reading Activity</h3>  
-        <ul class="list-disc list-inside mb-6">  
-            {% for activity in reading_activity %}
-                <li>{{ activity.book_title }} - {{ activity.progress }}%</li>
-            {% empty %}
-                <li>No reading activity recorded.</li>
-            {% endfor %}
-        </ul>
-
-        <h3 class="text-xl font-semibold mb-2">Achievements</h3>  
-        <ul class="list-disc list-inside">
-            {% for achievement in achievements %}
-                <li>{{ achievement.name }}</li>
-            {% empty %}
-                <li>No achievements yet.</li>
-            {% endfor %}
-        </ul>
+        <form class="flex flex-col space-y-4 w-full">
+            <div>
+                <label for="first-name" class="block text-darkgreen font-semibold mb-1">
+                    First Name
+                </label>
+                <input type="text" id="first-name" 
+                       value="{{ user.first_name }}" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen">
+            </div>
+        
+            <div>
+                <label for="last-name" class="block text-darkgreen font-semibold mb-1">
+                    Last Name
+                </label>
+                <input type="text" id="last-name" 
+                       value="{{ user.last_name }}" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen">
+            </div>
+        
+            <div>
+                <label for="email" class="block text-darkgreen font-semibold mb-1">
+                    Email
+                </label>
+                <input type="email" id="email" 
+                       value="{{ user.email }}" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-200 text-gray-500 focus:border-gray-400 focus:ring-gray-400" 
+                       disabled>
+            </div>
+            
+            <div>
+                <label for="status" class="block text-darkgreen font-semibold mb-1">
+                    Status
+                </label>
+                <select id="status" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen">
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                </select>
+            </div>
+        </form>
     </div>
+
+    <h1 class="text-darkgreen font-bold mb-4 mt-6">Appearance</h1>
+
+    <div class="bg-white p-6 rounded-lg border border-gray-300 flex items-start space-x-8">
+        <div class="flex flex-col w-full">
+            <label for="theme" class="block text-darkgreen font-semibold mb-1">
+                Theme
+            </label>
+            <select id="theme" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen">
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+    
+        <div class="flex flex-col w-full">
+            <label for="language" class="block text-darkgreen font-semibold mb-1">
+                Language
+            </label>
+            <select id="language" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen">
+                <option value="english">English</option>
+            </select>
+        </div>
+    </div>
+    
+    <h1 class="text-darkgreen font-bold mb-4 mt-6">Account and privacy</h1>
+
+    <div class="bg-white p-6 rounded-lg border border-gray-300 flex flex-col space-y-4">
+        <button class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold hover:bg-gray-100 rounded-lg" onclick="openModal('change-password-modal')">
+            <img src="{% static 'icons/lock.svg' %}" class="w-5 h-5" alt="Change Password Icon">
+            <span>Change Password</span>
+        </button>
+    
+        <div class="w-full h-px bg-gray-300 my-4"></div>
+    
+        <button class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold hover:bg-gray-100 rounded-lg" onclick="openModal('change-email-modal')">
+            <img src="{% static 'icons/mail.svg' %}" class="w-5 h-5" alt="Change Email Icon">
+            <span>Change Email</span>
+        </button>
+    
+        <div class="w-full h-px bg-gray-300 my-4"></div>
+    
+        <button class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold hover:bg-gray-100 rounded-lg" onclick="openModal('change-username-modal')">
+            <img src="{% static 'icons/user.svg' %}" class="w-5 h-5" alt="Change Username Icon">
+            <span>Change Username</span>
+        </button>
+    
+        <div class="w-full h-px bg-gray-300 my-4"></div>
+    
+        <button class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold hover:bg-gray-100 rounded-lg">
+            <img src="{% static 'icons/log-out.svg' %}" class="w-5 h-5" alt="Log Out Icon">
+            <a href="{% url 'logout' %}">
+                <span>Log Out</span>
+            </a>
+        </button>
+    
+        <div class="w-full h-px bg-gray-300 my-4"></div>
+    
+        <button class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold hover:bg-gray-100 rounded-lg">
+            <img src="{% static 'icons/trash-2.svg' %}" class="w-5 h-5 fill-current" alt="Delete Account Icon">
+            <span>Delete Account</span>
+        </button>
+    </div>
+    
+    <!-- Change Password Modal -->
+    <div id="change-password-modal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+        <div class="bg-white p-6 rounded-lg w-96">
+            <h2 class="text-darkgreen font-bold text-xl mb-4">Change Password</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="new-password" class="block text-darkgreen font-semibold">New Password</label>
+                    <div class="relative">
+                        <input type="password" id="new-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" required>
+                        <img src="{% static 'icons/eye.svg' %}" alt="Toggle Password" id="toggle-password-new" class="absolute right-3 top-3 w-5 h-5 cursor-pointer">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="confirm-password" class="block text-darkgreen font-semibold">Confirm Password</label>
+                    <div class="relative">
+                        <input type="password" id="confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" required>
+                        <img src="{% static 'icons/eye.svg' %}" alt="Toggle Password" id="toggle-password-confirm" class="absolute right-3 top-3 w-5 h-5 cursor-pointer">
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" class="px-4 py-2 text-sm text-darkgreen font-semibold border-2 border-darkgreen rounded-lg hover:bg-gray-100" onclick="closeModal('change-password-modal')">Cancel</button>
+                    <button type="submit" class="px-4 py-2 text-sm text-white bg-darkgreen font-semibold rounded-lg hover:bg-darkgreen/80">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+
+    <!-- Change Email Modal -->
+    <div id="change-email-modal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+        <div class="bg-white p-6 rounded-lg w-96">
+            <h2 class="text-darkgreen font-bold text-xl mb-4">Change Email</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="current-email" class="block text-darkgreen font-semibold">Current Email</label>
+                    <input type="email" id="current-email" value="{{ user.email }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-200 text-gray-500" disabled>
+                </div>
+                <div class="mb-4">
+                    <label for="new-email" class="block text-darkgreen font-semibold">New Email</label>
+                    <input type="email" id="new-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" required>
+                </div>
+                <div class="mb-4">
+                    <label for="confirm-password-email" class="block text-darkgreen font-semibold">Enter Password to Confirm</label>
+                    <div class="relative">
+                        <input type="password" id="confirm-password-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" required>
+                        <img src="{% static 'icons/eye.svg' %}" alt="Toggle Password" id="toggle-password-confirm" class="absolute right-3 top-3 w-5 h-5 cursor-pointer">
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" class="px-4 py-2 text-sm text-darkgreen font-semibold border-2 border-darkgreen rounded-lg hover:bg-gray-100" onclick="closeModal('change-email-modal')">Cancel</button>
+                    <button type="submit" class="px-4 py-2 text-sm text-white bg-darkgreen font-semibold rounded-lg hover:bg-darkgreen/80">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <!-- Change username Modal -->
+    <div id="change-username-modal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+        <div class="bg-white p-6 rounded-lg w-96">
+            <h2 class="text-darkgreen font-bold text-xl mb-4">Change Username</h2>
+            <form>
+                <div class="mb-4">
+                    <input type="text" id="current-username" value="{{ user.username }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-darkgreen focus:border-darkgreen focus:ring-darkgreen">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" class="px-4 py-2 text-sm text-darkgreen font-semibold border-2 border-darkgreen rounded-lg hover:bg-gray-100" onclick="closeModal('change-username-modal')">Cancel</button>
+                    <button type="submit" class="px-4 py-2 text-sm text-white bg-darkgreen font-semibold rounded-lg hover:bg-darkgreen/80">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'dashboard/js/user_settings.js' %}"></script>
 {% endblock %}

@@ -7,14 +7,18 @@ class SignUpForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'password_confirm']
+        fields = ['username', 'email', 'first_name', 'last_name', 'password', 'password_confirm']
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Username'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
+            'first_name': forms.TextInput(attrs={'placeholder': 'First Name'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last Name'}),
         }
         labels = {
             'username': 'Username',
             'email': 'Email Address',
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
         }
         help_texts = {
             'username': None,
@@ -27,3 +31,4 @@ class SignUpForm(forms.ModelForm):
 
         if password != password_confirm:
             raise forms.ValidationError("Passwords do not match")
+
