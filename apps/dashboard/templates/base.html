@@ -28,33 +28,41 @@
             </div>
 
             <div class="flex items-center relative">
- 
-                <img src="{% static 'global-images/default-user-profile.png' %}" alt="User Profile" class="h-12 w-12 rounded-full mx-10 cursor-pointer" id="profile-menu-button">
-                
+
                 <!-- Profile Popup -->
-                <div id="profile-popup" class="absolute right-0 w-60 bg-white rounded-lg shadow-lg hidden z-50 mt-48">
-                    <div class="flex items-center p-4 border-b">
-                        <a href="{% url 'user_settings' %}">
-                        <img src="{% static 'global-images/default-user-profile.png' %}" alt="User Profile" class="h-12 w-12 rounded-full">
-                        </a>
-                        <div class="ml-3">
-                            <p class="font-semibold">{{ user.username }}</p>
-                            <p class="text-sm text-gray-500">{{ user.email }}</p>
+                <div class="relative">
+                    <img src="{% static 'global-images/default-user-profile.png' %}" 
+                         alt="User Profile" 
+                         class="h-12 w-12 rounded-full mx-10 cursor-pointer" 
+                         id="profile-menu-button">
+                    
+                    <!-- Profile Popup -->
+                    <div id="profile-popup" 
+                         class="absolute right-0 w-60 bg-white rounded-lg shadow-lg hidden z-50 mt-2">
+                        <div class="flex items-center p-4 border-b">
+                            <a href="{% url 'user_settings' %}">
+                                <img src="{% static 'global-images/default-user-profile.png' %}" 
+                                     alt="User Profile" 
+                                     class="h-12 w-12 rounded-full">
+                            </a>
+                            <div class="ml-3">
+                                <p class="font-semibold">{{ user.username }}</p>
+                                <p class="text-sm text-gray-500">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="border-b"></div>
+                        <div class="py-2 px-4">
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Achievements</a>
+                            <a href="{% url 'user_settings' %}" class="block py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Dark Mode</a>
+                            <a href="{% url 'logout' %}" class="block py-2 text-gray-700 hover:bg-gray-100" style="color: #E53737;">Logout</a>
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Privacy Policy</a>
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Help and Feedback</a>
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Give Me a Coffee</a>
                         </div>
                     </div>
-        
-                    <div class="border-b"></div>
-        
-                    <div class="py-2 px-4">
-                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Achievements</a>
-                        <a href="{% url 'user_settings' %}" class="block py-2 text-gray-700 hover:bg-gray-100">Settings</a>
-                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Dark Mode</a>
-                        <a href="{% url 'logout' %}" class="block py-2 text-gray-700 hover:bg-gray-100" style="color: #E53737;">Logout</a>
-                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Privacy Policy</a>
-                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Help and Feedback</a>
-                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Give Me a Coffee</a>
-                    </div>
                 </div>
+                
             </div>
         </nav>
 
