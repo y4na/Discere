@@ -18,24 +18,23 @@
                 <form method="post" action="{% url 'signup' %}">
                     {% csrf_token %}
                     
-                    <!-- Step 1: Personal Information -->
                     <div id="step-one-form">
 						<span class="form-label-2">PERSONAL INFORMATION</span>
 						<span class="form-label-3">Step 01 of 02</span>
                         
-                        <span class="form-label">USERNAME</span>
+                        <span class="form-label">Username</span>
                         <div class="input-icon">
                             <i class="fa fa-user"></i>
                             <input type="text" name="username" placeholder="Enter your username" required>
                         </div>
     
-                        <span class="form-label">FIRST NAME</span>
+                        <span class="form-label">First Name</span>
                         <div class="input-icon">
                             <i class="fa fa-address-card"></i>
                             <input type="text" name="first_name" placeholder="Enter your first name" required>
                         </div>
     
-                        <span class="form-label">LAST NAME</span>
+                        <span class="form-label">Last Name</span>
                         <div class="input-icon">
                             <i class="fa fa-address-card"></i>
                             <input type="text" name="last_name" placeholder="Enter your last name" required>
@@ -44,25 +43,24 @@
                         <button type="button" class="next-btn" onclick="showStepTwo()">NEXT</button>
                     </div>
     
-                    <!-- Step 2: Credentials -->
                     <div id="step-two-form" style="display: none;">
                         <span class="form-label-2">CREATE CREDENTIALS</span>
                         <span class="form-label-3">Step 02 of 02</span>
                         
-                        <span class="form-label">EMAIL ADDRESS</span>
+                        <span class="form-label">Email Address</span>
                         <div class="input-icon">
                             <i class="fa fa-envelope"></i>
                             <input type="email" name="email" placeholder="Enter your email address" required>
                         </div>
     
-                        <span class="form-label">PASSWORD</span>
+                        <span class="form-label">Password</span>
                         <div class="input-icon">
                             <i class="fa fa-lock"></i>
                             <input type="password" name="password" placeholder="Enter your password" required>
 							<i class="fa fa-eye-slash"></i>
 						</div>
     
-                        <span class="form-label">CONFIRM PASSWORD</span>
+                        <span class="form-label">Confirm Password</span>
                         <div class="input-icon">
                             <i class="fa fa-lock"></i>
                             <input type="password" name="password_confirm" placeholder="Confirm your password" required>

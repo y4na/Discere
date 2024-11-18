@@ -185,7 +185,7 @@ form input {
     letter-spacing: 1px;
     height: 50px;
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
 }
 
@@ -201,7 +201,7 @@ form input {
 }
 
 .google-btn {
-    margin-top: 15px;
+    margin-top: 30px;
     padding: 10px;
     border: 2px solid #ccc;
     border-radius: 15px;

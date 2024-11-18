@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     background-image: url('/static/auth/images/gradient-bg.png');
-    background-size: cover; 
+	background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
 	font-family: 'Outfit', sans-serif;
@@ -122,6 +122,7 @@ form input {
 }
 
 .form-label {
+	display: block;
 	margin-left: 15px;
 	margin-bottom: 10px;
 	margin-top: 20px;
@@ -130,6 +131,7 @@ form input {
 }
 
 .form-label-2 {
+	display: block;
 	margin-top: 20px;
     text-align: right;
     color: #007f5f;
@@ -139,12 +141,13 @@ form input {
 }
 
 .form-label-3 {
+	display: block;
     text-align: right;
     margin: 5px 0;
     color: darkblue;
     font-size: 18px;
 	letter-spacing: 1px
-} 
+}
 
 .input-icon {
     display: flex;
@@ -169,6 +172,11 @@ form input {
     align-items: center;
     border-right: 1px solid grey;
 	border-radius: 20px 0 0 20px;
+}
+
+.input-icon .fa-user {
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .input-icon .fa-envelope,
@@ -209,6 +217,7 @@ form input {
     font-size: 20px;
     letter-spacing: 1px;
     height: 50px;
+	width: 100%;
     margin-top: 40px;
     margin-bottom: 15px;
     transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
@@ -230,6 +239,7 @@ form input {
     font-size: 20px;
     letter-spacing: 1px;
     height: 50px;
+	width: 100%;
     margin-top: 40px;
     margin-bottom: 15px;
     transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
@@ -277,4 +287,3 @@ form input {
     opacity: 1; 
     visibility: visible; 
 }
-

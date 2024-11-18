@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Discere - Home</title>
+    <link rel="stylesheet" href="{% static 'landing-page/css/home-page.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="https://fonts.cdnfonts.com/css/vensfolk" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="get-started-section">
+        <header>
+            <img src="{% static 'landing-page/images/discere-logo.png' %}"/>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}" class="home-btn">HOME</a></li>
+                    <li><a href="{% url 'feature' %}" class="features-btn">FEATURES</a></li>
+                    <li><a href="{% url 'contactus' %}" class="contact-us-btn">CONTACT US</a></li>
+                    <li><a href="{% url 'aboutus' %}" class="about-us-btn">ABOUT US</a></li>
+                </ul>
+            </nav>
+
+            <nav class="auth-nav">
+                <ul>
+                    <li><a href="{% url 'login' %}" class="sign-in-btn">Log In</a></li>
+                    <li><a href="{% url 'signup' %}" class="sign-up-btn">Sign Up</a></li>
+                </ul>
+            </nav>
+        </header>
+		
+		<a href="{% url 'login' %}" class="get-started-btn"> Get Started </a>
+
+		<!--
+		<section>
+			<div>
+				<span> Your PATHWAY to </span> <br/>
+				<span> smarter learning </span>
+			</div>
+			
+			<div>
+				<span> Dive in and start creating flashcards, studying smarter, and mastering your subjects. Let's make </span> <br/>
+				<span> learning fun and effective! </span>
+			</div>
+			
+			<button class="get-started-btn">
+				<span> Get Started </span>
+			</button>
+		</section>
+		-->
+    </section>
+	
+	<section class="feature-section">
+		<div class="feature-boxes">
+			<div class="feature-box-one">
+				<div class="feature-info">
+					<div>
+						<h1>One-Click Authentication</h1>
+						<h1> ◍ ☉☉ </h1>
+						<p>Make login seamless with intuitive, user-friendly authentication that gets users where they need to be—fast and securely. No hassle, just quick, easy access for a better user experience.</p>
+					</div>
+				</div>
+			</div>
+			<div class="feature-box-two">
+				<div class="feature-info">
+					<div>
+						<h1>Essential Study Takeaways</h1>
+						<h1> ◍ ◍ ☉ </h1>
+						<p>Transform your learning experience with essential insights derived from quizzes and flashcards. Capture critical information and enhance your understanding effortlessly!</p>
+					</div>
+				</div>
+			</div>
+			<div class="feature-box-three">
+				<div class="feature-info">
+					<div>
+						<h1>Quiz and Flashcard Builder</h1>
+						<h1> ◍ ◍ ◍ </h1>
+						<p>Master any topic with custom flashcards and quizzes designed for effective learning. Create, review, and test your knowledge with ease!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="feature-others">
+			<span class="feature-others-subheader">Our features</span> <br/>
+			<span class="feature-others-header">WHAT'S IN IT FOR YOU?</span> <br/>
+			<span class="feature-others-content">
+				Whether you're studying for an exam, brushing up on a new skill, or just curious<br/>
+				about a topic, our platform provides the tools you need to succeed. With our<br/>
+				dynamic features, you'll reinforce your understanding and retain information more<br/>
+				effectively, turning studying into a more engaging and rewarding experience.
+			</span> <br/>
+			<a href="{% url 'feature' %}">View More</a>
+		</div>
+    </section>
+	
+    <section class="sample-section">
+		<img src="{% static 'landing-page/images/library.png' %}"/> <br/>
+        <span>One stop for eveything you need to learn</span>
+        <p>trusted by</p>
+        <img src="{% static 'landing-page/images/company-scroll.png' %}" height="50px"/>
+    </section>
+
+	<section class="testimony-section">
+		<div class="testimony-head">
+			<span class="testimony-head-subheader">Testimonial</span> <br/>
+			<span class="testimony-head-header">See How Others<br/>Are Learning</span>
+		</div>
+		
+        <div class="testimony-boxes">
+			<div class="testimony-box-one">
+				<p>
+					"This app is so cool and normal! The personalized flashcards help me focus on what I need to learn, and the quizzes make it fun to test my knowledge. I've never felt more prepared for my exams!"
+				</p>
+				<h2><b>by Jane Doe</b></h2>
+				<div class="testimony-info">
+					<div>
+						<img src="{% static 'landing-page/images/user-img.png' %}"/> <br/>
+						<span><b>Jane Doe</b></span> <br/>
+						<p>Student, National University</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="testimony-box-two">
+				<p>
+					"This app is so cool and normal! The personalized flashcards help me focus on what I need to learn, and the quizzes make it fun to test my knowledge. I've never felt more prepared for my exams!"
+				</p>
+				<h2><b>by Janer Doe</b></h2>
+				<div class="testimony-info">
+					<div>
+						<img src="{% static 'landing-page/images/user-img.png' %}"/> <br/>
+						<span><b>Janer Doe</b></span> <br/>
+						<p>Student, National University</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+    </section>
+	
+	<section class="signup-section">
+        <span> Study anywhere. Anytime. <br/> All in one place </span> <br/>
+        <a href="{% url 'signup' %}">Sign up for free</a>
+    </section>
+
+    <footer>
+		<div class="footer-top">
+			<div class="footer-logo">
+				<img src="{% static 'landing-page/images/discere-logo.png' %}"/>
+			</div>
+			
+			<div class="footer-nav">
+				<div class="product-footer">
+					<span>Product</span> <br/>
+					<a href="{% url 'home' %}" >Overview</a> <br/>
+					<a href="{% url 'feature' %}" >Features</a> <br/>
+				</div>
+			
+				<div class="company-footer">
+					<span>Company</span> <br/>
+					<a href="{% url 'aboutus' %}" >About Us</a> <br/>
+					<a href="{% url 'contactus' %}" >Contact Us</a> <br/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-down">
+			<button> <i class="fa fa-chevron-up"> </i> TOP </button>
+			<p>&copy; 2024 Discere. All rights reserved.</p>
+		</div>
+    </footer>
+</body>
+</html>

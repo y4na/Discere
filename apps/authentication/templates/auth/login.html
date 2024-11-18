@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Discere</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'auth/css/login-css.css' %}">
 </head>
 
@@ -37,13 +38,13 @@
 
             <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
-                <span class="form-label"> USERNAME </span>
+                <span class="form-label"> Username </span>
                 <div class="input-icon">
                     <i class="fa fa-envelope"></i>
                     <input type="text" name="username" placeholder="Enter your username" required>
                 </div>
-                
-                <span class="form-label"> PASSWORD </span>
+				
+				<span class="form-label"> Password </span>
                 <div class="input-icon">
                     <i class="fa fa-lock"></i>
                     <input type="password" name="password" placeholder="Enter your password" required>
