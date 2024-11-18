@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Discere{% endblock %}
+
+{% block main_content %}
+    <h1 class="text-xl font-bold" style="font-size: 36px">Welcome {{ user.username }}!</h1>
+    <div class="w-full h-0 bg-black bg-opacity-10 my-4 mx-rect-home" style="height: 1px;"></div>
+
+    <div class="flex justify-center mt-4 text-neongreen">
+        <div class="rounded-2xl h-[255px] w-full bg-darkgreen-gradient border border-[#00FF7F] border-opacity-45 shadow-md mx-10">
+            <h1 class="text-xl font-semibold text-white1 mx-10 my-4" style="font-size: 30px">Latest Activity</h1>
+            
+            <div class="text-white mx-10 flex flex-col items-start">
+                <p class="my-1">Name of Study Set: <span class="font-bold">[Study Set Name]</span></p>
+                <p class="my-1"># of Correct: <span class="font-bold">[Correct Count]</span></p>
+                <p class="my-1"># of Wrong: <span class="font-bold">[Wrong Count]</span></p>
+                <p class="my-1"># of Total Cards: <span class="font-bold">[Total Cards]</span></p>
+            </div>
+
+            <div class="flex justify-center mt-4">
+                <div class="relative flex items-center justify-center">
+                    <svg class="w-32 h-32">
+                        <circle class="text-gray-200" stroke="currentColor" stroke-width="10" fill="none" r="15" cx="20" cy="20"/>
+                        <circle class="text-neongreen" stroke="currentColor" stroke-width="10" fill="none" r="15" cx="20" cy="20" 
+                            stroke-dasharray="[[percentage]], 100"
+                            transform="rotate(-90 20 20)" />
+                    </svg>
+                    <span class="absolute text-lg font-bold">[[Percentage]]%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex mt-20">
+        <h1 class="text-xl font-bold" style="font-size: 36px">Recent study sets</h1>
+    </div>
+
+    <div class="flex mt-20">
+        <h1 class="text-xl font-bold" style="font-size: 36px">Recent exams</h1>
+    </div>
+
+    <div class="flex mt-20">
+        <h1 class="text-xl font-bold" style="font-size: 36px">Explore exams</h1>
+    </div>    
+</div>
+
+
+{% endblock %}

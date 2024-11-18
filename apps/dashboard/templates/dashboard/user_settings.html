@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block main_content %}
+    <div class="bg-white rounded-lg shadow-md p-6 lg:p-8 max-w-4xl mx-auto my-10">  
+        <h1 class="text-3xl font-bold mb-4">User Profile</h1> 
+        <div class="flex items-center mt-5 mb-6"> 
+            <img src="{% static 'global-images/default-user-profile.png' %}" alt="Profile Picture" class="h-24 w-24 rounded-full">
+            <div class="ml-5">
+                <h2 class="text-2xl font-semibold">{{ user.username }}</h2>
+                <p class="text-gray-600">{{ user.email }}</p>
+                <p class="mt-2">{{ user.userprofile.bio }}</p>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mb-2">Reading Activity</h3>  
+        <ul class="list-disc list-inside mb-6">  
+            {% for activity in reading_activity %}
+                <li>{{ activity.book_title }} - {{ activity.progress }}%</li>
+            {% empty %}
+                <li>No reading activity recorded.</li>
+            {% endfor %}
+        </ul>
+
+        <h3 class="text-xl font-semibold mb-2">Achievements</h3>  
+        <ul class="list-disc list-inside">
+            {% for achievement in achievements %}
+                <li>{{ achievement.name }}</li>
+            {% empty %}
+                <li>No achievements yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Discere - Contact Us</title>
+    <link rel="stylesheet" href="{% static 'landing-page/css/contactus-page.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="https://fonts.cdnfonts.com/css/vensfolk" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="get-started-section">
+        <header>
+            <img src="{% static 'landing-page/images/discere-logo.png' %}"/>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}" class="home-btn">HOME</a></li>
+                    <li><a href="{% url 'feature' %}" class="features-btn">FEATURES</a></li>
+                    <li><a href="{% url 'contactus' %}" class="contact-us-btn">CONTACT US</a></li>
+                    <li><a href="{% url 'aboutus' %}" class="about-us-btn">ABOUT US</a></li>
+                </ul>
+            </nav>
+
+            <nav class="auth-nav">
+                <ul>
+                    <li><a href="{% url 'login' %}" class="sign-in-btn">Log In</a></li>
+                    <li><a href="{% url 'signup' %}" class="sign-up-btn">Sign Up</a></li>
+                </ul>
+            </nav>
+        </header>
+		
+		<div class="contact-container">
+			<div class="contact-header">
+				<span class="contact-subhead">Contact Discere Support</span> <br/>
+				<span class="contact-head">Leave us a little info.</span>
+			</div>
+			
+			<div class="contact-info-box">
+				<div class="contact-info">
+					<i class="fas fa-phone"></i>
+					<p>Phone Number</p>
+					<span><b>(+63) 912 3456 789</b></span>
+				</div>
+				
+				<div class="contact-info">
+					<i class="fas fa-envelope"></i>
+					<p>Email Address</p>
+					<span><b>support@discere.com</b></span>
+				</div>
+				
+				<div class="contact-info">
+					<i class="fas fa-map"></i>
+					<p>Location/Address</p>
+					<span><b>Lahug, Cebu City</b></span>
+				</div>
+			</div>
+		</div>
+    </section>
+	
+	<section class="contact-form-section">
+		<form action="#" method="POST">
+			<div class="name-info">
+				<div>
+					<label for="first-name">First Name</label>
+					<input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
+				</div>
+				
+				<div>
+					<label for="last-name">Last Name</label>
+					<input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required>
+				</div>
+			</div>
+
+			<label for="email">Email Address</label>
+			<input type="email" id="email" name="email" placeholder="Enter your valid email address" required>
+
+			<label for="subject">Subject</label>
+			<input type="text" id="subject" name="subject" placeholder="Message Subject" required>
+
+			<label for="message">Message</label>
+			<textarea id="message" name="message" rows="5" placeholder="Enter your message here" required></textarea>
+			
+			<div class="send-message-div">
+				<button type="submit">Send Message</button>
+			</div>
+		</form>
+	</section>
+
+    <footer>
+		<div class="footer-top">
+			<div class="footer-logo">
+				<img src="{% static 'landing-page/images/discere-logo.png' %}"/>
+			</div>
+			
+			<div class="footer-nav">
+				<div class="product-footer">
+					<span>Product</span> <br/>
+					<a href="{% url 'home' %}" >Overview</a> <br/>
+					<a href="{% url 'feature' %}" >Features</a> <br/>
+				</div>
+			
+				<div class="company-footer">
+					<span>Company</span> <br/>
+					<a href="{% url 'aboutus' %}" >About Us</a> <br/>
+					<a href="{% url 'contactus' %}" >Contact Us</a> <br/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-down">
+			<button> <i class="fa fa-chevron-up"> </i> TOP </button>
+			<p>&copy; 2024 Discere. All rights reserved.</p>
+		</div>
+    </footer>
+</body>
+</html>

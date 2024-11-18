@@ -1,0 +1,132 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+    <title>Discere</title>
+</head>
+
+<body class="h-screen w-full bg-darkgreen-gradient font-outfit">
+    <header>
+        <nav class="top-0 z-50 flex items-center justify-between w-full h-24 text-darkgreen px-5">
+            <div class="flex items-center">
+                <a href="/dashboard">
+                    <img src="{% static 'global-images/discere-logo-svg 1.svg' %}" 
+                    alt="Discere Logo" 
+                    class="cursor-pointer h-12 w-30 mb-4 relative ml-[102px]" 
+                    style="left: 20px;"> 
+                </a>
+            </div>
+
+            <div class="flex flex-grow items-center justify-center relative ml-negative">
+                <input type="text" placeholder="What is it that you seek?" class="font-outfit rounded-xl p-2 px-5 pr-10" style="min-width: 800px; min-height: 50px">
+                <img src="{% static 'icons/search.svg' %}" alt="Search Icon" class="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 cursor-pointer">
+            </div>
+
+            <div class="flex items-center relative">
+
+                <!-- Profile Popup -->
+                <div class="relative">
+                    <img src="{% static 'global-images/default-user-profile.png' %}" 
+                         alt="User Profile" 
+                         class="h-12 w-12 rounded-full mx-10 cursor-pointer" 
+                         id="profile-menu-button">
+                    
+                    <!-- Profile Popup -->
+                    <div id="profile-popup" 
+                         class="absolute right-0 w-60 bg-white rounded-lg shadow-lg hidden z-50 mt-2">
+                        <div class="flex items-center p-4 border-b">
+                            <a href="{% url 'user_settings' %}">
+                                <img src="{% static 'global-images/default-user-profile.png' %}" 
+                                     alt="User Profile" 
+                                     class="h-12 w-12 rounded-full">
+                            </a>
+                            <div class="ml-3">
+                                <p class="font-semibold">{{ user.username }}</p>
+                                <p class="text-sm text-gray-500">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="border-b"></div>
+                        <div class="py-2 px-4">
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Achievements</a>
+                            <a href="{% url 'user_settings' %}" class="block py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Dark Mode</a>
+                            <a href="{% url 'logout' %}" class="block py-2 text-gray-700 hover:bg-gray-100" style="color: #E53737;">Logout</a>
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Privacy Policy</a>
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Help and Feedback</a>
+                            <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Give Me a Coffee</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </nav>
+
+      <!-- Sidebar Default -->
+      <aside class="fixed h-screen flex flex-col bg-darkgreen-gradient w-[102px] px-5 py-1 top-0 left-0">
+        <button id="menu-button" class="flex justify-center items-center mb-4 pt-8">
+            <img src="{% static 'icons/menu-bar.svg' %}" alt="Menu Icon" class="h-8 w-8">
+        </button>
+        <a href="{% url 'home' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
+            <img src="{% static 'icons/home.svg' %}" alt="Icon 1" class="h-14 w-14 mt-20">
+        </a>
+        <a href="{% url 'library' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
+            <img src="{% static 'icons/folder-open.svg' %}" alt="Icon 2" class="h-14 w-14"> 
+        </a>
+        <img src="{% static 'icons/divider-sidebar-short.svg' %}" alt="" class="mb-4 hover-neon-green transition-all duration-300">
+        <a href="#" class="flex items-center justify-center mb-4">
+            <img src="{% static 'icons/archive.svg' %}" alt="Icon 3" class="h-14 w-14 hover-neon-green transition-all duration-300"> 
+        </a>
+        <a href="#" class="flex items-center justify-center mb-4">
+            <img src="{% static 'icons/bookmark.svg' %}" alt="Icon 4" class="h-14 w-14 hover-neon-green transition-all duration-300"> 
+        </a>
+    </aside>
+
+    <!-- Sidebar Pop-up -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-[304px] bg-darkgreen-gradient shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-60">
+        <div class="flex items-center h-24 px-5">
+            <button id="sidebar-menu-button" class="p-2">
+                <img src="{% static 'icons/menu-bar.svg' %}" alt="Close Menu Icon" class="px-2 py-1">
+            </button>
+        </div>
+
+        <div class="flex flex-col h-full px-5 py-10">
+            <a href="{% url 'home' %}" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
+                <img src="{% static 'icons/home.svg' %}" alt="Icon 1" class="h-14 w-14 mt-20">
+                <span class="ml-2 text-neongreen mt-20">Home</span>
+            </a>
+            <a href="{% url 'library' %}" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
+                <img src="{% static 'icons/folder-open.svg' %}" alt="Icon 2" class="h-14 w-14">
+                <span class="ml-2 text-neongreen">Library</span>
+            </a>
+            <img src="{% static 'icons/divider-sidebar-long.svg' %}">
+            <a href="#" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
+                <img src="{% static 'icons/archive.svg' %}" alt="Icon 3" class="h-14 w-14">
+                <span class="ml-2 text-neongreen">Archive</span>
+            </a>
+            <a href="#" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
+                <img src="{% static 'icons/bookmark.svg' %}" alt="Icon 4" class="h-14 w-14">
+                <span class="ml-2 text-neongreen">Favorites</span>
+            </a>
+        </div>
+    </aside>
+    
+    <div id="backdrop" class="fixed top-0 left-0 h-full w-[304px] bg-black opacity-50 hidden z-40"></div>
+
+    </header>
+
+    <main class="flex flex-row h-full text-darkgreen">
+        <div class="bg-white1 flex-grow ml-[102px] px-10 py-10 rounded-t-3xl">
+            {% block main_content %}
+           
+            {% endblock %}
+        </div>
+    </main>
+    
+    <script src="{% static 'dashboard/js/home.js' %}"></script>
+</body>
+</html>

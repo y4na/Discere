@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800&display=swap');
+
 body {
     margin: 0;
     padding: 0;
@@ -5,7 +7,7 @@ body {
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
-	font-family: 'Anybody', sans-serif;
+	font-family: 'Outfit', sans-serif;
 	user-select: none;
 }
 
@@ -183,7 +185,7 @@ form input {
     letter-spacing: 1px;
     height: 50px;
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
 }
 
@@ -199,7 +201,7 @@ form input {
 }
 
 .google-btn {
-    margin-top: 15px;
+    margin-top: 30px;
     padding: 10px;
     border: 2px solid #ccc;
     border-radius: 15px;
@@ -254,4 +256,16 @@ form input {
     color: #005a4b;
     border-bottom: 2px solid #007f5f; 
     padding-bottom: 2px; 
+}
+
+.alert {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid red; /* or whatever color suits your design */
+    background-color: #f8d7da; /* light red background */
+    color: #721c24; /* dark red text */
+}
+
+.alert-message {
+    margin: 0;
 }

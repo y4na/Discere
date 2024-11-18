@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Discere - Features</title>
+    <link rel="stylesheet" href="{% static 'landing-page/css/feature-page.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="https://fonts.cdnfonts.com/css/vensfolk" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="get-started-section">
+        <header>
+            <img src="{% static 'landing-page/images/discere-logo.png' %}"/>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}" class="home-btn">HOME</a></li>
+                    <li><a href="{% url 'feature' %}" class="features-btn">FEATURES</a></li>
+                    <li><a href="{% url 'contactus' %}" class="contact-us-btn">CONTACT US</a></li>
+                    <li><a href="{% url 'aboutus' %}" class="about-us-btn">ABOUT US</a></li>
+                </ul>
+            </nav>
+
+            <nav class="auth-nav">
+                <ul>
+                    <li><a href="{% url 'login' %}" class="sign-in-btn">Log In</a></li>
+                    <li><a href="{% url 'signup' %}" class="sign-up-btn">Sign Up</a></li>
+                </ul>
+            </nav>
+        </header>
+		
+		<div class="discere-overview">
+			<span class="overview-subheader">Application Overview</span> <br/>
+			<span class="overview-header">WHAT IS DISCERE?</span> <br/>
+			<hr/>
+			<span class="overview-content">
+				Discere is an innovative learning platform designed to empower students and<br/>
+				educators by providing a centralized space for creating, managing, and<br/>
+				utilizing educational materials. By integrating modern technology with<br/>
+				educational best practices, Discere enhances the learning experience<br/>
+				through interactive tools and resources.
+			</span>
+		</div>
+		
+		<div class="target-audience">
+			<div class="targets">
+				<img src="{% static 'landing-page/images/student.jpg' %}"/>
+				<h2>Students</h2>
+				<span>Whether in middle school, high school, or higher education, students can leverage Discere to enhance their learning through effective study techniques and instant feedback on their quizzes.</span>
+				<br/><br/><span> ◍ ☉☉ </span>
+			</div>
+			
+			<div class="targets">
+				<img src="{% static 'landing-page/images/teacher.jpg' %}"/>
+				<h2>Educators</h2>
+				<span>Teachers and instructors can utilize Discere to create engaging materials for their classes, streamline assessment processes, and track student performance efficiently.</span>
+				<br/><br/><span> ◍ ◍ ☉ </span>
+			</div>
+			
+			<div class="targets">
+				<img src="{% static 'landing-page/images/learner.jpeg' %}"/>
+				<h2>Lifelong Learners</h2>
+				<span>Anyone seeking to expand their knowledge can use Discere to create personal study materials and quizzes, making learning accessible and flexible.</span>
+				<br/><br/><span> ◍ ◍ ◍ </span>
+			</div>
+		</div>
+    </section>
+	
+	<section class="feature-section">
+		<div class="feature-boxes">
+			<div class="feature-box-one">
+				<div class="feature-info">
+					<div>
+						<h1>One-Click Authentication</h1>
+						<h1> ◍ ☉☉ </h1>
+						<p>Make login seamless with intuitive, user-friendly authentication that gets users where they need to be—fast and securely. No hassle, just quick, easy access for a better user experience.</p>
+					</div>
+				</div>
+			</div>
+			<div class="feature-box-two">
+				<div class="feature-info">
+					<div>
+						<h1>Essential Study Takeaways</h1>
+						<h1> ◍ ◍ ☉ </h1>
+						<p>Transform your learning experience with essential insights derived from quizzes and flashcards. Capture critical information and enhance your understanding effortlessly!</p>
+					</div>
+				</div>
+			</div>
+			<div class="feature-box-three">
+				<div class="feature-info">
+					<div>
+						<h1>Quiz and Flashcard Builder</h1>
+						<h1> ◍ ◍ ◍ </h1>
+						<p>Master any topic with custom flashcards and quizzes designed for effective learning. Create, review, and test your knowledge with ease!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </section>
+
+    <footer>
+		<div class="footer-top">
+			<div class="footer-logo">
+				<img src="{% static 'landing-page/images/discere-logo.png' %}"/>
+			</div>
+			
+			<div class="footer-nav">
+				<div class="product-footer">
+					<span>Product</span> <br/>
+					<a href="{% url 'home' %}" >Overview</a> <br/>
+					<a href="{% url 'feature' %}" >Features</a> <br/>
+				</div>
+			
+				<div class="company-footer">
+					<span>Company</span> <br/>
+					<a href="{% url 'aboutus' %}" >About Us</a> <br/>
+					<a href="{% url 'contactus' %}" >Contact Us</a> <br/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-down">
+			<button> <i class="fa fa-chevron-up"> </i> TOP </button>
+			<p>&copy; 2024 Discere. All rights reserved.</p>
+		</div>
+    </footer>
+</body>
+</html>
