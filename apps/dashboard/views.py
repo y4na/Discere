@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
     return render(request, 'dashboard/home.html')
-
 
 def user_settings(request):
     return render(request, 'dashboard/user_settings.html')
@@ -25,3 +24,10 @@ def user_profile(request):
 
 def library(request):
     return render(request, 'dashboard/library.html')
+
+def studysets_view(request):
+    return render(request, 'library/studysets.html')
+
+def exams_view(request):
+    return render(request, 'library/exams.html')
+

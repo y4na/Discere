@@ -24,3 +24,4 @@ window.addEventListener('click', (event) => {
         profilePopup.classList.add('hidden');
     }
 });
+

@@ -32,7 +32,7 @@
                 <img src="{% static 'global-images/default-user-profile.png' %}" alt="User Profile" class="h-12 w-12 rounded-full mx-10 cursor-pointer" id="profile-menu-button">
                 
                 <!-- Profile Popup -->
-                <div id="profile-popup" class="absolute right-0 mt-20 w-60 bg-white rounded-lg shadow-lg hidden z-50 mt-48">
+                <div id="profile-popup" class="absolute right-0 w-60 bg-white rounded-lg shadow-lg hidden z-50 mt-48">
                     <div class="flex items-center p-4 border-b">
                         <a href="{% url 'user_settings' %}">
                         <img src="{% static 'global-images/default-user-profile.png' %}" alt="User Profile" class="h-12 w-12 rounded-full">
@@ -60,9 +60,8 @@
 
       <!-- Sidebar Default -->
       <aside class="fixed h-screen flex flex-col bg-darkgreen-gradient w-[102px] px-5 py-1 top-0 left-0">
-        <button id="menu-button" class="p-2 
-        -4">
-            <img src="{% static 'icons/menu-bar.svg' %}" alt="Menu Icon" class="px-2 py-1">
+        <button id="menu-button" class="flex justify-center items-center mb-4 pt-8">
+            <img src="{% static 'icons/menu-bar.svg' %}" alt="Menu Icon" class="h-8 w-8">
         </button>
         <a href="{% url 'home' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
             <img src="{% static 'icons/home.svg' %}" alt="Icon 1" class="h-14 w-14 mt-20">
@@ -107,13 +106,13 @@
             </a>
         </div>
     </aside>
-
+    
     <div id="backdrop" class="fixed top-0 left-0 h-full w-[304px] bg-black opacity-50 hidden z-40"></div>
 
     </header>
 
     <main class="flex flex-row h-full text-darkgreen">
-        <div class="bg-zinc-200 flex-grow ml-28 px-10 py-10 rounded-t-3xl">
+        <div class="bg-white1 flex-grow ml-[102px] px-10 py-10 rounded-t-3xl">
             {% block main_content %}
            
             {% endblock %}
