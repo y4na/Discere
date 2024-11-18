@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\yanap\Documents\5. Code Project Files\python django\Discere\.venv
+set VIRTUAL_ENV=D:\Online Class\CIT-U\3rd Year\1st Semester\(CSIT327) Information Management 2\Trainings\Project Restructure\Discere\.venv
 
 if not defined PROMPT set PROMPT=$P$G
 
