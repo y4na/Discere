@@ -1,8 +1,21 @@
 from django.shortcuts import render
 from .models import FlashcardSet, Flashcard
+from apps.dashboard.models import StudySet
 
 def flashcard_creation(request):
+    # ma display idk
     return render(request, 'flashcards/flashcard-creation.html')
+
+def flashcard_main(request):
+    # actual creation happens here
+    return render(request, 'flashcards/flashcard-creation-main.html')
+
+def flashcard_base(request):
+    # no use
+    return render(request, 'flashcard-base.html')
+
+def flashcard_viewer(request):
+    return render(request, 'flashcards/flashcard-viewer.html')
 
 def flashcard_view(request):
     if request.method == 'POST':
@@ -27,11 +40,17 @@ def flashcard_view(request):
                         definition=definition
                     )
         
-        return redirect('flashcard_display') 
+        return redirect('flashcard_base') 
 
-    return render(request, 'flashcard/flashcard-creation-page.html')
+    return render(request, 'flashcard/templates/flashcard-creation-main.html')
 
 def flashcard_display_view(request):
     flashcards = Flashcard.objects.all()
-    return render(request, 'flashcard/flashcard-display-page.html', {'flashcards': flashcards})
+    return render(request, 'flashcards/templates/flashcard-base.html', {'flashcards': flashcards})
+
+def flashcard_creation_main(request):
+    study_sets = StudySet.objects.all()
+    return render(request, 'flashcards/flashcard-creation-main.html', {'study_sets': study_sets})
+
+
 

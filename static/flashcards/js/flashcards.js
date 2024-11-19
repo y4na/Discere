@@ -19,12 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModalButton = document.querySelector('.close-btn');
 
     function updateFlashcardCount() {
-        const flashcardCount = flashcardsContainer.querySelectorAll('.flashcard').length;
-        flashcardCounter.textContent = flashcardCount;
+        const flashcards = flashcardsContainer.querySelectorAll('.flashcard');
+        flashcardCounter.textContent = flashcards.length;
 
-        const flashcardNumbers = flashcardsContainer.querySelectorAll('.flashcard-number');
-        flashcardNumbers.forEach((number, index) => {
-            number.textContent = index + 1; 
+        flashcards.forEach((flashcard, index) => {
+            flashcard.querySelector('.flashcard-number').textContent = index + 1;
+
+            // Update input `name` attributes
+            flashcard.querySelector('.input-term').setAttribute('name', `term_${index + 1}`);
+            flashcard.querySelector('.input-definition').setAttribute('name', `definition_${index + 1}`);
         });
     }
 
@@ -32,16 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addCardButton.addEventListener('click', () => {
         const flashcardToClone = flashcardsContainer.querySelector('.flashcard');
-
         const newFlashcard = flashcardToClone.cloneNode(true);
-        const inputTerms = newFlashcard.querySelectorAll('.input-term');
-        const inputDefinitions = newFlashcard.querySelectorAll('.input-definition');
 
-        inputTerms.forEach(input => {
-            input.value = '';
-        });
-
-        inputDefinitions.forEach(input => {
+        // Clear input fields in the cloned flashcard
+        newFlashcard.querySelectorAll('input').forEach(input => {
             input.value = '';
         });
 

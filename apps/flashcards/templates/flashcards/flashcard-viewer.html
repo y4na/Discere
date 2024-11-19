@@ -1,0 +1,48 @@
+{% extends 'flashcard-base.html' %}
+{% load static %}
+
+{% block title %}Discere{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'flashcard/css/flashcard-css1.css' %}">
+    {{ block.super }} <!-- Retain any styles or scripts defined in the base template -->
+{% endblock %}
+
+{% block main_content %}
+    <div class="flex justify-between items-center mb-4 relative">
+        <a href="{% url 'library' %}" class="flex items-center">
+            <img src="{% static 'icons/arrow-left.svg' %}" alt="Back" class="h-10 w-10 mr-2 text-darkgreen fill-current">
+        </a>
+
+        <h1 class="text-xl font-bold text-center" style="font-size: 36px; flex-grow: 1;">
+            Flashcard for {{set_name}} - ({{set_subject}})
+        </h1>
+
+        <div class="relative">
+            <button id="three-dot-menu" class="focus:outline-none">
+                <img src="{% static 'icons/three-dots menu.svg' %}" alt="Menu" class="h-10 w-10 text-darkgreen">
+            </button>
+
+            <div id="menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg">
+                <ul>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 1</a></li>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 2</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full h-px bg-black bg-opacity-10 mb-4">
+        <div class="flashcard-box">
+
+        </div>
+    </div>
+
+    
+    <script>
+        document.getElementById('three-dot-menu').addEventListener('click', function() {
+            var dropdown = document.getElementById('menu-dropdown');
+            dropdown.classList.toggle('hidden');
+        });
+    </script>
+{% endblock %}

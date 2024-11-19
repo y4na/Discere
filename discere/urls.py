@@ -26,5 +26,5 @@ urlpatterns = [
     path('', include('apps.landing.urls')),
     path('', include('apps.dashboard.urls')),
     path('', include('apps.flashcards.urls')),
-    path('flashcard/', include('flashcard.urls')),
+    #path('flashcard/', include('flashcard.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
