@@ -6,52 +6,140 @@
 {% block main_content %}
     <div class="flex justify-between items-center mb-4">
         <a href="{% url 'library' %}" class="flex items-center">
-            <img src="{% static 'icons/arrow-left.svg' %}" alt="Back" class="h-10 w-10 mr-2 text-darkgreen fill-current">
+            <img src="{% static 'icons/arrow-left.svg' %}" alt="Back" class="h-10 w-10 mr-2 text-darkgreen fill-current" style="margin-top: 10px;">
         </a>
+        
+        <h1 class="text-xl font-bold" style="font-size: 36px;">
+            {{set_name}}
+        </h1> 
 
-        <div class="relative">
-            <button id="three-dot-menu" class="focus:outline-none">
-                <img src="{% static 'icons/three-dots menu.svg' %}" alt="Menu" class="h-10 w-10 text-darkgreen">
-            </button>
-
-            <div id="menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg">
-                <ul>
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 1</a></li>
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 2</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="flex justify-between items-center mb-4">
-        <h1 class="text-xl font-bold" style="font-size: 36px;">({{set_subject}}) - {{set_name}}</h1> 
         <div class="flex space-x-4">
-
-            <button id="open-modal" class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center" style="font-size: 18px;">
-                <img src="{% static 'icons/plus.svg' %}" alt="icon" class="h-5 w-5 mr-2">
-                Add Flashcard 
+            <button id="open-modal"
+                    class="text-darkgreen font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center"
+                    style="font-size: 18px; border: 4px solid #012d19"
+                    onmouseover="this.style.backgroundColor='#012d19'; this.style.color='white';"
+                    onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#012d19'">
+                <i class="fa fa-magic" style="margin-right: 10px; font-size: 15px;"></i>
+                Create Flashcard 
             </button>
-            <button id="start-learning" class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center" style="font-size: 18px;">
+
+            <button id="start-learning"
+                    class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center"
+                    style="font-size: 18px;"
+                    onmouseover="this.style.backgroundColor='#07663a'; this.style.color='white';"
+                    onmouseout="this.style.backgroundColor='#012d19'; this.style.color='white'">
                 <img src="{% static 'icons/play.svg' %}" alt="icon" class="h-5 w-5 mr-2">
                 Start Learning
             </button>
+
+            <div style="height: 65px; border: 1px solid transparent; margin-left: 40px;"> </div>
+
+            <button id="delete"
+                    class="font-semibold py-2 px-4 rounded-full w-50 h-16 flex items-center justify-center"
+                    style="font-size: 18px; color: #a12d1a; border: 4px solid #a12d1a; font-size: 20px; width: 80px;"
+                    onmouseover="this.style.backgroundColor='#a12d1a'; this.style.color='white';"
+                    onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#a12d1a'">
+                <i class="fa fa-trash"></i>
+            </button>
         </div>
     </div>
 
-    <div class="w-full h-px bg-black bg-opacity-10 mb-4"></div>
+    <div class="w-full h-px bg-opacity-10 mb-4" style="margin-top: 40px; border-top: 3px solid lightgrey;"> </div>
     
-    <div class="flex flex-col items-center justify-center h-full">
-        <img src="{% static 'global-images/filler-2.png' %}" alt="Placeholder image" class="w-80 h-80" />
-        <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Add flashcard to get started</h2>
+    <div style="text-align: right;
+                margin-top: -18px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 20px;
+                text-align: center;">
+        <div style="background-color: white; 
+                    border-bottom-left-radius: 10px;
+                    border-bottom-right-radius: 10px; 
+                    display: flex;
+                    flex-direction: row;
+                    border: 3px solid lightgrey;">
+            <div style="color: #012d19;
+                        padding: 10px 20px;">
+                <strong style="color: #012d19;"> SET SUBJECT </strong>
+            </div>
+
+            <div style="background-color: #012d19;
+                        color: white;
+                        border-bottom-right-radius: 7px;
+                        padding: 10px 20px;
+                        border-left: 3px solid lightgrey;">
+                {{set_subject}}
+            </div>
+        </div>
+                
+        <div style="background-color: white; 
+                    border-bottom-left-radius: 10px;
+                    border-bottom-right-radius: 10px; 
+                    display: flex;
+                    flex-direction: row;
+                    border: 3px solid lightgrey;">
+            <div style="color: #012d19;
+                        padding: 10px 20px;">
+                <strong style="color: #012d19;"> FLASHCARD COUNT </strong>
+            </div>
+
+            <div style="background-color: #012d19;
+                        color: white;
+                        border-bottom-right-radius: 7px;
+                        padding: 10px 20px;
+                        border-left: 3px solid lightgrey;"
+                 id="flashcard-counter">
+                1
+            </div>
+        </div>
     </div>
     
+    <div style="padding: 40px 0">
+        <form method="POST" action="{% url 'flashcard_view' %}">
+            {% csrf_token %}
+            <div id="flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-header">
+                        <span class="flashcard-number">1</span>
+                        <button type="button" class="delete-btn">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flashcard-content">
+                        <div class="input-group">
+                            <input type="text" name="term_1" class="input-term" placeholder="Enter term" required>
+                            <p class="label">TERM</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <input type="text" name="definition_1" class="input-definition" placeholder="Enter definition" required>
+                            <p class="label">DEFINITION</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    
+            <div class="add-card-section">
+                <div class="add-card">
+                    <button type="button" class="add-card-btn">
+                        <i class="fas fa-plus"></i> ADD CARD
+                    </button>
+                </div>
+            </div>
+        </form>
 
-    <script>
-        document.getElementById('three-dot-menu').addEventListener('click', function() {
-            var dropdown = document.getElementById('menu-dropdown');
-            dropdown.classList.toggle('hidden');
-        });
-    </script>
-    
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                </div>
+                <p class="warning-message">This is the last flashcard of the set.<br>Unable to delete!</p>
+            </div>
+        </div>
+
+        <script src="{% static 'flashcards/js/flashcards.js' %}"></script>
+    </div> 
 {% endblock %}

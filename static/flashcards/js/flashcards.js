@@ -1,3 +1,4 @@
+// profile popup
 const profileMenuButton = document.getElementById('profile-menu-button');
 const profilePopup = document.getElementById('profile-popup');
 
@@ -11,6 +12,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
+// flashcard clone
 document.addEventListener('DOMContentLoaded', () => {
     const addCardButton = document.querySelector('.add-card-btn');
     const flashcardsContainer = document.getElementById('flashcards');
