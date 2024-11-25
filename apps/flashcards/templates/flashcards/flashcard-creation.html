@@ -143,3 +143,31 @@
         <script src="{% static 'flashcards/js/flashcards.js' %}"></script>
     </div> 
 {% endblock %}
+
+<!--
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Flashcard Set</th>
+            <th>Term</th>
+            <th>Definition</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for flashcard in flashcards %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ flashcard.flashcard_set.name }}</td>
+            <td>{{ flashcard.term }}</td>
+            <td>{{ flashcard.definition }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No flashcards available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+-->

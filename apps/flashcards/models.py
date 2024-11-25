@@ -1,13 +1,13 @@
 from django.db import models
-
-class FlashcardSet(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
+from apps.dashboard.models import StudySet  # Import the StudySet model
 
 class Flashcard(models.Model):
-    flashcard_set = models.ForeignKey(FlashcardSet, related_name='flashcards', on_delete=models.CASCADE)
+    study_set = models.ForeignKey(  # Establish the ForeignKey relationship
+        StudySet, 
+        on_delete=models.CASCADE,  # Delete flashcards if the study set is deleted
+        related_name='flashcards',
+        default=1  # Optional: Allows reverse relationship access
+    )
     term = models.CharField(max_length=200)
     definition = models.TextField()
 

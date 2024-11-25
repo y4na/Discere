@@ -24,10 +24,22 @@
     
 
     <div id="study-sets-content" class="tab-content">
-        <div class="flex flex-col items-center justify-center h-full">
-            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
-            <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Nothing here yet...</h2>
-        </div>
+        {% if study_sets %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for study_set in study_sets %}
+                    <div class="border rounded-lg shadow-md p-4 bg-white">
+                        <h3 class="text-lg font-semibold text-darkgreen">{{ study_set.set_name }}</h3>
+                        <p class="text-gray-500">{{ study_set.set_subject }}</p>
+                        <p class="text-gray-500">{{ study_set.created }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="flex flex-col items-center justify-center h-full">
+                <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
+                <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Nothing here yet...</h2>
+            </div>
+        {% endif %}
     </div>
     
     <div id="exams-content" class="tab-content hidden">
