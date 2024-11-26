@@ -25,3 +25,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    feather.replace(); 
+});
+
