@@ -13,7 +13,7 @@ def user_settings(request):
 @login_required
 def user_profile(request):
     user = request.user
-    user_profile = getattr(user, 'userprofile', None)  # Handle cases where userprofile may not exist
+    user_profile = getattr(user, 'userprofile', None)
     reading_activity = user_profile.reading_activity.all() if user_profile else []
     achievements = user_profile.achievements.all() if user_profile else []
 
@@ -30,17 +30,14 @@ def library(request):
     return render(request, 'dashboard/library.html', {'study_sets': study_sets})
 
 def studysets_view(request):
-    """View for study sets tab."""
-    study_sets = StudySet.objects.all()  # Fetch all study sets
+    study_sets = StudySet.objects.all() 
     return render(request, 'library/studysets.html', {'study_sets': study_sets})
 
 def exams_view(request):
-    """View for exams tab."""
     return render(request, 'library/exams.html')
 
 # Study Set Creation
 def create_study_set(request):
-    """View to handle creating a new study set."""
     if request.method == 'POST':
         set_name = request.POST.get('study_set_name')
         set_subject = request.POST.get('subject')
@@ -51,17 +48,15 @@ def create_study_set(request):
                 'set_name': study_set.set_name,
                 'set_subject': study_set.set_subject,
             }
-            # Redirect to flashcard creation or another relevant view
+
             return render(request, 'flashcards/flashcard-creation.html', context)
 
-    return redirect('library')  # Redirect to library view if not POST
+    return redirect('library')
 
 # Flashcard Views
 def flashcard_creation(request):
-    """View for flashcard creation."""
     return render(request, 'flashcards/flashcard-creation.html')
 
 def flashcard_creation_main(request):
-    """Extended view for flashcard creation main."""
     study_sets = StudySet.objects.all()
     return render(request, 'flashcards/flashcard-creation-main.html', {'study_sets': study_sets})

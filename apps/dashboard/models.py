@@ -7,3 +7,6 @@ class StudySet(models.Model):
 
     def __str__(self):
         return self.set_name
+    
+    def get_id(self):
+        return self.id

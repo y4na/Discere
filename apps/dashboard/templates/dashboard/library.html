@@ -20,20 +20,44 @@
         <div class="absolute left-0 bottom-px h-1 bg-darkgreen transition-all duration-300 active-bar z-10"></div>
         <div class="w-full h-px bg-black bg-opacity-10 mb-4"></div>
     </div>
-    
-    
 
     <div id="study-sets-content" class="tab-content">
         {% if study_sets %}
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {% for study_set in study_sets %}
-                    <div class="border rounded-lg shadow-md p-4 bg-white">
-                        <h3 class="text-lg font-semibold text-darkgreen">{{ study_set.set_name }}</h3>
-                        <p class="text-gray-500">{{ study_set.set_subject }}</p>
-                        <p class="text-gray-500">{{ study_set.created }}</p>
-                    </div>
-                {% endfor %}
+        <div style="display: flex; 
+                flex-wrap: wrap; 
+                gap: 40px; 
+                padding-top: 30px; 
+                padding-bottom: 20px;">
+        {% for study_set in study_sets %}
+            <div style="border: 3px solid #002f19; 
+                        border-radius: 20px; 
+                        flex: 1 1 calc(25% - 40px);
+                        max-width: calc(25% - 40px);"
+                 onmouseover="this.style.boxShadow = '0 0px 10px 0 #012f19'"
+                 onmouseout="this.style.boxShadow = 'none'">
+                
+                <div style="background-color: #00ff7f; 
+                            height: 16px; 
+                            border-top-left-radius: 20px; 
+                            border-top-right-radius: 20px;"></div>
+
+                <div style="padding: 20px;">
+                    <h3 class="font-outfit" 
+                        style="color: #012e19; 
+                            font-size: 40px; 
+                            padding: 0; 
+                            margin: 0; 
+                            line-height: 1.1;
+                            margin-bottom: 10px;
+                            font-weight: 600;"> 
+                        {{ study_set.set_name }}
+                    </h3> 
+                    <p style="font-size: 20px; color: #018141; font-weight: 600; margin-bottom: 10px">{{ study_set.set_subject }}</p>
+                    <p style="font-size: 20px; color: #012e19; font-weight: 600; margin-bottom: 10px">{{ flashcard_count }} [Count] Flashcards</p>
+                </div>
             </div>
+        {% endfor %}
+        </div>
         {% else %}
             <div class="flex flex-col items-center justify-center h-full">
                 <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
@@ -46,17 +70,17 @@
         <p>Your exams will be displayed here.</p>
     </div>
 
-
         {% comment %} <button class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-lg w-48 h-16 flex items-center justify-center" style="font-size: 20px;">
             All subjects
             <img src="{% static 'icons/angle-down.svg' %}" alt="icon" class="h-5 w-5 mr-2">
         </button> {% endcomment %}
 
-
-
     <!-- CREATE POP UP-->
-    <div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-        <form action="{% url 'create_study_set' %}" method="POST" class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between">
+    <div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden" style="make the outside backgorund dim and black">
+        
+        <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-10"></div>
+
+        <form action="{% url 'create_study_set' %}" method="POST" class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between z-10" style="width: 400px;">
             {% csrf_token %}
             <div>
                 <div class="flex justify-between items-center mb-6">

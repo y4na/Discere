@@ -14,8 +14,8 @@
     <title>Discere</title>
 </head>
 
-<body class="h-screen w-full bg-darkgreen-gradient font-outfit">
-    <header>
+<body class="h-screen w-full font-outfit" style="background-color: #faf9f6;">
+    <header style="background-color: #002f19">
         <nav class="top-0 z-50 flex items-center justify-between w-full h-24 text-darkgreen px-5">
             <div class="flex items-center">
                 <a href="{% url 'dashboard_home' %}">
@@ -146,7 +146,7 @@
 
     </header>
 
-    <main class="flex flex-row h-full text-darkgreen">
+    <main class="flex flex-row h-full text-darkgreen" style="background: linear-gradient(to bottom, #012d19 0%, #012d19 30%, transparent 50%);">
         <div class="bg-white1 flex-grow ml-[102px] px-10 py-10 rounded-t-3xl">
             {% block main_content %}
            
