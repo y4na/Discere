@@ -6,6 +6,7 @@ import json
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProfilePictureForm
+from .models import Profile
 
 
 # Create your views here.
@@ -19,13 +20,15 @@ from .forms import ProfilePictureForm
 @login_required
 def user_settings(request):
     current_user = request.user
-    form = ProfilePictureForm(instance=current_user)  # Pre-fill the form with the current user's profile picture
+
+    profile = current_user.profile  
+    form = ProfilePictureForm(instance=profile) 
 
     if request.method == 'POST' and request.FILES.get('profile_picture'):
-        form = ProfilePictureForm(request.POST, request.FILES, instance=current_user)
+        form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            form.save()  # Save the updated profile picture
-            return redirect('user_settings')  # Redirect back to the user settings page
+            form.save() 
+            return redirect('user_settings') 
 
     context = {
         'user': current_user,

@@ -17,16 +17,42 @@
 
     <div class="bg-white p-6 rounded-lg border border-gray-300 flex items-start space-x-8">
         <div class="flex flex-col items-center">
-    
-            <div class="relative group overflow-hidden w-48 h-48 rounded-full border-2 shadow-sm mt-16">
-                <img src="{% static 'global-images/default-user-profile.png' %}" 
-                     alt="Current Profile Picture" 
-                     class="w-full h-full object-cover">
+            
+            <form method="post" enctype="multipart/form-data" id="profilePictureForm">
+                {% csrf_token %}
                 
-                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <img src="{% static 'icons/edit.svg' %}" class="w-5 h-5 fill-current" alt="edit prof icon">
+                <div class="relative group overflow-hidden w-48 h-48 rounded-full border-2 shadow-sm mt-16">
+                    {% if form.instance.profile_picture %}
+                        <label for="{{ form.profile_picture.id_for_label }}" class="w-full h-full cursor-pointer">
+                            <img src="{{ form.instance.profile_picture.url }}" alt="Current Profile Picture" class="w-full h-full object-cover">
+           
+                            <div class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit text-darkgreen">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                  </svg>                                  
+                            </div>
+                        </label>
+                    {% else %}
+                        <label for="{{ form.profile_picture.id_for_label }}" class="w-full h-full cursor-pointer">
+                            <img src="{% static 'global-images/default-user-profile.png' %}" alt="Default Profile Picture" class="w-full h-full object-cover">
+                        </label>
+                    {% endif %}
+                    <input type="file" name="profile_picture" id="{{ form.profile_picture.id_for_label }}" class="hidden">
                 </div>
-            </div>
+            </form>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('profilePictureForm');
+                const fileInput = form.querySelector('input[type="file"]');
+                
+                fileInput.addEventListener('change', function() {
+                    form.submit();
+                });
+            });
+            </script>
+
             <h1 class="font-semibold mt-2">{{ user.username }}</h1>           
         </div>
 

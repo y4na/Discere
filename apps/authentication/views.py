@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from apps.dashboard.models import Profile
 from django import forms
 from django.contrib import messages
 
@@ -67,15 +68,18 @@ class SignUpForm(forms.ModelForm):
             user.save()
         return user
 
+
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Don't save yet
+            user = form.save(commit=False)
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
-            user.set_password(form.cleaned_data["password"]) 
-            user.save()
+            user.set_password(form.cleaned_data["password"])  # Set the password
+            user.save()  # Save the user instance to the database
+            
+            Profile.objects.create(user=user)
 
             messages.success(request, 'Your account has been created!')
             return redirect('login')
@@ -83,7 +87,7 @@ def signup_view(request):
             messages.error(request, 'There was an error with your submission.')
     else:
         form = SignUpForm()
-    
+
     return render(request, 'auth/signup.html', {'form': form})
 
 

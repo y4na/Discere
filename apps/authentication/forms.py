@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import Profile  # Import Profile model
 
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -31,4 +32,3 @@ class SignUpForm(forms.ModelForm):
 
         if password != password_confirm:
             raise forms.ValidationError("Passwords do not match")
-
