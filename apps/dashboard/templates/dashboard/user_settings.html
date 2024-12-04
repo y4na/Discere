@@ -41,17 +41,6 @@
                     <input type="file" name="profile_picture" id="{{ form.profile_picture.id_for_label }}" class="hidden">
                 </div>
             </form>
-            
-            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const form = document.getElementById('profilePictureForm');
-                const fileInput = form.querySelector('input[type="file"]');
-                
-                fileInput.addEventListener('change', function() {
-                    form.submit();
-                });
-            });
-            </script>
 
             <h1 class="font-semibold mt-2">{{ user.username }}</h1>           
         </div>
@@ -170,17 +159,18 @@
             </button>
             <h2 class="text-darkgreen font-semibold text-2xl mb-4 font-clash text-center">Confirm your existing password</h2>
             <p>Please confirm your password before updating your account settings.</p>
-            <form>
+            <form method="POST" action="{% url 'user_settings' %}">
+                {% csrf_token %}
                 <div class="mb-8 mt-6">
                     <label for="current-password" class="block text-darkgreen font-semibold mb-2">Password</label>
                     <div class="relative">
-                        <input type="password" id="current-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" placeholder="Enter password" required>
+                        <input type="password" id="current-password" name="current_password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" placeholder="Enter password" required>
                         <img src="{% static 'icons/eye.svg' %}" alt="Toggle Password" id="toggle-password-current" class="absolute right-3 top-3 w-5 h-5 cursor-pointer opacity-50" onclick="togglePasswordVisibility('current-password', this)">
                     </div>
                 </div>
                 <div class="flex justify-center space-x-4">
                     <button type="button" class="px-4 py-2 text-sm text-darkgreen font-semibold border border-gray-300 rounded-lg hover:bg-gray-100 w-44 h-11 cursor-pointer" onclick="closeModal('change-password-modal')">Cancel</button>
-                    <button type="button" class="px-4 py-2 text-sm text-white bg-darkgreen font-semibold rounded-lg hover:bg-darkgreen/80 w-44 h-11 cursor-pointer" onclick="showChangePassword()">Confirm Password</button>
+                    <button type="submit" class="px-4 py-2 text-sm text-white bg-darkgreen font-semibold rounded-lg hover:bg-darkgreen/80 w-44 h-11 cursor-pointer">Confirm Password</button>
                 </div>
             </form>
         </div>
@@ -191,18 +181,19 @@
                 <img src="{% static 'icons/close.svg' %}" alt="Close" class="w-4 h-4 cursor-pointer">
             </button>
             <h2 class="text-darkgreen font-semibold text-2xl mb-4 font-clash text-center">Set a new password</h2>
-            <form>
+            <form method="POST" action="{% url 'user_settings' %}">
+                {% csrf_token %}
                 <div class="mb-6">
                     <label for="new-password" class="block text-darkgreen font-semibold mb-2">New Password</label>
                     <div class="relative">
-                        <input type="password" id="new-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" placeholder="Enter new password" required>
+                        <input type="password" id="new-password" name="new_password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" placeholder="Enter new password" required>
                         <img src="{% static 'icons/eye.svg' %}" alt="Toggle Password" id="toggle-password-new" class="absolute right-3 top-3 w-5 h-5 cursor-pointer opacity-50" onclick="togglePasswordVisibility('new-password', this)">
                     </div>
                 </div>
                 <div class="mb-8">
                     <label for="confirm-new-password" class="block text-darkgreen font-semibold mb-2">Confirm New Password</label>
                     <div class="relative">
-                        <input type="password" id="confirm-new-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" placeholder="Confirm new password" required>
+                        <input type="password" id="confirm-new-password" name="confirm_new_password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-darkgreen focus:ring-darkgreen" placeholder="Confirm new password" required>
                         <img src="{% static 'icons/eye.svg' %}" alt="Toggle Password" id="toggle-password-confirm" class="absolute right-3 top-3 w-5 h-5 cursor-pointer opacity-50" onclick="togglePasswordVisibility('confirm-new-password', this)">
                     </div>
                 </div>
@@ -214,6 +205,7 @@
         </div>
     </div>
 </div>
+
 
     <!-- Change Email Modal -->
     <div id="change-email-modal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
@@ -261,5 +253,5 @@
     </div>
 </div>   
 
-    <script src="{% static 'dashboard/js/user_settings.js' %}"></script>
+    {% comment %} <script src="{% static 'dashboard/js/user_settings.js' %}"></script> {% endcomment %}
 {% endblock %}

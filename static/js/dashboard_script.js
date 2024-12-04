@@ -1,3 +1,37 @@
+//home.js
+const menuButton = document.querySelector('#menu-button');
+const sidebarMenuButton = document.querySelector('#sidebar-menu-button');
+const sidebar = document.querySelector('#sidebar');
+const backdrop = document.querySelector('#backdrop');
+
+const toggleSidebar = () => {
+    sidebar.classList.toggle('-translate-x-full');
+    //backdrop.classList.toggle('hidden');
+};
+
+menuButton.addEventListener('click', toggleSidebar);
+sidebarMenuButton.addEventListener('click', toggleSidebar);
+//backdrop.addEventListener('click', toggleSidebar);
+
+const profileMenuButton = document.getElementById('profile-menu-button');
+const profilePopup = document.getElementById('profile-popup');
+
+profileMenuButton.addEventListener('click', () => {
+    profilePopup.classList.toggle('hidden');
+});
+
+window.addEventListener('click', (event) => {
+    if (!profileMenuButton.contains(event.target) && !profilePopup.contains(event.target)) {
+        profilePopup.classList.add('hidden');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    feather.replace(); 
+});
+
+
+
 //library.js
 document.addEventListener("DOMContentLoaded", function() {
     const studySetsButton = document.querySelector('#study-sets');
@@ -103,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         closeManuallyCreateModalButton.addEventListener('click', () => {
-            manuallyCreateModal.classList.add ('hidden');
+            manuallyCreateModal.classList.add('hidden');
             createExamModal.classList.remove('hidden');
         });
 
@@ -118,4 +152,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Expose selectColor to global scope if needed in HTML onclick
     window.selectColor = selectColor;
+});
+
+
+//user_settings.js
+
+function showChangePassword() {
+    document.getElementById('confirm-password-section').classList.add('hidden');
+    document.getElementById('change-password-section').classList.remove('hidden');
+}
+
+
+function openModal(modalId) {
+    document.getElementById(modalId).classList.remove("hidden");
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.add("hidden");
+    document.body.style.overflow = '';
+
+    // Reset sections to default
+    document.getElementById('confirm-password-section').classList.remove('hidden');
+    document.getElementById('change-password-section').classList.add('hidden');
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('profilePictureForm');
+    const fileInput = form.querySelector('input[type="file"]');
+    
+    fileInput.addEventListener('change', function() {
+        form.submit();
+    });
 });

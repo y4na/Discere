@@ -35,16 +35,8 @@
         <p>Your exams will be displayed here.</p>
     </div>
 
-
-        {% comment %} <button class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-lg w-48 h-16 flex items-center justify-center" style="font-size: 20px;">
-            All subjects
-            <img src="{% static 'icons/angle-down.svg' %}" alt="icon" class="h-5 w-5 mr-2">
-        </button> {% endcomment %}
-
-
-
-    <!-- CREATE POP UP-->
-    <div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <!-- CREATE STUDY SET POP UP-->
+    <div id="create-study-set-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between">
             <div>
                 <div class="flex justify-between items-center mb-6">
@@ -112,9 +104,47 @@
                 <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full" id="create-study-set-btn">Create</button>
         </div>
     </div>
-</div>   
+    <!-- CREATE EXAM POP UP-->
+    <div id="create-exam-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between relative" style="width: 760px; height: 440px;">
+            <button id="close-exam-modal" class="absolute top-4 right-4">
+                <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
+            </button>
     
-        
+            <div class="mb-6 px-6 mt-6">
+                <h2 class="text-3xl font-bold text-center max-w-[600px] mx-auto">
+                    How do you want to create <br> your exam set?
+                </h2>
+            </div>
+    
+            <div class="flex items-center gap-x-6 justify-center mb-10">
+                <button id="generate-from-study-set" 
+                        class="border-2 border-opacity-50 border-darkgreen text-darkgreen font-semibold py-6 px-4 rounded-md flex flex-col items-center justify-center space-y-2 transition-transform transform duration-300 ease-out hover:shadow-xl hover:scale-105"
+                        style="width: 292px; height: 226px;">
+                    <img src="{% static 'global-images/filler-4.png' %}" alt="Study Set" class="h-24 w-24">
+                    <span class="text-xl font-semibold">Generate from <br> Study Set</span>
+                </button>
+    
+                <button id="manually-create-exam" 
+                        class="border-2 border-opacity-50 border-darkgreen text-darkgreen font-semibold py-6 px-4 rounded-md flex flex-col items-center justify-center space-y-2 transition-transform transform duration-300 ease-out hover:shadow-xl hover:scale-105"
+                        style="width: 292px; height: 226px;">
+                    <img src="{% static 'global-images/filler-3.png' %}" alt="Manual" class="h-24 w-24">
+                    <span class="text-xl">Manually <br> Create</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MANUALLY CREATE EXAM POP UP-->
+    <div id="manually-create-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 relative" style="width: 600px; height: 400px;">
+            <button id="close-manually-create-modal" class="absolute top-4 right-4">
+                <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
+            </button>
+            <h2 class="text-2xl font-bold text-center">Manually Create Exam</h2>
+            <p class="text-center mt-4">This is the content of the manually create exam modal.</p>
+        </div>
+    </div>
 
-    <script src="{% static 'dashboard/js/library.js' %}"></script>
+</div>   
 {% endblock %}

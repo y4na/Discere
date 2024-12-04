@@ -53,7 +53,7 @@ module.exports = {
                 darkgreen: '#002F19',
                 darkergreen: '#000905',
                 neongreen: '#00FF7F',
-                white1: '#FAF9F6',
+                white1: '#F9FAFB',
                 white2: '#F7F7F7',
             },
 

@@ -108,35 +108,6 @@
             <img src="{% static 'icons/bookmark.svg' %}" alt="Icon 4" class="h-14 w-14 hover-neon-green transition-all duration-300"> 
         </a>
     </aside>
-
-    <!-- Sidebar Pop-up -->
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-[304px] bg-darkgreen-gradient shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
-        <div class="flex items-center h-24 px-5">
-            <button id="sidebar-menu-button" class="p-2">
-                <img src="{% static 'icons/menu-bar.svg' %}" alt="Close Menu Icon" class="px-2 py-1">
-            </button>
-        </div>
-
-        <div class="flex flex-col h-full px-5 py-10">
-            <a href="{% url 'home' %}" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
-                <img src="{% static 'icons/home.svg' %}" alt="Icon 1" class="h-14 w-14 mt-20">
-                <span class="ml-2 text-neongreen mt-20">Home</span>
-            </a>
-            <a href="{% url 'library' %}" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
-                <img src="{% static 'icons/folder-open.svg' %}" alt="Icon 2" class="h-14 w-14">
-                <span class="ml-2 text-neongreen">Library</span>
-            </a>
-            <img src="{% static 'icons/divider-sidebar-long.svg' %}">
-            <a href="#" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
-                <img src="{% static 'icons/archive.svg' %}" alt="Icon 3" class="h-14 w-14">
-                <span class="ml-2 text-neongreen">Archive</span>
-            </a>
-            <a href="#" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
-                <img src="{% static 'icons/bookmark.svg' %}" alt="Icon 4" class="h-14 w-14">
-                <span class="ml-2 text-neongreen">Favorites</span>
-            </a>
-        </div>
-    </aside>
     </header>
 
             {% block main_content %}
@@ -145,10 +116,7 @@
    
     
     <script src="https://unpkg.com/feather-icons"></script>
-    {% comment %} <script src="{% static 'dashboard/js/home.js' %}"></script>
+    <script src="{% static 'dashboard/js/home.js' %}"></script>
     <script src="{% static 'dashboard/js/user_settings.js' %}"></script>
-    <script src="{% static 'dashboard/js/library.js' %}"></script> {% endcomment %}
-
-    <script src="{% static 'js/dashboard_script.js' %}"></script>
 </body>
 </html>
