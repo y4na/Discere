@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         flashcards.forEach((flashcard, index) => {
             flashcard.querySelector('.flashcard-number').textContent = index + 1;
 
-            // Update input `name` attributes
             flashcard.querySelector('.input-term').setAttribute('name', `term_${index + 1}`);
             flashcard.querySelector('.input-definition').setAttribute('name', `definition_${index + 1}`);
         });
@@ -39,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const flashcardToClone = flashcardsContainer.querySelector('.flashcard');
         const newFlashcard = flashcardToClone.cloneNode(true);
 
-        // Clear input fields in the cloned flashcard
         newFlashcard.querySelectorAll('input').forEach(input => {
             input.value = '';
         });

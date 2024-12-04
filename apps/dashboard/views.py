@@ -44,11 +44,11 @@ def create_study_set(request):
 
         if set_name and set_subject:
             study_set = StudySet.objects.create(set_name=set_name, set_subject=set_subject)
-            context = {
-                'set_name': study_set.set_name,
-                'set_subject': study_set.set_subject,
-            }
 
+            # Pass the created study set's id to the template
+            context = {
+                'study_set': study_set,  # Pass the full object for flexibility
+            }
             return render(request, 'flashcards/flashcard-creation.html', context)
 
     return redirect('library')

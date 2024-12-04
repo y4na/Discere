@@ -6,7 +6,11 @@
 {% block main_content %}
     <div class="flex items-center justify-between">
         <h1 class="text-xl font-bold mb-4" style="font-size: 36px">Your Library</h1>
-        <button id="open-modal" class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center" style="font-size: 18px;">
+        <button id="open-modal"
+                class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center"
+                style="font-size: 18px;"
+                onmouseover="this.style.backgroundColor='#07663a'; this.style.color='white';"
+                onmouseout="this.style.backgroundColor='#012d19'; this.style.color='white'">
             <img src="{% static 'icons/plus.svg' %}" alt="icon" class="h-5 w-5 mr-2">
             Create Study Set
         </button>
@@ -25,9 +29,10 @@
         {% if study_sets %}
         <div style="display: flex; 
                 flex-wrap: wrap; 
-                gap: 40px; 
+                gap: 45px; 
                 padding-top: 30px; 
-                padding-bottom: 20px;">
+                padding-bottom: 20px;
+                margin-left: 1.1%;">
         {% for study_set in study_sets %}
             <div style="border: 3px solid #002f19; 
                         border-radius: 20px; 
@@ -44,16 +49,74 @@
                 <div style="padding: 20px;">
                     <h3 class="font-outfit" 
                         style="color: #012e19; 
-                            font-size: 40px; 
-                            padding: 0; 
-                            margin: 0; 
-                            line-height: 1.1;
-                            margin-bottom: 10px;
-                            font-weight: 600;"> 
+                               font-size: 40px; 
+                               padding: 0; 
+                               margin: 0; 
+                               line-height: 1.1;
+                               margin-bottom: 10px;
+                               font-weight: 600;
+                               height: 100px;
+                               display: flex;
+                               align-items: center;">
                         {{ study_set.set_name }}
                     </h3> 
                     <p style="font-size: 20px; color: #018141; font-weight: 600; margin-bottom: 10px">{{ study_set.set_subject }}</p>
-                    <p style="font-size: 20px; color: #012e19; font-weight: 600; margin-bottom: 10px">{{ flashcard_count }} [Count] Flashcards</p>
+                    <p style="font-size: 20px; color: #012e19; font-weight: 600;"> {{ study_set.flashcard_count }} Flashcards</p>
+                    <div style="text-align: right; margin-bottom: -10px; margin-top: -10px; position: relative;">
+                        <button id="menuButton-{{ forloop.counter }}" 
+                                style="border-radius: 50%; padding-right: 8px; padding-left: 8px; background-color: #faf9f6;"
+                                onmouseover="this.style.backgroundColor = '#DCDCDC'"
+                                onmouseout="this.style.backgroundColor = '#faf9f6'"
+                                onclick="toggleMenu('popupMenu-{{ forloop.counter }}')">
+                            <i class="fa fa-ellipsis-h" style="font-size: 24px; margin-top: 6px; margin-bottom: 4px;"></i>
+                        </button>
+                    
+                        <div id="popupMenu-{{ forloop.counter }}" 
+                             style="display: none;
+                                    position: absolute;
+                                    top: 40px;
+                                    right: 0;
+                                    background-color: #fff;
+                                    border: 1px solid #ccc; 
+                                    border-radius: 8px;
+                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                    z-index: 1000;
+                                    width: 200px;">
+                            <ul style="list-style: none; margin: 0; text-align: left;">
+                                <li style="padding: 8px 16px;
+                                           cursor: pointer;
+                                           border-bottom: 1px solid #ccc;
+                                           border-top-left-radius: 8px; 
+                                           border-top-right-radius: 8px;" 
+                                    onmouseover="this.style.backgroundColor='#f2f2f2'"
+                                    onmouseout="this.style.backgroundColor='#fff'"
+                                    onclick="handleAction('archive')">
+                                    <img src="{% static 'icons/archive.svg' %}">
+                                    Add to Archive
+                                </li>
+                                <li style="padding: 8px 16px;
+                                           cursor: pointer;
+                                           border-bottom: 1px solid #ccc;" 
+                                    onmouseover="this.style.backgroundColor='#f2f2f2'"
+                                    onmouseout="this.style.backgroundColor='#fff'"
+                                    onclick="handleAction('favorite')">
+                                    <img src="{% static 'icons/bookmark.svg' %}">
+                                    Add to Favorites
+                                </li>
+                                <li style="padding: 8px 16px;
+                                           cursor: pointer;
+                                           color: red;
+                                           border-bottom-left-radius: 8px; 
+                                           border-bottom-right-radius: 8px;" 
+                                    onmouseover="this.style.backgroundColor='#FFF0F0'"
+                                    onmouseout="this.style.backgroundColor='#fff'"
+                                    onclick="handleAction('delete')">
+                                    <i class="fas fa-recycle"></i>
+                                    Delete Set
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         {% endfor %}
@@ -102,6 +165,42 @@
             <button type="submit" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full">Create</button>
         </form>
     </div>
+
+    <script>
+        function toggleMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
+        }
+
+        function handleAction(action) {
+            alert(`Action selected: ${action}`);
+            if (action === 'archive') {
+                console.log("Adding to Archive...");
+            } else if (action === 'favorite') {
+                console.log("Adding to Favorites...");
+            } else if (action === 'delete') {
+                console.log("Deleting Set...");
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            const menus = document.querySelectorAll('[id^="popupMenu-"]');
+            const buttons = document.querySelectorAll('[id^="menuButton-"]');
+
+            let isClickInside = false;
+
+            menus.forEach(menu => {
+                if (menu.contains(event.target)) isClickInside = true;
+            });
+            buttons.forEach(button => {
+                if (button.contains(event.target)) isClickInside = true;
+            });
+
+            if (!isClickInside) {
+                menus.forEach(menu => menu.style.display = 'none');
+            }
+        });
+    </script>
 
     <script src="{% static 'dashboard/js/library.js' %}"></script>
 {% endblock %}

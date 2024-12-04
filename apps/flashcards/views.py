@@ -1,14 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Flashcard
 from apps.dashboard.models import StudySet
 
 def flashcard_creation(request):
     study_sets = StudySet.objects.all()
-    return render(request, 'flashcards/flashcard-creation.html', {'study_sets': study_sets})
-
-def flashcard_main(request):
-    study_sets = StudySet.objects.all()
-    return render(request, 'flashcards/flashcard-creation-main.html', {'study_sets': study_sets})
+    return render(request, 'flashcards/flashcard-creation.html', {
+        'study_sets': study_sets,
+        'study_set': study_sets.first() if study_sets.exists() else None
+    })
 
 def flashcard_viewer(request):
     flashcards = Flashcard.objects.select_related('study_set').all()
@@ -17,9 +16,16 @@ def flashcard_viewer(request):
 def flashcard_view(request):
     if request.method == 'POST':
         study_set_id = request.POST.get('study_set')
-        study_set = StudySet.objects.get(id=study_set_id)
 
-        print(f'Selected StudySet: {study_set}')
+        if not study_set_id or not study_set_id.isdigit():
+            return render(request, 'flashcards/flashcard-creation.html', {
+                'error': "Invalid or missing study set ID.",
+                'study_sets': StudySet.objects.all()
+            })
+
+        study_set = get_object_or_404(StudySet, id=int(study_set_id))
+
+        flashcard_count = 0
 
         for key in request.POST:
             if key.startswith('term_'):
@@ -28,19 +34,20 @@ def flashcard_view(request):
                 term = request.POST.get(key)
                 definition = request.POST.get(definition_key)
 
-                print(f'Term: {term}, Definition: {definition}')
-
                 if term and definition:
-                    flashcard_set = Flashcard.objects.create(study_set=study_set, term=term, definition=definition)
-                    context = {
-                        'study_set': flashcard_set.study_set,
-                        'term': flashcard_set.term,
-                        'definition': flashcard_set.definition,
-                    }
+                    Flashcard.objects.create(
+                        study_set=study_set,
+                        term=term,
+                        definition=definition
+                    )
+                    flashcard_count += 1
 
-        return render(request, 'dashboard/library.html', context)
+        study_set.flashcard_count += flashcard_count
+        study_set.save()
 
-    return render(request, 'flashcards/flashcard-creation-main.html')
+        return redirect('library_view')
+
+    return render(request, 'flashcards/flashcard-creation.html')
 
 def flashcard_display_view(request):
     flashcards = Flashcard.objects.select_related('study_set').all()  
@@ -49,7 +56,3 @@ def flashcard_display_view(request):
 def library_view(request):
     study_sets = StudySet.objects.all()
     return render(request, 'dashboard/library.html', {'study_sets': study_sets})
-
-def flashcard_creation_main(request):
-    study_sets = StudySet.objects.all()
-    return render(request, 'flashcards/flashcard-creation-main.html', {'study_sets': study_sets})

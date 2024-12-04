@@ -10,7 +10,7 @@
         </a>
         
         <h1 class="text-xl font-bold" style="font-size: 36px; margin-left: -80px">
-            {{set_name}}
+            {{study_set.set_name}}
         </h1> 
 
         <div class="flex space-x-4">
@@ -61,7 +61,9 @@
                     border: 3px solid lightgrey;">
             <div style="color: #012d19;
                         padding: 10px 20px;">
-                <strong style="color: #012d19;"> SET SUBJECT </strong>
+                <strong style="color: #012d19;">
+                    SET SUBJECT
+                </strong>
             </div>
 
             <div style="background-color: #012d19;
@@ -69,7 +71,7 @@
                         border-bottom-right-radius: 7px;
                         padding: 10px 20px;
                         border-left: 3px solid lightgrey;">
-                {{set_subject}}
+                {{study_set.set_subject}}
             </div>
         </div>
                 
@@ -81,7 +83,9 @@
                     border: 3px solid lightgrey;">
             <div style="color: #012d19;
                         padding: 10px 20px;">
-                <strong style="color: #012d19;"> FLASHCARD COUNT </strong>
+                <strong style="color: #012d19;">
+                    FLASHCARD COUNT
+                </strong>
             </div>
 
             <div style="background-color: #012d19;
@@ -99,7 +103,7 @@
         <form method="POST" action="{% url 'flashcard_view' %}">
             {% csrf_token %}
             
-            <input name="study_set" value="{{ study_set.id }}">
+            <input type="hidden" name="study_set" value="{{study_set.id}}">
 
             <div id="flashcards">
                 <div class="flashcard">
@@ -112,12 +116,18 @@
 
                     <div class="flashcard-content">
                         <div class="input-group">
-                            <input type="text" name="term_1" class="input-term" placeholder="Enter term" required>
+                            <input type="text"
+                                   name="term_1"
+                                   class="input-term"
+                                   placeholder="Enter term" required>
                             <p class="label">TERM</p>
                         </div>
 
                         <div class="input-group">
-                            <input type="text" name="definition_1" class="input-definition" placeholder="Enter definition" required>
+                            <input type="text"
+                                   name="definition_1"
+                                   class="input-definition"
+                                   placeholder="Enter definition" required>
                             <p class="label">DEFINITION</p>
                         </div>
                     </div>
