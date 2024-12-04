@@ -37,9 +37,11 @@
             <div style="border: 3px solid #002f19; 
                         border-radius: 20px; 
                         flex: 1 1 calc(25% - 40px);
+                        cursor: pointer;
                         max-width: calc(25% - 40px);"
                  onmouseover="this.style.boxShadow = '0 0px 10px 0 #012f19'"
-                 onmouseout="this.style.boxShadow = 'none'">
+                 onmouseout="this.style.boxShadow = 'none'"
+                 onclick="window.location.href='{% url 'flashcard_viewer' %}';">
                 
                 <div style="background-color: #00ff7f; 
                             height: 16px; 
@@ -64,11 +66,11 @@
                     <p style="font-size: 20px; color: #012e19; font-weight: 600;"> {{ study_set.flashcard_count }} Flashcards</p>
                     <div style="text-align: right; margin-bottom: -10px; margin-top: -10px; position: relative;">
                         <button id="menuButton-{{ forloop.counter }}" 
-                                style="border-radius: 50%; padding-right: 8px; padding-left: 8px; background-color: #faf9f6;"
+                                style="border-radius: 50%; padding: 0 10px; padding-top: 7px; padding-bottom: 4px; background-color: #faf9f6;"
                                 onmouseover="this.style.backgroundColor = '#DCDCDC'"
                                 onmouseout="this.style.backgroundColor = '#faf9f6'"
                                 onclick="toggleMenu('popupMenu-{{ forloop.counter }}')">
-                            <i class="fa fa-ellipsis-h" style="font-size: 24px; margin-top: 6px; margin-bottom: 4px;"></i>
+                            <i class="fa fa-ellipsis-h" style="font-size: 24px; "></i>
                         </button>
                     
                         <div id="popupMenu-{{ forloop.counter }}" 
@@ -91,7 +93,7 @@
                                     onmouseover="this.style.backgroundColor='#f2f2f2'"
                                     onmouseout="this.style.backgroundColor='#fff'"
                                     onclick="handleAction('archive')">
-                                    <img src="{% static 'icons/archive.svg' %}">
+                                    <i class="far fa-folder" style="margin-right: 10px;"></i>
                                     Add to Archive
                                 </li>
                                 <li style="padding: 8px 16px;
@@ -100,7 +102,7 @@
                                     onmouseover="this.style.backgroundColor='#f2f2f2'"
                                     onmouseout="this.style.backgroundColor='#fff'"
                                     onclick="handleAction('favorite')">
-                                    <img src="{% static 'icons/bookmark.svg' %}">
+                                    <i class="far fa-bookmark" style="margin-left: 1px; margin-right: 11px;"></i>
                                     Add to Favorites
                                 </li>
                                 <li style="padding: 8px 16px;
@@ -111,7 +113,7 @@
                                     onmouseover="this.style.backgroundColor='#FFF0F0'"
                                     onmouseout="this.style.backgroundColor='#fff'"
                                     onclick="handleAction('delete')">
-                                    <i class="fas fa-recycle"></i>
+                                    <i class="far fa-trash-alt" style="margin-right: 10px;"></i>
                                     Delete Set
                                 </li>
                             </ul>
@@ -162,7 +164,7 @@
                     <input type="text" id="subject" name="subject" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject" required>
                 </div>
             </div>
-            <button type="submit" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full">Create</button>
+            <button type="submit" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full" style="margin-top: 15px;">Create</button>
         </form>
     </div>
 

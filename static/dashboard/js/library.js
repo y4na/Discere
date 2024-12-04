@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
 //select color
 function selectColor(element) {
     document.querySelectorAll('.selected-ring').forEach(ring => ring.classList.add('hidden'));
@@ -57,7 +58,6 @@ function selectColor(element) {
     element.querySelector('.selected-ring').classList.remove('hidden');
     element.querySelector('.selected-icon').classList.remove('hidden');
 }
-
 
 //tabs
 function showTab(tab) {
@@ -78,3 +78,4 @@ function showTab(tab) {
         document.getElementById('study-sets').classList.add('opacity-50');
     }
 }
+
