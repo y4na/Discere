@@ -10,7 +10,7 @@ def flashcard_creation(request):
     })
 
 def flashcard_viewer(request):
-    flashcards = Flashcard.objects.select_related('study_set').all()
+    flashcards = Flashcard.objects.all()
     return render(request, 'flashcards/flashcard-viewer.html', {'flashcards': flashcards})
 
 def flashcard_view(request):
@@ -48,10 +48,6 @@ def flashcard_view(request):
         return redirect('library_view')
 
     return render(request, 'flashcards/flashcard-creation.html')
-
-def flashcard_display_view(request):
-    flashcards = Flashcard.objects.select_related('study_set').all()  
-    return render(request, 'flashcards/flashcard-base.html', {'flashcards': flashcards})
 
 def library_view(request):
     study_sets = StudySet.objects.all()

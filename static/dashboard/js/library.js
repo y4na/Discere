@@ -78,4 +78,3 @@ function showTab(tab) {
         document.getElementById('study-sets').classList.add('opacity-50');
     }
 }
-

@@ -10,12 +10,13 @@
 
 {% block main_content %}
     <div class="flex justify-between items-center mb-4 relative">
+        {% csrf_token %}
         <a href="{% url 'library' %}" class="flex items-center">
             <img src="{% static 'icons/arrow-left.svg' %}" alt="Back" class="h-10 w-10 mr-2 text-darkgreen fill-current">
         </a>
 
         <h1 class="text-xl font-bold text-center" style="font-size: 36px; flex-grow: 1;">
-            Flashcard for {{set_name}} - ({{set_subject}})
+            Flashcard for {{flashcards.study_set.set_name}}
         </h1>
 
         <div class="relative">
@@ -32,13 +33,124 @@
         </div>
     </div>
 
-    <div class="w-full h-px bg-black bg-opacity-10 mb-4">
-        <div class="flashcard-box">
+    <div class="w-full h-px bg-opacity-10 mb-4" style="margin-top: 40px; border-top: 3px solid lightgrey;"> </div>
 
+
+    <div style="text-align: right;
+                margin-top: -19px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 20px;
+                text-align: center;">
+        <div style="background-color: white; 
+                    border-bottom-left-radius: 10px;
+                    border-bottom-right-radius: 10px; 
+                    display: flex;
+                    flex-direction: row;
+                    border: 3px solid lightgrey;">
+            <div style="color: #012d19;
+                        padding: 10px 20px;">
+                <strong style="color: #012d19;">
+                    SET SUBJECT
+                </strong>
+            </div>
+
+            <div style="background-color: #012d19;
+                        color: white;
+                        border-bottom-right-radius: 7px;
+                        padding: 10px 20px;
+                        border-left: 3px solid lightgrey;">
+                {{flashcards.study_set.set_subject}}
+            </div>
+        </div>
+                
+        <div style="background-color: white; 
+                    border-bottom-left-radius: 10px;
+                    border-bottom-right-radius: 10px; 
+                    display: flex;
+                    flex-direction: row;
+                    border: 3px solid lightgrey;">
+            <div style="color: #012d19;
+                        padding: 10px 20px;">
+                <strong style="color: #012d19;">
+                    TOTAL FLASHCARDS
+                </strong>
+            </div>
+
+            <div style="background-color: #012d19;
+                        color: white;
+                        border-bottom-right-radius: 7px;
+                        padding: 10px 20px;
+                        border-left: 3px solid lightgrey;"
+                 id="flashcard-counter">
+                 {{flashcards.study_set.flashcard_count}}
+            </div>
         </div>
     </div>
 
-    
+    <div style="display: flex;
+                align-items: center;
+                justify-content: center;">
+        <div style="border: 3px solid #012e19;
+                    padding: 100px 60px;
+                    border-radius: 30px;
+                    margin-right: -65px;
+                    background-color: white;
+                    z-index: 10;"
+             onmouseover="this.style.backgroundColor='#012d19'; this.style.color='white';"
+             onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#012d19'">
+            <i class="fa fa-chevron-left" style="font-size: 30px"></i>
+        </div>
+
+        <div style="border: 3px solid #012e19;
+                    margin: 70px 0;
+                    height: 80vh;
+                    width: 60vw;
+                    border-radius: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    flex-direction: column;
+                    font-size: 40px;
+                    box-shadow: 0px 0px 50px rgba(7, 102, 58, 0.2);
+                    font-weight: 600;
+                    position: relative;">
+            <span>{{flashcards.term}} What is the meaning of DFA?</span>
+
+            <button type="button"
+                    id="reveal-button"
+                    class="btn"
+                    style="border: 1px solid #B0B0B0;
+                        font-size: 17px;
+                        border-radius: 15px;
+                        padding: 15px 30px;
+                        color: #787878;
+                        position: absolute;
+                        bottom: 70px;
+                        background-color: #faf9f6;
+                        letter-spacing: 0.5px;"
+                    onmouseover="this.style.borderColor='#585858'; 
+                                this.style.color='#585858';"
+                    onmouseout="this.style.borderColor='#B0B0B0'; 
+                            this.style.color='#787878';">
+                Reveal Answer
+            </button>
+        </div>
+
+        <div style="border: 3px solid #012e19;
+                    padding: 100px 60px;
+                    border-radius: 30px;
+                    margin-left: -65px;
+                    background-color: white;
+                    z-index: 10;"
+                    onmouseover="this.style.backgroundColor='#012d19'; this.style.color='white';"
+                    onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#012d19'">
+            <i class="fa fa-chevron-right" style="font-size: 30px;"></i>
+        </div>
+    </div>
+
     <script>
         document.getElementById('three-dot-menu').addEventListener('click', function() {
             var dropdown = document.getElementById('menu-dropdown');
