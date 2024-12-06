@@ -88,26 +88,6 @@
               feather.replace();
             </script>    
         </nav>
-
-      <!-- Sidebar Default -->
-      <aside class="fixed h-screen flex flex-col bg-darkgreen-gradient w-[102px] px-5 py-1 top-0 left-0">
-        <button id="menu-button" class="flex justify-center items-center mb-4 pt-8">
-            <img src="{% static 'icons/menu-bar.svg' %}" alt="Menu Icon" class="h-8 w-8">
-        </button>
-        <a href="{% url 'dashboard_home' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
-            <img src="{% static 'icons/home.svg' %}" alt="Icon 1" class="h-14 w-14 mt-20">
-        </a>
-        <a href="{% url 'library' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
-            <img src="{% static 'icons/folder-open.svg' %}" alt="Icon 2" class="h-14 w-14"> 
-        </a>
-        <img src="{% static 'icons/divider-sidebar-short.svg' %}" alt="" class="mb-4 hover-neon-green transition-all duration-300">
-        <a href="#" class="flex items-center justify-center mb-4">
-            <img src="{% static 'icons/archive.svg' %}" alt="Icon 3" class="h-14 w-14 hover-neon-green transition-all duration-300"> 
-        </a>
-        <a href="#" class="flex items-center justify-center mb-4">
-            <img src="{% static 'icons/bookmark.svg' %}" alt="Icon 4" class="h-14 w-14 hover-neon-green transition-all duration-300"> 
-        </a>
-    </aside>
     </header>
 
             {% block main_content %}
@@ -116,7 +96,10 @@
    
     
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="{% static 'dashboard/js/home.js' %}"></script>
+    {% comment %} <script src="{% static 'dashboard/js/home.js' %}"></script>
     <script src="{% static 'dashboard/js/user_settings.js' %}"></script>
+    <script src="{% static 'dashboard/js/library.js' %}"></script> {% endcomment %}
+
+    <script src="{% static 'js/dashboard_script.js' %}"></script>
 </body>
 </html>
