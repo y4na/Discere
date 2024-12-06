@@ -1,0 +1,73 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+    <title>Discere</title>
+</head>
+
+<body class="h-screen w-full bg-darkgreen-gradient font-outfit">
+    <header>
+        <nav class="top-0 z-50 flex items-center justify-between w-full h-24 text-darkgreen px-5">
+            <div class="flex items-center">
+                <a href="/dashboard">
+                    <img src="{% static 'global-images/discere-logo-svg 1.svg' %}" 
+                    alt="Discere Logo" 
+                    class="cursor-pointer h-12 w-30 mb-4 relative ml-[102px]" 
+                    style="left: 20px;"> 
+                </a>
+            </div>
+
+            <div class="flex flex-grow items-center justify-center relative ml-negative">
+                <input type="text" placeholder="What is it that you seek?" class="font-outfit rounded-xl p-2 px-5 pr-10" style="min-width: 800px; min-height: 50px">
+                <img src="{% static 'icons/search.svg' %}" alt="Search Icon" class="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 cursor-pointer">
+            </div>
+
+            <div class="flex items-center relative">
+ 
+                <img src="{% static 'global-images/default-user-profile.png' %}" alt="User Profile" class="h-12 w-12 rounded-full mx-10 cursor-pointer" id="profile-menu-button">
+                
+                <!-- Profile Popup -->
+                <div id="profile-popup" class="absolute right-0 w-60 bg-white rounded-lg shadow-lg hidden z-50 mt-48">
+                    <div class="flex items-center p-4 border-b">
+                        <a href="{% url 'user_settings' %}">
+                        <img src="{% static 'global-images/default-user-profile.png' %}" alt="User Profile" class="h-12 w-12 rounded-full">
+                        </a>
+                        <div class="ml-3">
+                            <p class="font-semibold">{{ user.username }}</p>
+                            <p class="text-sm text-gray-500">{{ user.email }}</p>
+                        </div>
+                    </div>
+        
+                    <div class="border-b"></div>
+        
+                    <div class="py-2 px-4">
+                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Achievements</a>
+                        <a href="{% url 'user_settings' %}" class="block py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Dark Mode</a>
+                        <a href="{% url 'logout' %}" class="block py-2 text-gray-700 hover:bg-gray-100" style="color: #E53737;">Logout</a>
+                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Privacy Policy</a>
+                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Help and Feedback</a>
+                        <a href="#" class="block py-2 text-gray-700 hover:bg-gray-100">Give Me a Coffee</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex flex-row h-full w-full text-darkgreen">
+        <div class="bg-white1 flex-grow px-10 py-10 rounded-t-3xl h-full">
+            {% block main_content %}
+           
+            {% endblock %}
+        </div>
+    </main>
+
+    <script src="{% static 'flashcards/js/flashcards.js' %}"></script>
+
+</body>
+</html>

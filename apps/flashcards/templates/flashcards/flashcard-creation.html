@@ -1,0 +1,57 @@
+{% extends 'flashcard-base.html' %}
+{% load static %}
+
+{% block title %}Discere{% endblock %}
+
+{% block main_content %}
+    <div class="flex justify-between items-center mb-4">
+        <a href="{% url 'library' %}" class="flex items-center">
+            <img src="{% static 'icons/arrow-left.svg' %}" alt="Back" class="h-10 w-10 mr-2 text-darkgreen fill-current">
+        </a>
+
+        <div class="relative">
+            <button id="three-dot-menu" class="focus:outline-none">
+                <img src="{% static 'icons/three-dots menu.svg' %}" alt="Menu" class="h-10 w-10 text-darkgreen">
+            </button>
+
+            <div id="menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg">
+                <ul>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 1</a></li>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 2</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-xl font-bold" style="font-size: 36px;">Study Set Name</h1> 
+        <div class="flex space-x-4">
+
+            <button id="open-modal" class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center" style="font-size: 18px;">
+                <img src="{% static 'icons/plus.svg' %}" alt="icon" class="h-5 w-5 mr-2">
+                Add Flashcard 
+            </button>
+            <button id="start-learning" class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center" style="font-size: 18px;">
+                <img src="{% static 'icons/play.svg' %}" alt="icon" class="h-5 w-5 mr-2">
+                Start Learning
+            </button>
+        </div>
+    </div>
+
+    <div class="w-full h-px bg-black bg-opacity-10 mb-4"></div>
+    
+    <div class="flex flex-col items-center justify-center h-full">
+        <img src="{% static 'global-images/filler-2.png' %}" alt="Placeholder image" class="w-80 h-80" />
+        <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Add flashcard to get started</h2>
+    </div>
+    
+
+    
+
+    <script>
+        document.getElementById('three-dot-menu').addEventListener('click', function() {
+            var dropdown = document.getElementById('menu-dropdown');
+            dropdown.classList.toggle('hidden');
+        });
+    </script>
+    
+{% endblock %}

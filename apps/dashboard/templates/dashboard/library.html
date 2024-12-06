@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Discere{% endblock %}
+
+{% block main_content %}
+<div class="bg-white1 flex-grow ml-[102px] px-10 py-10 rounded-t-3xl min-h-full">
+    <div class="flex items-center justify-between">
+        <h1 class="text-xl font-bold mb-4" style="font-size: 36px">Your Library</h1>
+        <button id="open-modal" class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center" style="font-size: 18px;">
+            <img src="{% static 'icons/plus.svg' %}" alt="icon" class="h-5 w-5 mr-2">
+            Create Study Set
+        </button>
+    </div>
+
+    <div class="relative mb-6">
+        <div class="flex items-center space-x-4 mb-4">
+            <button id="study-sets" class="text-darkgreen font-semibold focus:outline-none active inline-block opacity-100" onclick="showTab('study-sets')">Study Sets</button>
+            <button id="exams" class="text-darkgreen font-semibold focus:outline-none inline-block opacity-50" onclick="showTab('exams')">Exams</button>
+        </div> 
+        <div class="absolute left-0 bottom-px h-1 bg-darkgreen transition-all duration-300 active-bar z-10"></div>
+        <div class="w-full h-px bg-black bg-opacity-10 mb-4"></div>
+    </div>
+    
+    
+
+    <div id="study-sets-content" class="tab-content">
+        <div class="flex flex-col items-center justify-center h-full">
+            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
+            <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Nothing here yet...</h2>
+        </div>
+    </div>
+    
+    <div id="exams-content" class="tab-content hidden">
+        <p>Your exams will be displayed here.</p>
+    </div>
+
+
+        {% comment %} <button class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-lg w-48 h-16 flex items-center justify-center" style="font-size: 20px;">
+            All subjects
+            <img src="{% static 'icons/angle-down.svg' %}" alt="icon" class="h-5 w-5 mr-2">
+        </button> {% endcomment %}
+
+
+
+    <!-- CREATE POP UP-->
+    <div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold">Create Study Set</h2>
+                    <button id="close-modal">
+                        <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
+                    </button>
+                </div>
+
+                <div class="mb-4">
+                    <label for="study-set-name" class="block text-lg font-semibold mb-1">Study Set Name</label>
+                    <input type="text" id="study-set-name" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Name">
+                </div>
+                <div class="mb-4">
+                    <label for="subject" class="block text-lg font-semibold mb-1">Subject</label>
+                    <input type="text" id="subject" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-lg font-semibold mb-1">Choose Color</label>
+                    <div class="flex space-x-2">
+                        <button class="relative w-10 h-10 bg-red-500 rounded-full transition duration-150 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-30" onclick="selectColor(this)">
+                            <span class="absolute inset-0 rounded-full ring-4 ring-red-500 opacity-30 hidden selected-ring"></span>
+                            <img src="{% static 'icons/check.svg' %}" alt="Selected" class="absolute inset-0 w-6 h-6 m-auto hidden selected-icon fill-current text-white">
+                        </button>
+
+                        <button class="relative w-10 h-10 bg-blue-500 rounded-full transition duration-150 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30" onclick="selectColor(this)">
+                            <span class="absolute inset-0 rounded-full ring-4 ring-blue-500 opacity-30 hidden selected-ring"></span>
+                            <img src="{% static 'icons/check.svg' %}" alt="Selected" class="absolute inset-0 w-6 h-6 m-auto hidden selected-icon fill-current text-white">
+                        </button>
+
+                        <button class="relative w-10 h-10 bg-green-500 rounded-full transition duration-150 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-30" onclick="selectColor(this)">
+                            <span class="absolute inset-0 rounded-full ring-4 ring-green-500 opacity-30 hidden selected-ring"></span>
+                            <img src="{% static 'icons/check.svg' %}" alt="Selected" class="absolute inset-0 w-6 h-6 m-auto hidden selected-icon fill-current text-white">
+                        </button>
+
+                        <button class="relative w-10 h-10 bg-yellow-500 rounded-full transition duration-150 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-30" onclick="selectColor(this)">
+                            <span class="absolute inset-0 rounded-full ring-4 ring-yellow-500 opacity-30 hidden selected-ring"></span>
+                            <img src="{% static 'icons/check.svg' %}" alt="Selected" class="absolute inset-0 w-6 h-6 m-auto hidden selected-icon fill-current text-white">
+                        </button>
+
+                        <button class="relative w-10 h-10 bg-purple-500 rounded-full transition duration-150 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-30" onclick="selectColor(this)">
+                            <span class="absolute inset-0 rounded-full ring-4 ring-purple-500 opacity-30 hidden selected-ring"></span>
+                            <img src="{% static 'icons/check.svg' %}" alt="Selected" class="absolute inset-0 w-6 h-6 m-auto hidden selected-icon fill-current text-white">
+                        </button>
+
+                        <button class="relative w-10 h-10 bg-pink-500 rounded-full transition duration-150 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-pink-500 focus:ring-opacity-30" onclick="selectColor(this)">
+                            <span class="absolute inset-0 rounded-full ring-4 ring-pink-500 opacity-30 hidden selected-ring"></span>
+                            <img src="{% static 'icons/check.svg' %}" alt="Selected" class="absolute inset-0 w-6 h-6 m-auto hidden selected-icon fill-current text-white">
+                        </button>
+
+                        <button class="relative w-10 h-10 bg-teal-500 rounded-full transition duration-150 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-teal-500 focus:ring-opacity-30" onclick="selectColor(this)">
+                            <span class="absolute inset-0 rounded-full ring-4 ring-teal-500 opacity-30 hidden selected-ring"></span>
+                            <img src="{% static 'icons/check.svg' %}" alt="Selected" class="absolute inset-0 w-6 h-6 m-auto hidden selected-icon fill-current text-white">
+                        </button>
+
+                        <button class="relative w-10 h-10 bg-gray-500 rounded-full transition duration-150 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-gray-500 focus:ring-opacity-30" onclick="selectColor(this)">
+                            <span class="absolute inset-0 rounded-full ring-4 ring-gray-500 opacity-30 hidden selected-ring"></span>
+                            <img src="{% static 'icons/check.svg' %}" alt="Selected" class="absolute inset-0 w-6 h-6 m-auto hidden selected-icon fill-current text-white">
+                        </button>
+
+                    </div>
+                </div>     
+            </div>
+                <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full" id="create-study-set-btn">Create</button>
+        </div>
+    </div>
+</div>   
+    
+        
+
+    <script src="{% static 'dashboard/js/library.js' %}"></script>
+{% endblock %}
