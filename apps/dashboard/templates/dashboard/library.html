@@ -15,8 +15,8 @@
 
     <div class="relative mb-6">
         <div class="flex items-center space-x-4 mb-4">
-            <button id="study-sets" class="text-darkgreen font-semibold focus:outline-none active inline-block opacity-100" onclick="showTab('study-sets')">Study Sets</button>
-            <button id="exams" class="text-darkgreen font-semibold focus:outline-none inline-block opacity-50" onclick="showTab('exams')">Exams</button>
+            <button id="study-sets" class="text-darkgreen font-semibold focus:outline-none active inline-block opacity-100">Study Sets</button>
+            <button id="exams" class="text-darkgreen font-semibold focus:outline-none inline-block opacity-50">Exams</button>
         </div> 
         <div class="absolute left-0 bottom-px h-1 bg-darkgreen transition-all duration-300 active-bar z-10"></div>
         <div class="w-full h-px bg-black bg-opacity-10 mb-4"></div>
@@ -32,11 +32,39 @@
     </div>
     
     <div id="exams-content" class="tab-content hidden">
+        {% if exam_sets %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for exam in exam_sets %}
+                <div class="card bg-white rounded-lg shadow-lg p-4 w-[362px] h-[312px] flex flex-col justify-between">
+                    <!-- Title -->
+                    <h3 class="text-2xl font-bold">{{ exam.name }}</h3>
+    
+                    <!-- Subject -->
+                    <p class="text-sm text-[#018141]">Subject: {{ exam.subject }}</p>
+    
+                    <!-- Date Created -->
+                    <p class="text-sm text-darkgreen">{{ exam.created_at|date:"F j, Y" }}</p>
+    
+                    <!-- Three-dot Menu -->
+                    <div class="mt-auto flex justify-end">
+                        <button class="text-gray-500 hover:text-darkgreen">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
         <div class="flex flex-col items-center justify-center h-full">
             <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
             <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Add exam set to get started.</h2>
         </div>
+        {% endif %}
     </div>
+    
+    
 
     <!-- CREATE STUDY SET POP UP-->
     <div id="create-study-set-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
@@ -157,21 +185,24 @@
             </div>
 
             <div class="mb-4">
-                <label for="subject" class="block text-lg font-semibold mb-1">Subject</label>
-                <input type="text" id="subject" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject">
+                <label for="subject-exam" class="block text-lg font-semibold mb-1">Subject</label>
+                <input type="text" id="subject-exam" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject">
             </div>
 
             <div class="mb-4">
                 <label for="exam-type" class="block text-lg font-semibold mb-1">Exam Type</label>
                 <select id="exam-type" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen">
-                    <option value="identification">Identification</option>
+                    <option value="Identification">Identification</option>
                 </select>
             </div>
         </div>
 
-        <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12" id="create-exam-set-btn">
-            Create
-        </button>
+        <a href="{% url 'exam_creation' %}">
+            <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12" id="create-exam-set-btn">
+                Create
+            </button>
+        </a>        
+        
     </div>
 </div>
 

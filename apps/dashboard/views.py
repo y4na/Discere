@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProfilePictureForm, CustomPasswordChangeForm
 from .models import Profile
-
+from .models import ExamSet
 
 
 
@@ -16,9 +16,6 @@ from .models import Profile
 def dashboard_home(request):
     return render(request, 'dashboard/home.html')
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .forms import ProfilePictureForm
 
 
 
@@ -55,17 +52,19 @@ def user_settings(request):
         'password_form': password_form,
     })
 
-
-
-    
+@login_required
 def library(request):
-    return render(request, 'dashboard/library.html')
+    exam_sets = ExamSet.objects.filter(user=request.user)
+    return render(request, 'dashboard/library.html', {'exam_sets': exam_sets})
 
 def studysets_view(request):
     return render(request, 'library/studysets.html')
 
 def exams_view(request):
     return render(request, 'library/exams.html')
+
+def exam_creation(request):
+    return render(request, 'exams/exam-creation.html')
 
 # def user_settings(request):
 #     # Make sure the user is authenticated
@@ -86,3 +85,22 @@ def exams_view(request):
 #         form = ProfilePictureForm(instance=user_profile)
 
 #     return render(request, 'dashboard/user_settings.html', {'form': form})
+
+@login_required
+def save_exam_set(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            exam_set = ExamSet.objects.create(
+                name=data["name"],
+                subject=data["subject"],
+                exam_type=data["type"],
+                user=request.user
+            )
+            return JsonResponse({"success": True, "exam_set_id": exam_set.id})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    return JsonResponse({"success": False, "error": "Invalid request method."})
+
+

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, ExamSet
 
 class ProfileInline(admin.StackedInline):
     model = Profile
@@ -24,3 +24,4 @@ admin.site.register(User, CustomUserAdmin)
 
 # Register the Profile model (add this line)
 admin.site.register(Profile)
+admin.site.register(ExamSet)

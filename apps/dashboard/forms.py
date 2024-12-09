@@ -32,3 +32,4 @@ class CustomPasswordChangeForm(forms.Form):
             raise forms.ValidationError("The current password is incorrect.")
         
         return cleaned_data
+    

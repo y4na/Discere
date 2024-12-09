@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'apps.dashboard',
     'apps.landing',
     'apps.flashcards',
-    'apps.exams',
     'tailwind',
     'theme',
     'django_browser_reload',

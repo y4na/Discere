@@ -31,9 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-//library.js
-document.addEventListener("DOMContentLoaded", function() {
     const studySetsButton = document.querySelector('#study-sets');
     const examsButton = document.querySelector('#exams');
     const activeBar = document.querySelector('.active-bar');
@@ -44,7 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const createExamModal = document.getElementById('create-exam-modal');
     const closeModalBtn = document.getElementById('close-modal');
     const closeExamModalBtn = document.getElementById('close-exam-modal');
-
+//library.js
+document.addEventListener("DOMContentLoaded", function() {
     function setActiveBar(button) {
         activeBar.style.width = `${button.offsetWidth}px`;
         activeBar.style.left = `${button.offsetLeft}px`;
@@ -178,11 +176,68 @@ function closeModal(modalId) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('profilePictureForm');
-    const fileInput = form.querySelector('input[type="file"]');
-    
-    fileInput.addEventListener('change', function() {
-        form.submit();
-    });
+document.addEventListener('DOMContentLoaded', function () {
+    try {
+        const form = document.getElementById('profilePictureForm');
+        if (!form) throw new Error('Form with ID "profilePictureForm" not found.');
+
+        const fileInput = form.querySelector('input[type="file"]');
+        if (!fileInput) throw new Error('File input not found in the form.');
+
+        fileInput.addEventListener('change', function () {
+            form.submit();
+        });
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
 });
+
+
+
+//dfsfdsd
+document.getElementById("create-exam-set-btn").addEventListener("click", async function () {
+    // Get form data
+    const examSetName = document.getElementById("exam-set-name").value;
+    const subject = document.getElementById("subject-exam").value;
+    const examType = document.getElementById("exam-type").value;
+
+    // Validate input
+    if (examSetName == '' || subject == '' || examType == '') {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    try {
+        const response = await fetch("/save-exam-set/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'X-CSRFToken': document.querySelector('[name=csrf-token]').content // CSRF token for Django
+            },
+            body: JSON.stringify({
+                name: examSetName,
+                subject: subject,
+                type: examType,
+            }),
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            alert("Exam set created successfully!");
+                    examsContent.classList.remove('hidden');
+                    studySetsContent.classList.add('hidden');
+                    openModalBtn.innerHTML = `
+                        <img src="/static/icons/plus.svg" alt="icon" class="h-5 w-5 mr-2">
+                        Create Exam
+                    `;
+            
+        } else {
+            alert("Error saving exam set: " + result.error);
+        }
+    } catch (error) {
+        alert("An error occurred: " + error.message);
+    }
+
+    document.getElementById("manually-create-modal").classList.add("hidden");
+});
+
