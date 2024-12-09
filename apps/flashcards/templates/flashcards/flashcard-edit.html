@@ -102,15 +102,17 @@
     </div>
     
     <div style="padding: 40px 0">
-        <form method="POST" action="{% url 'flashcard_view' %}">
+        <form method="POST" action="{% url 'update_flashcards' study_set.id %}">
             {% csrf_token %}
             
             <input type="hidden" name="flashcard_id" value="{{ flashcard_id }}">
 
             <div id="flashcards">
                 {% for flashcard in flashcards %}
+                {% for flashcard in flashcards %}
                 <div class="flashcard">
                     <div class="flashcard-header">
+                        <span class="flashcard-number">{{ forloop.counter }}</span>
                         <span class="flashcard-number">{{ forloop.counter }}</span>
                         <button type="button" class="delete-btn">
                             <i class="fas fa-trash"></i>
@@ -138,8 +140,9 @@
                     </div>
                 </div>
                 {% endfor %}
+                {% endfor %}
             </div>
-
+        
             <div class="add-card-section">
                 <div class="add-card">
                     <button type="button" class="add-card-btn">
@@ -147,18 +150,17 @@
                     </button>
                 </div>
             </div>
-
+        
             <div style="display: flex; justify-content: right; align-items: center; margin-right: 145px; margin-bottom: 10px;">
                 <button class="text-darkgreen font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center"
                         style="font-size: 18px; border: 4px solid #012d19; "
                         onmouseover="this.style.backgroundColor='#012d19'; this.style.color='white';"
-                        onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#012d19'"
-                        type="submit" class="btn btn-primary">
+                        onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#012d19'" type="submit" class="btn btn-primary">
                     <i class="fa fa-magic" style="margin-right: 10px; font-size: 15px;"></i>
-                    Save Flashcard 
+                    Save Changes 
                 </button>
             </div>
-        </form>
+        </form>        
 
         <div id="modal" class="modal">
             <div class="modal-content">
