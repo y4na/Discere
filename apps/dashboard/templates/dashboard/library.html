@@ -41,7 +41,7 @@
                         max-width: calc(25% - 40px);"
                  onmouseover="this.style.boxShadow = '0 0px 10px 0 #012f19'"
                  onmouseout="this.style.boxShadow = 'none'"
-                 onclick="window.location.href='{% url 'flashcard_viewer' %}';">
+                 onclick="window.location.href='{% url 'flashcard_viewer' study_set.id %}';">
                 
                 <div style="background-color: #00ff7f; 
                             height: 16px; 
@@ -63,62 +63,7 @@
                         {{ study_set.set_name }}
                     </h3> 
                     <p style="font-size: 20px; color: #018141; font-weight: 600; margin-bottom: 10px">{{ study_set.set_subject }}</p>
-                    <p style="font-size: 20px; color: #012e19; font-weight: 600;"> {{ study_set.flashcard_count }} Flashcards</p>
-                    <div style="text-align: right; margin-bottom: -10px; margin-top: -10px; position: relative;">
-                        <button id="menuButton-{{ forloop.counter }}" 
-                                style="border-radius: 50%; padding: 0 10px; padding-top: 7px; padding-bottom: 4px; background-color: #faf9f6;"
-                                onmouseover="this.style.backgroundColor = '#DCDCDC'"
-                                onmouseout="this.style.backgroundColor = '#faf9f6'"
-                                onclick="toggleMenu('popupMenu-{{ forloop.counter }}')">
-                            <i class="fa fa-ellipsis-h" style="font-size: 24px; "></i>
-                        </button>
-                    
-                        <div id="popupMenu-{{ forloop.counter }}" 
-                             style="display: none;
-                                    position: absolute;
-                                    top: 40px;
-                                    right: 0;
-                                    background-color: #fff;
-                                    border: 1px solid #ccc; 
-                                    border-radius: 8px;
-                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                                    z-index: 1000;
-                                    width: 200px;">
-                            <ul style="list-style: none; margin: 0; text-align: left;">
-                                <li style="padding: 8px 16px;
-                                           cursor: pointer;
-                                           border-bottom: 1px solid #ccc;
-                                           border-top-left-radius: 8px; 
-                                           border-top-right-radius: 8px;" 
-                                    onmouseover="this.style.backgroundColor='#f2f2f2'"
-                                    onmouseout="this.style.backgroundColor='#fff'"
-                                    onclick="handleAction('archive')">
-                                    <i class="far fa-folder" style="margin-right: 10px;"></i>
-                                    Add to Archive
-                                </li>
-                                <li style="padding: 8px 16px;
-                                           cursor: pointer;
-                                           border-bottom: 1px solid #ccc;" 
-                                    onmouseover="this.style.backgroundColor='#f2f2f2'"
-                                    onmouseout="this.style.backgroundColor='#fff'"
-                                    onclick="handleAction('favorite')">
-                                    <i class="far fa-bookmark" style="margin-left: 1px; margin-right: 11px;"></i>
-                                    Add to Favorites
-                                </li>
-                                <li style="padding: 8px 16px;
-                                           cursor: pointer;
-                                           color: red;
-                                           border-bottom-left-radius: 8px; 
-                                           border-bottom-right-radius: 8px;" 
-                                    onmouseover="this.style.backgroundColor='#FFF0F0'"
-                                    onmouseout="this.style.backgroundColor='#fff'"
-                                    onclick="handleAction('delete')">
-                                    <i class="far fa-trash-alt" style="margin-right: 10px;"></i>
-                                    Delete Set
-                                </li>
-                            </ul>
-                        </div>
-                    </div>                    
+                    <p style="font-size: 20px; color: #012e19; font-weight: 600; margin-bottom: 10px;"> {{ study_set.flashcard_count }} Flashcards</p>
                 </div>
             </div>
         {% endfor %}
@@ -141,7 +86,7 @@
         </button> {% endcomment %}
 
     <!-- CREATE POP UP-->
-    <div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden" style="make the outside backgorund dim and black">
+    <div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
         
         <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-10"></div>
 

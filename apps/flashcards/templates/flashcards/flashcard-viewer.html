@@ -74,42 +74,48 @@
             <i class="fa fa-chevron-left" style="font-size: 30px"></i>
         </div>
 
-        
-            {% for flashcard in flashcards %}
-                <div class="flashcard" style="border: 3px solid #012e19; margin: 70px 0; height: 80vh; width: 60vw; border-radius: 30px; display: flex; justify-content: center; align-items: center; text-align: center; flex-direction: column; font-size: 40px; box-shadow: 0px 0px 50px rgba(7, 102, 58, 0.2); font-weight: 600; position: relative;">
-                    <span id="term-{{ flashcard.id }}" class="flashcard-term">{{ flashcard.term }}</span>
-                    <div id="answer-{{ flashcard.id }}" class="flashcard-answer" style="display: none;">
-                        <span>{{ flashcard.definition }}</span>
-                    </div>
-                    <button type="button"
-                            class="btn reveal-btn"
-                            onclick="toggleAnswer({{ flashcard.id }})"
-                            style="border: 1px solid #B0B0B0;
-                                font-size: 17px;
-                                border-radius: 15px;
-                                padding: 15px 30px;
-                                color: #787878;
-                                margin-top: 10px;
-                                background-color: #faf9f6;
-                                letter-spacing: 0.5px;"
-                            onmouseover="this.style.borderColor='#585858'; this.style.color='#585858';"
-                            onmouseout="this.style.borderColor='#B0B0B0'; this.style.color='#787878';">
-                        Reveal Answer
-                    </button>
+        {% for flashcard in flashcards %}
+            <div class="flashcard" style="background:#faf9f6; border: 3px solid #012e19; margin: 70px 0; height: 80vh; width: 60vw; border-radius: 30px; display: flex; justify-content: center; align-items: center; text-align: center; flex-direction: column; font-size: 40px; box-shadow: 0px 0px 50px rgba(7, 102, 58, 0.2); font-weight: 600; position: relative; user-select: none;">
+                <span id="term-{{ flashcard.id }}" class="flashcard-term" style="display: flex; justify-content: center; padding-top: 28%; color: #012e19; width: 100%; height: 100%;">
+                    {{ flashcard.term }}
+                </span>
+                <div id="answer-{{ flashcard.id }}" class="flashcard-answer" style="padding-top: 28%; color: #012e19; width: 100%; height: 100%; display: none;">
+                    <span>{{ flashcard.definition }}</span>
                 </div>
-            {% endfor %}
-        
-
+                <button type="button"
+                        class="btn reveal-btn"
+                        id="reveal-btn"
+                        onclick="toggleAnswer({{ flashcard.id }})"
+                        style="border: 1px solid #B0B0B0;
+                            font-size: 17px;
+                            border-radius: 15px;
+                            padding: 15px 30px;
+                            color: #787878;
+                            position: absolute;
+                            bottom: 60px;
+                            left: 42%;
+                            background-color: #faf9f6;
+                            letter-spacing: 0.5px;"
+                        onmouseover="this.style.borderColor='#585858'; this.style.color='#585858';"
+                        onmouseout="this.style.borderColor='#B0B0B0'; this.style.color='#787878';">
+                    Reveal Answer
+                </button>
+            </div>
+        {% endfor %}
+    
         <div style="border: 3px solid #012e19; padding: 100px 60px; border-radius: 30px; margin-left: -65px; background-color: white; z-index: 10;" onmouseover="this.style.backgroundColor='#012d19'; this.style.color='white';" onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#012d19'" id="nextBtn">
             <i class="fa fa-chevron-right" style="font-size: 30px;"></i>
         </div>
     </div>
 
     <div id="delete-confirmation" class="hidden fixed inset-0 bg-opacity-500 flex justify-center items-center">
-        <div class="bg-white p-6 rounded-lg w-96 text-center" style="border: 1px solid #012d19" style="user-select:none">
+
+        <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-10"></div>
+
+        <div class="bg-white p-6 rounded-lg w-96 text-center" style="border-radius: 20px; border: 2px solid #012d19; user-select: none; z-index: 1000">
             <h2 class="text-xl mb-4" style="margin-bottom: 40px;">Are you sure you want to delete all flashcards for this set?</h2>
-            <button id="confirm-delete" class="bg-red-600 px-4 py-2 rounded" style="border: 1px solid #8B0000; color: red; margin-right: 20px;" onmouseover="this.style.backgroundColor='#8B0000'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='red';">Yes, Delete</button>
-            <button id="cancel-delete" class="bg-gray-400 px-4 py-2 rounded ml-4" style="border: 1px solid #00008B; color: #00008B" onmouseover="this.style.backgroundColor='#00008B'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#00008B';">No, Cancel</button>
+            <button id="confirm-delete" class="bg-red-600 px-4 py-2 rounded" style="border: 2px solid #8B0000; color: red; margin-right: 20px;" onmouseover="this.style.backgroundColor='#8B0000'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='red';">Yes, Delete</button>
+            <button id="cancel-delete" class="bg-gray-400 px-4 py-2 rounded ml-4" style="border: 2px solid #00008B; color: #00008B" onmouseover="this.style.backgroundColor='#00008B'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#00008B';">No, Cancel</button>
         </div>
     </div>
 
@@ -117,58 +123,63 @@
         var currentFlashcardIndex = 0;
         var flashcards = document.querySelectorAll('.flashcard');
         var totalFlashcards = flashcards.length;
-
+    
         showFlashcard(currentFlashcardIndex);
-
+    
         document.getElementById('nextBtn').addEventListener('click', function() {
             currentFlashcardIndex = (currentFlashcardIndex + 1) % totalFlashcards;  
             showFlashcard(currentFlashcardIndex);
             updatePageNumber();
         });
-
+    
         document.getElementById('prevBtn').addEventListener('click', function() {
             currentFlashcardIndex = (currentFlashcardIndex - 1 + totalFlashcards) % totalFlashcards;
             showFlashcard(currentFlashcardIndex);
             updatePageNumber();
         });
-
+    
         function showFlashcard(index) {
             flashcards.forEach(function(flashcard, i) {
                 flashcard.style.display = 'none';
             });
             flashcards[index].style.display = 'block';
         }
-
+    
         function toggleAnswer(flashcardId) {
             var termElement = document.getElementById('term-' + flashcardId);
             var answerElement = document.getElementById('answer-' + flashcardId);
-
+            var revealbtn = document.getElementById('reveal-btn');
+    
             if (answerElement.style.display === 'none') {
                 termElement.style.display = 'none';
                 answerElement.style.display = 'block';
+                revealbtn.innerText = "Reveal Term";
+                revealbtn.style.marginLeft = "10px"; 
             } else {
                 termElement.style.display = 'block';
                 answerElement.style.display = 'none';
+                revealbtn.innerText = "Reveal Answer";
+                revealbtn.style.marginLeft = "0px";
             }
-        }
-
+        }        
+    
         function updatePageNumber() {
             document.getElementById('current-page').innerText = currentFlashcardIndex + 1;
         }
-
+    
         document.getElementById('three-dot-menu').addEventListener('click', function() {
             var dropdown = document.getElementById('menu-dropdown');
             dropdown.classList.toggle('hidden');
         });
-
+    
         document.getElementById('delete-flashcards').addEventListener('click', function() {
             document.getElementById('delete-confirmation').classList.remove('hidden');
         });
-
+    
         document.getElementById('cancel-delete').addEventListener('click', function() {
             document.getElementById('delete-confirmation').classList.add('hidden');
         });
-
+    
         document.getElementById('confirm-delete').addEventListener('click', function() {
             var studySetId = '{{ flashcards.first.study_set.id }}'; 
             fetch('/delete_flashcards/', {
@@ -182,12 +193,14 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload();
+                    window.location.href = "{% url 'library' %}"; 
                 } else {
                     alert('Error deleting flashcards.');
                 }
             });
             document.getElementById('delete-confirmation').classList.add('hidden');
         });
+        
     </script>
+    
 {% endblock %}

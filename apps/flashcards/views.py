@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Flashcard
 from django.views.decorators.csrf import csrf_exempt
@@ -11,8 +12,8 @@ def flashcard_creation(request):
         'study_set': study_sets.first() if study_sets.exists() else None
     })
 
-def flashcard_viewer(request):
-    flashcards = Flashcard.objects.filter(study_set_id=762)
+def flashcard_viewer(request, study_set_id):
+    flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
     return render(request, 'flashcards/flashcard-viewer.html', {'flashcards': flashcards})
 
 def flashcard_view(request):
@@ -58,12 +59,17 @@ def library_view(request):
 @csrf_exempt
 def delete_flashcards(request):
     if request.method == 'POST':
-        # Get study_set_id from the request
-        data = json.loads(request.body)
-        study_set_id = data.get('study_set_id')
+        try:
+            data = json.loads(request.body)
+            study_set_id = data.get('study_set_id')
 
-        if study_set_id:
-            # Delete all flashcards associated with the study_set_id
-            Flashcard.objects.filter(study_set_id=study_set_id).delete()
+            if not study_set_id:
+                return JsonResponse({'success': False, 'message': 'Study set ID is missing.'}, status=400)
+
+            study_set = get_object_or_404(StudySet, id=study_set_id)
+            Flashcard.objects.filter(study_set=study_set).delete()
+            study_set.delete()
+
             return JsonResponse({'success': True})
-        return JsonResponse({'success': False})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)}, status=400)
