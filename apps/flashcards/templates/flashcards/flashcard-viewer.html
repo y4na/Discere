@@ -25,14 +25,18 @@
             <button id="three-dot-menu" class="focus:outline-none">
                 <img src="{% static 'icons/three-dots menu.svg' %}" alt="Menu" class="h-10 w-10 text-darkgreen">
             </button>
-
+        
             <div id="menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg">
                 <ul>
-                    <a href="{% url 'flashcard-editor' %}" class="block px-4 py-2 hover:bg-gray-100">Edit</a>
+                    {% if flashcards %}
+                        <a href="{% url 'flashcard_edit_viewer' flashcards.first.study_set.id %}" class="block px-4 py-2 hover:bg-gray-100">Edit</a>
+                    {% else %}
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 disabled text-gray-400 cursor-not-allowed">Edit</a>
+                    {% endif %}
                     <li><a href="#" class="block px-4 py-2 hover:bg-gray-100" id="delete-flashcards" style="color: red">Delete</a></li>
                 </ul>
             </div>
-        </div>
+        </div>        
     </div>
 
     <div class="w-full h-px bg-opacity-10 mb-4" style="margin-top: 40px; border-top: 3px solid lightgrey;"> </div>

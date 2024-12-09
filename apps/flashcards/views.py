@@ -19,9 +19,14 @@ def flashcard_viewer(request, study_set_id):
     flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
     return render(request, 'flashcards/flashcard-viewer.html', {'flashcards': flashcards})
 
-def flashcard_edit_viewer(request):
-    flashcards = Flashcard.objects.all()
-    return render(request, 'flashcards/flashcard-edit.html', {'flashcards': flashcards})
+def flashcard_edit_viewer(request, study_set_id):
+    flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
+    study_set = get_object_or_404(StudySet, id=study_set_id)
+    return render(request, 'flashcards/flashcard-edit.html', {
+        'flashcards': flashcards,
+        'study_set': study_set
+    })
+
 
 def flashcard_view(request):
     if request.method == 'POST':
@@ -87,3 +92,42 @@ def delete_study_set(request, study_set_id):
         study_set.delete()
         return JsonResponse({"message": "Study set deleted successfully"}, status=200)
     return JsonResponse({"error": "Invalid request method"}, status=400)
+
+def update_flashcards(request, study_set_id):
+    study_set = get_object_or_404(StudySet, id=study_set_id)
+    flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
+
+    if request.method == 'POST':
+        flashcard_count = 0
+        for key in request.POST:
+            if key.startswith('term_'):
+                term_index = key.split('_')[1]
+                definition_key = f'definition_{term_index}'
+                term = request.POST.get(key)
+                definition = request.POST.get(definition_key)
+
+                if term and definition:
+                    # Check if flashcard exists
+                    flashcard = Flashcard.objects.filter(study_set=study_set, term=term).first()
+
+                    if flashcard:
+                        flashcard.definition = definition
+                        flashcard.save()
+                    else:
+                        # If no existing flashcard found, create a new one
+                        Flashcard.objects.create(
+                            study_set=study_set,
+                            term=term,
+                            definition=definition
+                        )
+                    flashcard_count += 1
+
+        study_set.flashcard_count = flashcard_count
+        study_set.save()
+
+        return redirect('flashcard_viewer', study_set_id=study_set_id)
+
+    return render(request, 'flashcards/flashcard-edit.html', {
+        'flashcards': flashcards,
+        'study_set': study_set
+    })
