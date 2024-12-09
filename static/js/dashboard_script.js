@@ -41,6 +41,41 @@ document.addEventListener('DOMContentLoaded', function () {
     const createExamModal = document.getElementById('create-exam-modal');
     const closeModalBtn = document.getElementById('close-modal');
     const closeExamModalBtn = document.getElementById('close-exam-modal');
+
+    function toggleMenu(menuId) {
+        const menu = document.getElementById(menuId);
+        menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
+    }
+
+    function handleAction(action) {
+        alert(`Action selected: ${action}`);
+        if (action === 'archive') {
+            console.log("Adding to Archive...");
+        } else if (action === 'favorite') {
+            console.log("Adding to Favorites...");
+        } else if (action === 'delete') {
+            console.log("Deleting Set...");
+        }
+    }
+
+    document.addEventListener('click', function(event) {
+        const menus = document.querySelectorAll('[id^="popupMenu-"]');
+        const buttons = document.querySelectorAll('[id^="menuButton-"]');
+
+        let isClickInside = false;
+
+        menus.forEach(menu => {
+            if (menu.contains(event.target)) isClickInside = true;
+        });
+        buttons.forEach(button => {
+            if (button.contains(event.target)) isClickInside = true;
+        });
+
+        if (!isClickInside) {
+            menus.forEach(menu => menu.style.display = 'none');
+        }
+    });
+    
 //library.js
 document.addEventListener("DOMContentLoaded", function() {
     function setActiveBar(button) {

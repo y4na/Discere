@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block main_content %}
+<div class="bg-white1 flex-grow px-10 py-10 rounded-t-3xl min-h-full">
     <div class="flex justify-between items-center mb-4 relative" style="user-select: none">
         {% csrf_token %}
         <a href="{% url 'library' %}" class="flex items-center">
@@ -136,7 +137,7 @@
             <button id="cancel-delete" class="bg-gray-400 px-4 py-2 rounded ml-4" style="border: 2px solid #00008B; color: #00008B" onmouseover="this.style.backgroundColor='#00008B'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#00008B';">No, Cancel</button>
         </div>
     </div>
-
+</div>
     <script>
         var currentFlashcardIndex = 0;
         var flashcards = document.querySelectorAll('.flashcard');

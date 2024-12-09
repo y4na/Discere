@@ -28,108 +28,62 @@
 
     <div id="study-sets-content" class="tab-content">
         {% if study_sets %}
-        <div style="display: flex; 
-                flex-wrap: wrap; 
-                gap: 45px; 
-                padding-top: 30px; 
-                padding-bottom: 20px;
-                margin-left: 1.1%;">
-        {% for study_set in study_sets %}
-            <div style="border: 3px solid #002f19; 
-                        border-radius: 20px; 
-                        flex: 1 1 calc(25% - 40px);
-                        cursor: pointer;
-                        max-width: calc(25% - 40px);"
-                 onmouseover="this.style.boxShadow = '0 0px 10px 0 #012f19'"
-                 onmouseout="this.style.boxShadow = 'none'"
-                 onclick="window.location.href='{% url 'flashcard_viewer' study_set.id %}';">
-                
-                <div style="background-color: #00ff7f; 
-                            height: 16px; 
-                            border-top-left-radius: 20px; 
-                            border-top-right-radius: 20px;"></div>
-
-                <div style="padding: 20px;">
-                    <h3 class="font-outfit" 
-                        style="color: #012e19; 
-                               font-size: 40px; 
-                               padding: 0; 
-                               margin: 0; 
-                               line-height: 1.1;
-                               margin-bottom: 10px;
-                               font-weight: 600;
-                               height: 100px;
-                               display: flex;
-                               align-items: center;">
+        <div class="flex flex-wrap gap-11 pt-8 pb-5 ml-[1.1%]">
+            {% for study_set in study_sets %}
+            <div class="border-2 border-[#002f19] rounded-2xl card bg-white w-[362px] h-[312px] flex flex-col justify-between cursor-pointer transition-all transform hover:scale-105" 
+                onclick="window.location.href='{% url 'flashcard_viewer' study_set.id %}';">
+                <div class="bg-[#00ff7f] h-4 rounded-t-2xl"></div>
+                <div class="p-5">
+                    <h3 class="font-outfit text-[#012e19] text-4xl font-semibold mb-2 h-24 flex items-center">
                         {{ study_set.set_name }}
-                    </h3> 
-                    <p style="font-size: 20px; color: #018141; font-weight: 600; margin-bottom: 10px">{{ study_set.set_subject }}</p>
-                    <p style="font-size: 20px; color: #012e19; font-weight: 600; margin-bottom: 10px;"> {{ study_set.flashcard_count }} Flashcards</p>
+                    </h3>
+                    <p class="text-[#018141] text-xl font-semibold mb-2">{{ study_set.set_subject }}</p>
+                    <p class="text-[#012e19] text-xl font-semibold mb-2">{{ study_set.flashcard_count }} Flashcards</p>
                 </div>
             </div>
-        {% endfor %}
-        <div class="flex flex-col items-center justify-center h-full">
-            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
-            <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Add study set to get started.</h2>
-        </div>
-        {% else %}
-            <div class="flex flex-col items-center justify-center h-full">
-                <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
-                <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Nothing here yet...</h2>
-            </div>
-        {% endif %}
-    </div>
-    
-    <div id="exams-content" class="tab-content hidden">
-        {% if exam_sets %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {% for exam in exam_sets %}
-                <div class="card bg-white rounded-lg shadow-lg p-4 w-[362px] h-[312px] flex flex-col justify-between">
-                    <!-- Title -->
-                    <h3 class="text-2xl font-bold">{{ exam.name }}</h3>
-    
-                    <!-- Subject -->
-                    <p class="text-sm text-[#018141]">Subject: {{ exam.subject }}</p>
-    
-                    <!-- Date Created -->
-                    <p class="text-sm text-darkgreen">{{ exam.created_at|date:"F j, Y" }}</p>
-    
-                    <!-- Three-dot Menu -->
-                    <div class="mt-auto flex justify-end">
-                        <button class="text-gray-500 hover:text-darkgreen">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
             {% endfor %}
         </div>
         {% else %}
         <div class="flex flex-col items-center justify-center h-full">
-            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
+            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="w-80 h-80 mt-48" />
+            <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Add study set to get started.</h2>
+        </div>
+        {% endif %}
+    </div>
+    
+    
+
+    <div id="exams-content" class="tab-content hidden">
+        {% if exam_sets %}
+        <div class="flex flex-wrap gap-11 pt-8 pb-5 ml-[1.1%]">
+            {% for exam in exam_sets %}
+            <div class="border-2 border-[#002f19] rounded-2xl card bg-white w-[362px] h-[312px] flex flex-col justify-between cursor-pointer transition-all transform hover:scale-105">
+                <div class="bg-[#00ff7f] h-4 rounded-t-2xl"></div>
+                <div class="p-5">
+                    <h3 class="font-outfit text-[#012e19] text-4xl font-semibold mb-2 h-24 flex items-center">
+                        {{ exam.name }}
+                    </h3>
+                    <p class="text-[#018141] text-xl font-semibold mb-2">{{ exam.subject }}</p>
+                    <p class="text-[#012e19] text-xl font-semibold mb-2">{{ exam.created_at|date:"F j, Y" }}</p>
+                </div>
+                <!-- Three-dot Menu -->
+
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="flex flex-col items-center justify-center h-full">
+            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="w-80 h-80 mt-48" />
             <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Add exam set to get started.</h2>
         </div>
         {% endif %}
     </div>
     
-    
 
-        {% comment %} <button class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-lg w-48 h-16 flex items-center justify-center" style="font-size: 20px;">
-            All subjects
-            <img src="{% static 'icons/angle-down.svg' %}" alt="icon" class="h-5 w-5 mr-2">
-        </button> {% endcomment %}
 
     <!-- CREATE POP UP-->
-    <div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-        
-        <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-10"></div>
-
-        <form action="{% url 'create_study_set' %}" method="POST" class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between z-10" style="width: 400px;">
-            {% csrf_token %}
-    <!-- CREATE STUDY SET POP UP-->
     <div id="create-study-set-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col w-[446px] h-[470px]">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col w-[446px] h-[380px]">
             <div>
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-3xl font-bold">Create Study Set</h2>
@@ -142,55 +96,19 @@
                     <label for="study-set-name" class="block text-lg font-semibold mb-1">Study Set Name</label>
                     <input type="text" id="study-set-name" name="study_set_name" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Name" required>
                 </div>
+    
                 <div class="mb-4">
                     <label for="subject" class="block text-lg font-semibold mb-1">Subject</label>
                     <input type="text" id="subject" name="subject" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject" required>
                 </div>
             </div>
-            <button type="submit" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full" style="margin-top: 15px;">Create</button>
-        </form>
-    </div>
-
-    <script>
-        function toggleMenu(menuId) {
-            const menu = document.getElementById(menuId);
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
-        }
-
-        function handleAction(action) {
-            alert(`Action selected: ${action}`);
-            if (action === 'archive') {
-                console.log("Adding to Archive...");
-            } else if (action === 'favorite') {
-                console.log("Adding to Favorites...");
-            } else if (action === 'delete') {
-                console.log("Deleting Set...");
-            }
-        }
-
-        document.addEventListener('click', function(event) {
-            const menus = document.querySelectorAll('[id^="popupMenu-"]');
-            const buttons = document.querySelectorAll('[id^="menuButton-"]');
-
-            let isClickInside = false;
-
-            menus.forEach(menu => {
-                if (menu.contains(event.target)) isClickInside = true;
-            });
-            buttons.forEach(button => {
-                if (button.contains(event.target)) isClickInside = true;
-            });
-
-            if (!isClickInside) {
-                menus.forEach(menu => menu.style.display = 'none');
-            }
-        });
-    </script>
-            <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12" id="create-study-set-btn">
+    
+            <button type="submit" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12">
                 Create
             </button>
         </div>
     </div>
+    
     <!-- CREATE EXAM POP UP-->
     <div id="create-exam-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between relative" style="width: 760px; height: 440px;">

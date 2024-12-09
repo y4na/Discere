@@ -1,14 +1,15 @@
 from django.contrib import admin
 from .models import StudySet
 from apps.flashcards.models import Flashcard
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from .models import Profile, ExamSet
 
 @admin.register(StudySet)
 class StudySetAdmin(admin.ModelAdmin):
     list_display = ('id', 'set_name', 'set_subject', 'flashcard_count')
     
-from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
-from .models import Profile, ExamSet
+
 
 class ProfileInline(admin.StackedInline):
     model = Profile

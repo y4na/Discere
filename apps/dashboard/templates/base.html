@@ -6,13 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     {% tailwind_css %}
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>Discere</title>
 </head>
 
-<body class="h-screen w-full bg-darkgreen-gradient font-outfit">
+<body class="h-screen w-full bg-darkgreen-gradient font-outfit overflow-x-hidden text-darkgreen">
     <header>
         <nav class="top-0 z-50 flex items-center justify-between w-full h-24 text-darkgreen px-5">
             <div class="flex items-center">
@@ -81,15 +80,7 @@
             
                     </div>
                 </div>
-            </div>
-            
-            <script>
-              feather.replace();
-            </script>
-            
-            
-            
-            
+            </div>   
         </nav>
 
       <!-- Sidebar Default -->
@@ -101,7 +92,7 @@
             <img src="{% static 'icons/home.svg' %}" alt="Icon 1" class="h-14 w-14 mt-20">
         </a>
         <a href="{% url 'library' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
-            <img src="{% static 'icons/folder-open.svg' %}" alt="Icon 2" class="h-14 w-14 "> 
+            <img src="{% static 'icons/folder-open.svg' %}" alt="Icon 2" class="h-14 w-14"> 
         </a>
         <img src="{% static 'icons/divider-sidebar-short.svg' %}" alt="" class="mb-4 hover-neon-green transition-all duration-300">
 
@@ -124,21 +115,10 @@
                 <img src="{% static 'icons/folder-open.svg' %}" alt="Icon 2" class="h-14 w-14">
                 <span class="ml-2 text-neongreen">Library</span>
             </a>
-            <img src="{% static 'icons/divider-sidebar-long.svg' %}">
-            <a href="#" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
-                <img src="{% static 'icons/archive.svg' %}" alt="Icon 3" class="h-14 w-14">
-                <span class="ml-2 text-neongreen">Archive</span>
-            </a>
-            <a href="#" class="flex items-center mb-4 hover-neon-green transition-all duration-300">
-                <img src="{% static 'icons/bookmark.svg' %}" alt="Icon 4" class="h-14 w-14">
-                <span class="ml-2 text-neongreen">Favorites</span>
-            </a>
         </div>
     </aside>
     </header>
 
-    <main class="flex flex-row h-full text-darkgreen">
-        <div class="bg-white1 flex-grow ml-[102px] px-10 py-10 rounded-t-3xl">
             {% block main_content %}
             {% endblock %}
     

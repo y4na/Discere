@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class StudySet(models.Model):
     set_name = models.CharField(max_length=255)
@@ -14,7 +15,7 @@ class StudySet(models.Model):
     
     class Meta:
         verbose_name = "Study Set"
-from django.contrib.auth.models import User
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

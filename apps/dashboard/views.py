@@ -6,42 +6,21 @@ import json
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProfilePictureForm, CustomPasswordChangeForm
-from .models import Profile
-from .models import ExamSet
-
-
+from .models import Profile, ExamSet, StudySet
 
 
 # General Views
 def dashboard_home(request):
     return render(request, 'dashboard/home.html')
 
-@login_required
-def user_settings(request):
-    return render(request, 'dashboard/user_settings.html')
-
-@login_required
-def user_profile(request):
-    user = request.user
-    user_profile = getattr(user, 'userprofile', None)
-    reading_activity = user_profile.reading_activity.all() if user_profile else []
-    achievements = user_profile.achievements.all() if user_profile else []
-
-
-
 
 @login_required
 def user_settings(request):
     current_user = request.user
-
     profile = current_user.profile
     form = ProfilePictureForm(instance=profile)
     password_form = CustomPasswordChangeForm(user=current_user)
 
-# Library Views
-def library(request):
-    study_sets = StudySet.objects.all()
-    return render(request, 'dashboard/library.html', {'study_sets': study_sets})
     # Handle profile picture change
     if request.method == 'POST' and 'profile_picture' in request.FILES:
         form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
@@ -66,58 +45,40 @@ def library(request):
         'password_form': password_form,
     })
 
+
+@login_required
+def user_profile(request):
+    user = request.user
+    user_profile = getattr(user, 'userprofile', None)
+    reading_activity = user_profile.reading_activity.all() if user_profile else []
+    achievements = user_profile.achievements.all() if user_profile else []
+
+    context = {
+        'user': user,
+        'reading_activity': reading_activity,
+        'achievements': achievements,
+    }
+    return render(request, 'dashboard/user_profile.html', context)
+
+
+# Library Views
 @login_required
 def library(request):
     exam_sets = ExamSet.objects.filter(user=request.user)
     study_sets = StudySet.objects.all()
-    return render(request, 'dashboard/library.html', {'exam_sets': exam_sets}, {'study_sets': study_sets})
+    return render(request, 'dashboard/library.html', {'exam_sets': exam_sets, 'study_sets': study_sets})
+
 
 def studysets_view(request):
-    study_sets = StudySet.objects.all() 
+    study_sets = StudySet.objects.all()
     return render(request, 'library/studysets.html', {'study_sets': study_sets})
+
 
 def exams_view(request):
     return render(request, 'library/exams.html')
 
 def exam_creation(request):
     return render(request, 'exams/exam-creation.html')
-
-# def user_settings(request):
-#     # Make sure the user is authenticated
-#     if not request.user.is_authenticated:
-#         return redirect('login')
-
-#     user_profile = UserProfile.objects.get(user=request.user)
-
-#     if request.method == 'POST':
-#         form = ProfilePictureForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             user_profile.profile_picture = form.cleaned_data['profile_picture']
-#             user_profile.save()
-
-#             messages.success(request, 'Your profile picture has been updated!')
-#             return redirect('user_settings') 
-#     else:
-#         form = ProfilePictureForm(instance=user_profile)
-
-#     return render(request, 'dashboard/user_settings.html', {'form': form})
-
-@login_required
-def save_exam_set(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            exam_set = ExamSet.objects.create(
-                name=data["name"],
-                subject=data["subject"],
-                exam_type=data["type"],
-                user=request.user
-            )
-            return JsonResponse({"success": True, "exam_set_id": exam_set.id})
-        except Exception as e:
-            return JsonResponse({"success": False, "error": str(e)})
-
-    return JsonResponse({"success": False, "error": "Invalid request method."})
 
 
 # Study Set Creation
@@ -137,10 +98,31 @@ def create_study_set(request):
 
     return redirect('library')
 
+
 # Flashcard Views
 def flashcard_creation(request):
     return render(request, 'flashcards/flashcard-creation.html')
 
+
 def flashcard_creation_main(request):
     study_sets = StudySet.objects.all()
     return render(request, 'flashcards/flashcard-creation-main.html', {'study_sets': study_sets})
+
+
+# Exam Set Management
+@login_required
+def save_exam_set(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            exam_set = ExamSet.objects.create(
+                name=data["name"],
+                subject=data["subject"],
+                exam_type=data["type"],
+                user=request.user
+            )
+            return JsonResponse({"success": True, "exam_set_id": exam_set.id})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    return JsonResponse({"success": False, "error": "Invalid request method."})
