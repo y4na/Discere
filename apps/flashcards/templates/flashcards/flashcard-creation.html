@@ -36,16 +36,13 @@
 
             <div style="height: 65px; border: 1px solid transparent; margin-left: 40px;"> </div>
 
-            <form method="POST" action="{% url 'delete_study_set' study_set_id=study_set.id %}" id="delete-study-set-form">
-                {% csrf_token %}
-                <button type="submit" id="delete"
-                        class="font-semibold py-2 px-4 rounded-full w-50 h-16 flex items-center justify-center"
-                        style="font-size: 18px; color: #a12d1a; border: 4px solid #a12d1a; font-size: 20px; width: 80px;"
-                        onmouseover="this.style.backgroundColor='#a12d1a'; this.style.color='white';"
-                        onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#a12d1a'">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </form>
+            <button id="delete"
+                    class="font-semibold py-2 px-4 rounded-full w-50 h-16 flex items-center justify-center"
+                    style="font-size: 18px; color: #a12d1a; border: 4px solid #a12d1a; font-size: 20px; width: 80px;"
+                    onmouseover="this.style.backgroundColor='#a12d1a'; this.style.color='white';"
+                    onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#a12d1a'">
+                <i class="fa fa-trash"></i>
+            </button>
         </div>
     </div>
 
@@ -169,24 +166,86 @@
             </div>
         </div>
 
+        <div id="warning-modal"
+            style="position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;">
+                <div style="
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 20px;
+                    text-align: center;
+                    width: 80%;
+                    max-width: 600px;
+                    padding: 30px;">
+                    <i class="fas fa-exclamation-circle" style="font-size: 50px; color: #f39c12; margin-bottom: 20px;margin-top: 20px;"></i>
+                    <p id="warning-message"
+                       style="
+                        font-size: 24px;
+                        color: #333;
+                        margin-bottom: 20px;"></p>
+                    <button id="close-modal"
+                            style="margin-top: 10px;
+                                padding: 10px 20px;
+                                background-color: #012d19;
+                                color: white;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                font-size: 18px;">Close</button>
+                </div>
+        </div>
+
         <script src="{% static 'flashcards/js/flashcards.js' %}"></script>
         <script>
-            document.getElementById("open-modal").addEventListener("click", function() {
-                document.querySelector("form").submit();
+            function showWarning(message) {
+                const modal = document.getElementById("warning-modal");
+                const warningMessage = document.getElementById("warning-message");
+                warningMessage.textContent = message;
+                modal.style.display = "flex";
+        
+                document.getElementById("close-modal").onclick = function () {
+                    modal.style.display = "none";
+                };
+            }
+        
+            function validateInputs() {
+                const terms = document.querySelectorAll(".input-term");
+                const definitions = document.querySelectorAll(".input-definition");
+                for (let i = 0; i < terms.length; i++) {
+                    if (terms[i].value.trim() === "" || definitions[i].value.trim() === "") {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            document.getElementById("open-modal").addEventListener("click", function (e) {
+                if (!validateInputs()) {
+                    e.preventDefault();
+                    showWarning("Please fill in all term and definition fields before creating a flashcard!");
+                } else {
+                    document.querySelector("form").submit();
+                }
             });
             
             document.getElementById("start-learning").addEventListener("click", function(e) {
-                e.preventDefault();
-                document.querySelector("form").submit();  
-                setTimeout(function() {
-                    window.location.href = document.getElementById("start-learning-link").href;
-                }, 100);
-            });
-
-            document.getElementById("delete").addEventListener("click", function(e) {
-                e.preventDefault();  
-                if (confirm("Are you sure you want to delete this study set? This action cannot be undone.")) {
-                    document.getElementById("delete-study-set-form").submit();  
+                if (!validateInputs()) {
+                    e.preventDefault();
+                    showWarning("Please fill in all term and definition fields before starting learning!");
+                } else {
+                    e.preventDefault();
+                    document.querySelector("form").submit();
+                    setTimeout(function () {
+                        window.location.href = document.getElementById("start-learning-link").href;
+                    }, 100);
                 }
             });
         </script>

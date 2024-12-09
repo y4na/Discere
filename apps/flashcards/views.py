@@ -100,12 +100,3 @@ def update_flashcard_status(request):
         return JsonResponse({'success': True})
 
     return JsonResponse({'success': False}, status=400)
-
-def delete_study_set(request, study_set_id):
-    study_set = get_object_or_404(StudySet, id=study_set_id)
-
-    if request.method == 'POST':
-        study_set.delete()
-        return redirect('library')
-
-    return render(request, 'flashcards/confirm_delete.html', {'study_set': study_set})
