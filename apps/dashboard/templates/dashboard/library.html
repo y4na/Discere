@@ -4,6 +4,7 @@
 {% block title %}Discere{% endblock %}
 
 {% block main_content %}
+<div class="bg-white1 flex-grow ml-[102px] px-10 py-10 rounded-t-3xl min-h-full">
     <div class="flex items-center justify-between">
         <h1 class="text-xl font-bold mb-4" style="font-size: 36px">Your Library</h1>
         <button id="open-modal"
@@ -18,8 +19,8 @@
 
     <div class="relative mb-6">
         <div class="flex items-center space-x-4 mb-4">
-            <button id="study-sets" class="text-darkgreen font-semibold focus:outline-none active inline-block opacity-100" onclick="showTab('study-sets')">Study Sets</button>
-            <button id="exams" class="text-darkgreen font-semibold focus:outline-none inline-block opacity-50" onclick="showTab('exams')">Exams</button>
+            <button id="study-sets" class="text-darkgreen font-semibold focus:outline-none active inline-block opacity-100">Study Sets</button>
+            <button id="exams" class="text-darkgreen font-semibold focus:outline-none inline-block opacity-50">Exams</button>
         </div> 
         <div class="absolute left-0 bottom-px h-1 bg-darkgreen transition-all duration-300 active-bar z-10"></div>
         <div class="w-full h-px bg-black bg-opacity-10 mb-4"></div>
@@ -67,6 +68,9 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="flex flex-col items-center justify-center h-full">
+            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
+            <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Add study set to get started.</h2>
         </div>
         {% else %}
             <div class="flex flex-col items-center justify-center h-full">
@@ -77,8 +81,39 @@
     </div>
     
     <div id="exams-content" class="tab-content hidden">
-        <p>Your exams will be displayed here.</p>
+        {% if exam_sets %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for exam in exam_sets %}
+                <div class="card bg-white rounded-lg shadow-lg p-4 w-[362px] h-[312px] flex flex-col justify-between">
+                    <!-- Title -->
+                    <h3 class="text-2xl font-bold">{{ exam.name }}</h3>
+    
+                    <!-- Subject -->
+                    <p class="text-sm text-[#018141]">Subject: {{ exam.subject }}</p>
+    
+                    <!-- Date Created -->
+                    <p class="text-sm text-darkgreen">{{ exam.created_at|date:"F j, Y" }}</p>
+    
+                    <!-- Three-dot Menu -->
+                    <div class="mt-auto flex justify-end">
+                        <button class="text-gray-500 hover:text-darkgreen">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="flex flex-col items-center justify-center h-full">
+            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
+            <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Add exam set to get started.</h2>
+        </div>
+        {% endif %}
     </div>
+    
+    
 
         {% comment %} <button class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-lg w-48 h-16 flex items-center justify-center" style="font-size: 20px;">
             All subjects
@@ -92,6 +127,9 @@
 
         <form action="{% url 'create_study_set' %}" method="POST" class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between z-10" style="width: 400px;">
             {% csrf_token %}
+    <!-- CREATE STUDY SET POP UP-->
+    <div id="create-study-set-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col w-[446px] h-[470px]">
             <div>
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-3xl font-bold">Create Study Set</h2>
@@ -148,6 +186,82 @@
             }
         });
     </script>
+            <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12" id="create-study-set-btn">
+                Create
+            </button>
+        </div>
+    </div>
+    <!-- CREATE EXAM POP UP-->
+    <div id="create-exam-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between relative" style="width: 760px; height: 440px;">
+            <button id="close-exam-modal" class="absolute top-4 right-4">
+                <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
+            </button>
+    
+            <div class="mb-6 px-6 mt-6">
+                <h2 class="text-3xl font-bold text-center max-w-[600px] mx-auto">
+                    How do you want to create <br> your exam set?
+                </h2>
+            </div>
+    
+            <div class="flex items-center gap-x-6 justify-center mb-10">
+                <button id="generate-from-study-set" 
+                        class="border-2 border-opacity-50 border-darkgreen text-darkgreen font-semibold py-6 px-4 rounded-md flex flex-col items-center justify-center space-y-2 transition-transform transform duration-300 ease-out hover:shadow-xl hover:scale-105"
+                        style="width: 292px; height: 226px;">
+                    <img src="{% static 'global-images/filler-4.png' %}" alt="Study Set" class="h-24 w-24">
+                    <span class="text-xl font-semibold">Generate from <br> Study Set</span>
+                </button>
+    
+                <button id="manually-create-exam" 
+                        class="border-2 border-opacity-50 border-darkgreen text-darkgreen font-semibold py-6 px-4 rounded-md flex flex-col items-center justify-center space-y-2 transition-transform transform duration-300 ease-out hover:shadow-xl hover:scale-105"
+                        style="width: 292px; height: 226px;">
+                    <img src="{% static 'global-images/filler-3.png' %}" alt="Manual" class="h-24 w-24">
+                    <span class="text-xl">Manually <br> Create</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+<!-- MANUALLY CREATE EXAM POP UP -->
+<div id="manually-create-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col w-[446px] h-[485px]">
+        <div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold">Create Exam Set</h2>
+                <button id="close-manually-create-modal">
+                    <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
+                </button>
+            </div>
 
-    <script src="{% static 'dashboard/js/library.js' %}"></script>
+            <div class="mb-4">
+                <label for="exam-set-name" class="block text-lg font-semibold mb-1">Exam Set Name</label>
+                <input type="text" id="exam-set-name" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Name">
+            </div>
+
+            <div class="mb-4">
+                <label for="subject-exam" class="block text-lg font-semibold mb-1">Subject</label>
+                <input type="text" id="subject-exam" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject">
+            </div>
+
+            <div class="mb-4">
+                <label for="exam-type" class="block text-lg font-semibold mb-1">Exam Type</label>
+                <select id="exam-type" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen">
+                    <option value="Identification">Identification</option>
+                </select>
+            </div>
+        </div>
+
+        <a href="{% url 'exam_creation' %}">
+            <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12" id="create-exam-set-btn">
+                Create
+            </button>
+        </a>        
+        
+    </div>
+</div>
+
+
+    
+
+</div>   
 {% endblock %}

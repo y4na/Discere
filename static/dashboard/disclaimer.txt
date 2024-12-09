@@ -1,0 +1,2 @@
+gi tagsa2 nako ang mga js per html diba
+ako na gi usa naa na sa static/js nga folder. kung usahon less likely mag bug

@@ -1,0 +1,100 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+    <link href="{% static 'path/to/your/css/globals.css' %}" rel="stylesheet">
+    <title>Discere</title>
+</head>
+
+<body class="h-screen w-full bg-darkgreen-gradient font-outfit overflow-x-hidden text-darkgreen">
+    <header>
+        <nav class="top-0 z-50 flex items-center justify-between w-full h-24 text-darkgreen px-5">
+            <div class="flex items-center">
+                <a href="{% url 'dashboard_home' %}">
+                    <img src="{% static 'global-images/discere-logo-svg 1.svg' %}" 
+                    alt="Discere Logo" 
+                    class="cursor-pointer h-12 w-30 mb-4 relative ml-[102px]" 
+                    style="left: 20px;"> 
+                </a>
+            </div>
+
+            <div class="flex flex-grow items-center justify-center relative ml-negative">
+                <input type="text" placeholder="What is it that you seek?" class="font-outfit rounded-xl p-2 px-5 pr-10" style="min-width: 800px; min-height: 50px">
+                <img src="{% static 'icons/search.svg' %}" alt="Search Icon" class="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 cursor-pointer">
+            </div>
+
+            <div class="flex items-center relative">
+                <!-- Profile Popup -->
+                <div class="relative">
+                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'global-images/default-user-profile.png' %}{% endif %}" 
+                         alt="User Profile" 
+                         class="h-12 w-12 rounded-full mx-10 cursor-pointer" 
+                         id="profile-menu-button">
+            
+                    <!-- Profile Popup -->
+                    <div id="profile-popup" class="absolute right-0 w-72 bg-white rounded-lg shadow-lg hidden z-50 mt-2">
+                        <div class="flex items-center p-4 border-b">
+                            <a href="{% url 'user_settings' %}">
+                                <div class="h-12 w-12 rounded-full overflow-hidden">
+                                    <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'global-images/default-user-profile.png' %}{% endif %}" 
+                                         alt="User Profile" 
+                                         class="w-full h-full object-cover">
+                                </div>
+                            </a>
+                            <div class="ml-3">
+                                <p class="font-semibold">{{ user.username }}</p>
+                                <p class="text-sm text-gray-500 max-w-full truncate text-ellipsis">
+                                    {{ user.email }}
+                                </p>
+                            </div>
+                        </div>
+            
+                        <div class="py-2 px-4">
+                            <a href="#" class="py-2 text-darkgreen hover:bg-gray-100 flex items-center">
+                                <i data-feather="award" class="mr-2"></i> Achievements
+                            </a>
+                            <a href="{% url 'user_settings' %}" class="py-2 text-darkgreen hover:bg-gray-100 flex items-center">
+                                <i data-feather="settings" class="mr-2"></i> Settings
+                            </a>
+                            <a href="#" class="py-2 text-darkgreen hover:bg-gray-100 flex items-center">
+                                <i data-feather="moon" class="mr-2"></i> Dark mode
+                            </a>
+                        </div>
+            
+                        <div class="border-b w-full"></div>
+                        <div class="py-2 px-4">
+                            <a href="{% url 'logout' %}" class="block py-2 text-darkgreen hover:bg-gray-100" style="color: #E53737;">Logout</a>
+                        </div>
+                        <div class="border-b w-full"></div>
+            
+                        <div class="py-2 px-4">
+                            <a href="#" class="block py-2 text-darkgreen hover:bg-gray-100">Privacy Policy</a>
+                            <a href="#" class="block py-2 text-darkgreen hover:bg-gray-100">Help and Feedback</a>
+                            <a href="#" class="block py-2 text-darkgreen hover:bg-gray-100">Give Me a Coffee</a>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+              
+        </nav>
+    </header>
+
+            {% block main_content %}
+            {% endblock %}
+    
+   
+    
+    <script src="https://unpkg.com/feather-icons"></script>
+    {% comment %} <script src="{% static 'dashboard/js/home.js' %}"></script>
+    <script src="{% static 'dashboard/js/user_settings.js' %}"></script>
+    <script src="{% static 'dashboard/js/library.js' %}"></script> {% endcomment %}
+
+    <script src="{% static 'js/dashboard_script.js' %}"></script>
+</body>
+</html>

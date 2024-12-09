@@ -46,13 +46,14 @@ module.exports = {
         extend: {
             fontFamily: {
                 outfit: ['Outfit', 'sans-serif'],
+                clash: ['ClashDisplay', 'sans-serif'],
             },
 
             colors: {
                 darkgreen: '#002F19',
                 darkergreen: '#000905',
                 neongreen: '#00FF7F',
-                white1: '#FAF9F6',
+                white1: '#F9FAFB',
                 white2: '#F7F7F7',
             },
 
@@ -63,14 +64,17 @@ module.exports = {
         },
     },
     plugins: [
-        /**
-         * '@tailwindcss/forms' is the forms plugin that provides a minimal styling
-         * for forms. If you don't like it or have own styling for forms,
-         * comment the line below to disable '@tailwindcss/forms'.
-         */
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
         require('flowbite/plugin'),
-    ],
+        // Custom plugin for no-scroll utility
+        function ({ addUtilities }) {
+          addUtilities({
+            '.no-scroll': {
+              overflow: 'hidden',
+            },
+          })
+        },
+      ],
 }
