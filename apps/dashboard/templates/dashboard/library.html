@@ -50,7 +50,10 @@
                     border-radius: 20px; 
                     flex: 1 1 calc(25% - 40px);
                     cursor: pointer;
-                    max-width: calc(25% - 40px);"
+                    max-width: calc(25% - 40px);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: stretch;"
              onmouseover="this.style.boxShadow = '0 0px 10px 0 #012f19'"
              onmouseout="this.style.boxShadow = 'none'"
              onclick="window.location.href='{% url 'flashcard_viewer' study_set.id %}';">

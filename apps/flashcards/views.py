@@ -14,14 +14,23 @@ def flashcard_creation(request):
 
 def flashcard_viewer(request, study_set_id):
     if request.method == 'POST':
-        return redirect('flashcard_viewer', study_set_id=study_set_id)
+        return redirect('flashcard-viewer', study_set_id=study_set_id)
 
     flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
     return render(request, 'flashcards/flashcard-viewer.html', {'flashcards': flashcards})
 
-def flashcard_edit_viewer(request):
-    flashcards = Flashcard.objects.all()
-    return render(request, 'flashcards/flashcard-edit.html', {'flashcards': flashcards})
+def flashcard_editor(request, study_set_id):
+    study_set = get_object_or_404(StudySet, id=study_set_id)
+    
+    if request.method == 'POST':
+        return redirect('flashcard-editor', study_set_id=study_set_id)
+    
+    flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
+    
+    return render(request, 'flashcards/flashcard-edit.html', {
+        'study_set': study_set,
+        'flashcards': flashcards
+    })
 
 def flashcard_view(request):
     if request.method == 'POST':
