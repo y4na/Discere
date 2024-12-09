@@ -109,10 +109,8 @@
 
             <div id="flashcards">
                 {% for flashcard in flashcards %}
-                {% for flashcard in flashcards %}
                 <div class="flashcard">
                     <div class="flashcard-header">
-                        <span class="flashcard-number">{{ forloop.counter }}</span>
                         <span class="flashcard-number">{{ forloop.counter }}</span>
                         <button type="button" class="delete-btn">
                             <i class="fas fa-trash"></i>
@@ -139,7 +137,6 @@
                         </div>
                     </div>
                 </div>
-                {% endfor %}
                 {% endfor %}
             </div>
         

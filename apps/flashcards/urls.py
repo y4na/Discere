@@ -9,6 +9,5 @@ urlpatterns = [
     path('library/', views.library_view, name='library_view'),
     path('delete_flashcards/', views.delete_flashcards, name='delete_flashcards'),
     path('delete-study-set/<int:study_set_id>/', views.delete_study_set, name='delete_study_set'),
-    path('flashcard-edit/<int:study_set_id>/', views.flashcard_edit_viewer, name='flashcard_edit_viewer'),
     path('update-flashcards/<int:study_set_id>/', views.update_flashcards, name='update_flashcards'),
 ]
