@@ -9,7 +9,11 @@ from .models import Profile, ExamSet
 class StudySetAdmin(admin.ModelAdmin):
     list_display = ('id', 'set_name', 'set_subject', 'flashcard_count')
     
-
+@admin.register(ExamSet)
+class ExamSetAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'subject', 'exam_type', 'created_at', 'user')
+    search_fields = ('name', 'subject', 'exam_type')  # Enable search by name, subject, and exam_type
+    list_filter = ('exam_type', 'subject')
 
 class ProfileInline(admin.StackedInline):
     model = Profile
@@ -32,4 +36,4 @@ admin.site.register(User, CustomUserAdmin)
 
 # Register the Profile model (add this line)
 admin.site.register(Profile)
-admin.site.register(ExamSet)
+# admin.site.register(ExamSet)

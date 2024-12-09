@@ -10,4 +10,6 @@ urlpatterns = [
     path('delete_flashcards/', views.delete_flashcards, name='delete_flashcards'),
     path('update_flashcard_status/', views.update_flashcard_status, name='update_flashcard_status'),
     path('study-set/<int:study_set_id>/delete/', views.delete_study_set, name='delete_study_set'),
+    
+    path('quiz/<int:study_set_id>/', views.identification_quiz, name='identification_quiz'),
 ]

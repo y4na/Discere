@@ -84,26 +84,27 @@
         </nav>
 
       <!-- Sidebar Default -->
-      <aside class="fixed h-screen flex flex-col bg-darkgreen-gradient w-[102px] px-5 py-1 top-0 left-0">
-        <button id="menu-button" class="flex justify-center items-center mb-4 pt-8">
-            <img src="{% static 'icons/menu-bar.svg' %}" alt="Menu Icon" class="h-8 w-8">
-        </button>
-        <a href="{% url 'dashboard_home' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
-            <img src="{% static 'icons/home.svg' %}" alt="Icon 1" class="h-14 w-14 mt-20">
-        </a>
-        <a href="{% url 'library' %}" class="flex items-center justify-center mb-4 hover-neon-green transition-all duration-300">
-            <img src="{% static 'icons/folder-open.svg' %}" alt="Icon 2" class="h-14 w-14"> 
-        </a>
-        <img src="{% static 'icons/divider-sidebar-short.svg' %}" alt="" class="mb-4 hover-neon-green transition-all duration-300">
+      <aside class="fixed flex flex-col w-[102px] px-5 py-1 left-0">
+        <div>
 
+            <a href="{% url 'dashboard_home' %}" class="flex items-center justify-center mb-4">
+                <img src="{% static 'icons/home1.svg' %}" alt="Home Icon" class="h-14 w-14 mt-20 transition-all duration-300 rounded-md hover:bg-[#00FF7F]/30 active:bg-[#00FF7F]/30">
+            </a>
+
+            <a href="{% url 'library' %}" class="flex items-center justify-center mb-4">
+                <img src="{% static 'icons/folder-open.svg' %}" alt="Library Icon" class="h-14 w-14 transition-all duration-300 rounded-md hover:bg-[#00FF7F]/30 active:bg-[#00FF7F]/30">
+            </a>
+    
+            <img src="{% static 'icons/divider-sidebar-short.svg' %}" alt="Divider" class="mb-4 hover-neon-green transition-all duration-300">
+        </div>
     </aside>
 
     <!-- Sidebar Pop-up -->
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-[304px] bg-darkgreen-gradient shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+    <aside id="sidebar" class="fixed top-0 left-0 w-[304px] shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
         <div class="flex items-center h-24 px-5">
-            <button id="sidebar-menu-button" class="p-2">
+            {% comment %} <button id="sidebar-menu-button" class="p-2">
                 <img src="{% static 'icons/menu-bar.svg' %}" alt="Close Menu Icon" class="px-2 py-1">
-            </button>
+            </button> {% endcomment %}
         </div>
 
         <div class="flex flex-col h-full px-5 py-10">

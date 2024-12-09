@@ -34,6 +34,13 @@
                 </ul>
             </div>
         </div>
+
+        <a href="{% url 'identification_quiz' study_set_id=study_set.id %}">
+            <button class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center text-lg hover:bg-[#07663a]">
+                <i class="fa fa-question-circle mr-2"></i>
+                Start Quiz
+            </button>
+        </a>
     </div>
 
     <div class="w-full h-px bg-opacity-10 mb-4" style="margin-top: 40px; border-top: 3px solid lightgrey;"> </div>
@@ -129,46 +136,54 @@
         </div>
     </div>
 
-    <div id="delete-confirmation" class="hidden fixed inset-0 bg-opacity-500 flex justify-center items-center">
-        <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-10"></div>
-        <div class="bg-white p-6 rounded-lg w-96 text-center" style="border-radius: 20px; border: 2px solid #012d19; user-select: none; z-index: 1000">
-            <h2 class="text-xl mb-4" style="margin-bottom: 40px;">Are you sure you want to delete all flashcards for this set?</h2>
-            <button id="confirm-delete" class="bg-red-600 px-4 py-2 rounded" style="border: 2px solid #8B0000; color: red; margin-right: 20px;" onmouseover="this.style.backgroundColor='#8B0000'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='red';">Yes, Delete</button>
-            <button id="cancel-delete" class="bg-gray-400 px-4 py-2 rounded ml-4" style="border: 2px solid #00008B; color: #00008B" onmouseover="this.style.backgroundColor='#00008B'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#00008B';">No, Cancel</button>
+    <div id="delete-confirmation" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-50 overflow-hidden">
+        <div class="bg-white p-6 rounded-lg w-1/3 relative">
+            <!-- Modal Header and Close Button -->
+            <button type="button" onclick="closeModal('delete-confirmation')" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 m-3 p-1">
+                <img src="{% static 'icons/close.svg' %}" alt="Close" class="w-4 h-4 cursor-pointer">
+            </button>
+            <h2 class="text-darkgreen font-semibold text-2xl mb-4 font-clash text-center">Are you sure you want to delete all flashcards for this set?</h2>
+            
+            <!-- Modal Buttons -->
+            <div class="flex justify-center space-x-4">
+                <button type="button" id="cancel-delete" class="px-4 py-2 text-sm text-darkgreen font-semibold border border-gray-300 rounded-lg hover:bg-gray-100 w-44 h-11 cursor-pointer">Cancel</button>
+                <button id="confirm-delete" class="px-4 py-2 text-sm text-white bg-darkgreen font-semibold rounded-lg hover:bg-darkgreen/80 w-44 h-11 cursor-pointer">Yes, Delete</button>
+            </div>
         </div>
     </div>
-</div>
+    
     <script>
         var currentFlashcardIndex = 0;
         var flashcards = document.querySelectorAll('.flashcard');
         var totalFlashcards = flashcards.length;
-    
+        
         showFlashcard(currentFlashcardIndex);
-    
+        
+        // Next and Previous buttons for flashcards
         document.getElementById('nextBtn').addEventListener('click', function() {
             currentFlashcardIndex = (currentFlashcardIndex + 1) % totalFlashcards;  
             showFlashcard(currentFlashcardIndex);
             updatePageNumber();
         });
-    
+        
         document.getElementById('prevBtn').addEventListener('click', function() {
             currentFlashcardIndex = (currentFlashcardIndex - 1 + totalFlashcards) % totalFlashcards;
             showFlashcard(currentFlashcardIndex);
             updatePageNumber();
         });
-    
+        
         function showFlashcard(index) {
             flashcards.forEach(function(flashcard, i) {
                 flashcard.style.display = 'none';
             });
             flashcards[index].style.display = 'block';
         }
-    
+        
         function toggleAnswer(flashcardId) {
             var termElement = document.getElementById('term-' + flashcardId);
             var answerElement = document.getElementById('answer-' + flashcardId);
             var revealbtn = document.getElementById('reveal-btn');
-    
+        
             if (answerElement.style.display === 'none') {
                 termElement.style.display = 'none';
                 answerElement.style.display = 'block';
@@ -185,20 +200,24 @@
         function updatePageNumber() {
             document.getElementById('current-page').innerText = currentFlashcardIndex + 1;
         }
-    
+        
+        // Show/Hide Menu Dropdown
         document.getElementById('three-dot-menu').addEventListener('click', function() {
             var dropdown = document.getElementById('menu-dropdown');
             dropdown.classList.toggle('hidden');
         });
-    
+        
+        // Show delete confirmation modal
         document.getElementById('delete-flashcards').addEventListener('click', function() {
             document.getElementById('delete-confirmation').classList.remove('hidden');
         });
-    
+        
+        // Close the delete confirmation modal
         document.getElementById('cancel-delete').addEventListener('click', function() {
             document.getElementById('delete-confirmation').classList.add('hidden');
         });
-    
+        
+        // Confirm delete and send request to server
         document.getElementById('confirm-delete').addEventListener('click', function() {
             var studySetId = '{{ flashcards.first.study_set.id }}'; 
             fetch('/delete_flashcards/', {
@@ -219,21 +238,22 @@
             });
             document.getElementById('delete-confirmation').classList.add('hidden');
         });
-
+    
+        // Flashcard status buttons
         document.querySelectorAll('.not-sure-btn').forEach(button => {
             button.addEventListener('click', function() {
                 var flashcardId = this.getAttribute('data-flashcard-id');
                 updateFlashcardStatus(flashcardId, 'isNotSure', true);  
             });
         });
-
+    
         document.querySelectorAll('.got-it-btn').forEach(button => {
             button.addEventListener('click', function() {
                 var flashcardId = this.getAttribute('data-flashcard-id');
                 updateFlashcardStatus(flashcardId, 'isGotIt', true); 
             });
         });
-
+    
         function updateFlashcardStatus(flashcardId, statusKey, statusValue) {
             fetch('/update_flashcard_status/', {
                 method: 'POST',
@@ -257,5 +277,6 @@
             });
         }
     </script>
+    
     
 {% endblock %}

@@ -7,11 +7,41 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProfilePictureForm, CustomPasswordChangeForm
 from .models import Profile, ExamSet, StudySet
+from apps.flashcards.models import Flashcard
 
 
-# General Views
 def dashboard_home(request):
-    return render(request, 'dashboard/home.html')
+    # Fetch the most recent study sets
+    recent_study_sets = StudySet.objects.all().order_by('-created_date')[:5]
+
+    # Initialize an empty list to store results for the recent study sets
+    study_set_results = []
+
+    # Retrieve recent quiz results from the session if available
+    recent_study_set = request.session.get('recent_study_set', None)
+
+    # Include the results in the context if available
+    if recent_study_set:
+        study_set_results.append({
+            'study_set': recent_study_set['set_name'],
+            'correct_count': recent_study_set['correct_count'],
+            'mistake_count': recent_study_set['mistake_count'],
+            'total_flashcards': recent_study_set['total_flashcards'],
+            'percentage': recent_study_set['overall_score'],
+        })
+
+    # Pass the study set results and user data to the template context
+    context = {
+        'recent_study_sets': recent_study_sets,
+        'user': request.user,
+        'study_set_results': study_set_results,
+    }
+
+    return render(request, 'dashboard/home.html', context)
+
+
+
+
 
 
 @login_required
@@ -65,7 +95,7 @@ def user_profile(request):
 @login_required
 def library(request):
     exam_sets = ExamSet.objects.filter(user=request.user)
-    study_sets = StudySet.objects.all()
+    study_sets = StudySet.objects.filter(user=request.user)
     return render(request, 'dashboard/library.html', {'exam_sets': exam_sets, 'study_sets': study_sets})
 
 
@@ -107,6 +137,34 @@ def flashcard_creation(request):
 def flashcard_creation_main(request):
     study_sets = StudySet.objects.all()
     return render(request, 'flashcards/flashcard-creation-main.html', {'study_sets': study_sets})
+
+@login_required
+def create_exam_set(request):
+    if request.method == 'POST':
+        # Handle the form submission from the front end
+        set_name = request.POST.get('exam_set_name')
+        subject = request.POST.get('subject')
+        exam_type = request.POST.get('exam_type')
+
+        # Create the exam set if all fields are provided
+        if set_name and subject and exam_type:
+            exam_set = ExamSet.objects.create(
+                name=set_name,
+                subject=subject,
+                exam_type=exam_type,
+                user=request.user  # Associate the exam set with the logged-in user
+            )
+
+            # You can also pass the created exam set to the template
+            context = {
+                'exam_set': exam_set,
+            }
+
+            # Redirect to exam creation page or render the page
+            return render(request, 'exams/exam-creation.html', context)
+
+    # If the form wasn't submitted, show the exam creation page
+    return render(request, 'exams/exam-creation.html')
 
 
 # Exam Set Management

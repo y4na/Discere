@@ -1,0 +1,77 @@
+{% extends 'flashcard-base.html' %}
+{% block title %}Quiz Results{% endblock %}
+{% load static %}
+{% block main_content %}
+<div class="results-container bg-white1 flex-grow px-10 py-10 rounded-t-3xl min-h-full">
+    <a href="{% url 'library' %}" class="flex items-center">
+        <img src="{% static 'icons/arrow-left.svg' %}" alt="Back" class="h-10 w-10 mr-2 text-darkgreen fill-current">
+    </a>
+    <h1 class="text-center text-6xl font-bold mb-20 mt-20 ">{{ score_message }}</h1>
+
+    <div class="bg-darkgreen-gradient text-neongreen rounded-lg p-6 mb-6 w-4/5 h-[255px] mx-auto">
+        <div class="flex justify-between items-center p-10">
+            <h2 class="text-center text-4xl font-bold mt-8 p-3">Review Summary</h2>
+            <div class="flex space-x-12 items-center">
+                <div class="justify-center items-center">
+                    <p class="text-3xl">Correct</p>
+                    <p class="text-6xl font-bold justify-center items-center">{{ correct_count }}</p>
+                </div>
+                <div class="justify-center items-center">
+                    <p class="text-3xl">Mistakes</p>
+                    <p class="text-6xl font-bold justify-center items-center">{{ mistake_count }}</p>
+                </div>
+                <div class="justify-center items-center">
+                    <p class="text-3xl">Overall Score</p>
+                    <p class="text-6xl font-bold justify-center items-center">{{ overall_score }}%</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    
+    <!-- Results Details -->
+    <div class="results-details space-y-6 max-w-4xl mx-auto p-6">
+        {% for result in results %}
+        <div class="result-item bg-white rounded-lg shadow-lg p-6 flex items-center border border-gray-300">
+            <!-- Left Section: Correct Answer and Your Answer -->
+            <div class="w-1/2 pr-6">
+                <p class="text-lg font-semibold text-darkgreen mb-2">
+                    <strong>Correct Answer:</strong> {{ result.correct_answer }}
+                </p>
+                <p class="text-lg {% if result.is_correct %}text-green-600{% else %}text-[#018141]{% endif %}">
+                    <strong>Your Answer:</strong> {{ result.user_answer }}
+                </p>
+            </div>
+    
+            <!-- Divider -->
+            <div class="border-l-2 border-gray-300 h-16 mx-6"></div>
+    
+            <!-- Right Section: Definition -->
+            <div class="w-1/2 pl-6">
+                <p class="text-lg text-gray-600">
+                    <strong>Definition:</strong> {{ result.definition }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+    
+    
+    <!-- Action Buttons 018141 -->
+    <div class="flex justify-center mt-6 mx-12 space-x-6 m-15">
+        <a href="" class="bg-darkgreen text-white font-semibold text-xl px-16 py-6 rounded-lg w-full sm:w-auto text-center hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+            Restart Quiz
+        </a>
+        <a href="{% url 'library' %}" class="bg-darkgreen font-semibold text-xl text-white px-16 py-6 rounded-lg  hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105 w-full sm:w-auto text-center">
+            Finish Cards
+        </a>
+    </div>
+    
+    
+    
+</div>
+{% endblock %}

@@ -83,31 +83,37 @@
 
     <!-- CREATE POP UP-->
     <div id="create-study-set-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col w-[446px] h-[380px]">
-            <div>
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col w-[446px] h-[380px] relative">
+            <!-- Modal content -->
+            <form action="{% url 'create_study_set' %}" method="POST" class="flex flex-col justify-between h-full">
+                {% csrf_token %}
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-3xl font-bold">Create Study Set</h2>
-                    <button type="button" id="close-modal">
+                    <button type="button" id="close-modal" class="text-gray-600 hover:text-darkgreen">
                         <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
                     </button>
                 </div>
-    
+
+                <!-- Study Set Name Input -->
                 <div class="mb-4">
                     <label for="study-set-name" class="block text-lg font-semibold mb-1">Study Set Name</label>
                     <input type="text" id="study-set-name" name="study_set_name" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Name" required>
                 </div>
-    
+
+                <!-- Subject Input -->
                 <div class="mb-4">
                     <label for="subject" class="block text-lg font-semibold mb-1">Subject</label>
                     <input type="text" id="subject" name="subject" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject" required>
                 </div>
-            </div>
-    
-            <button type="submit" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12">
-                Create
-            </button>
+
+                <!-- Submit Button -->
+                <button type="submit" id="create-study-set-btn" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12">
+                    Create
+                </button>
+            </form>
         </div>
     </div>
+
     
     <!-- CREATE EXAM POP UP-->
     <div id="create-exam-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
@@ -140,43 +146,42 @@
         </div>
     </div>
     
-<!-- MANUALLY CREATE EXAM POP UP -->
-<div id="manually-create-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col w-[446px] h-[485px]">
-        <div>
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-3xl font-bold">Create Exam Set</h2>
-                <button id="close-manually-create-modal">
-                    <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
-                </button>
+    <!-- MANUALLY CREATE EXAM POP UP -->
+    <div id="manually-create-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col w-[446px] h-[485px]">
+            <div>
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold">Create Exam Set</h2>
+                    <button id="close-manually-create-modal">
+                        <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
+                    </button>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="exam-set-name" class="block text-lg font-semibold mb-1">Exam Set Name</label>
+                    <input type="text" id="exam-set-name" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Name">
+                </div>
+    
+                <div class="mb-4">
+                    <label for="subject-exam" class="block text-lg font-semibold mb-1">Subject</label>
+                    <input type="text" id="subject-exam" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject">
+                </div>
+    
+                <div class="mb-4">
+                    <label for="exam-type" class="block text-lg font-semibold mb-1">Exam Type</label>
+                    <select id="exam-type" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen">
+                        <option value="Identification">Identification</option>
+                    </select>
+                </div>
             </div>
-
-            <div class="mb-4">
-                <label for="exam-set-name" class="block text-lg font-semibold mb-1">Exam Set Name</label>
-                <input type="text" id="exam-set-name" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Name">
-            </div>
-
-            <div class="mb-4">
-                <label for="subject-exam" class="block text-lg font-semibold mb-1">Subject</label>
-                <input type="text" id="subject-exam" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject">
-            </div>
-
-            <div class="mb-4">
-                <label for="exam-type" class="block text-lg font-semibold mb-1">Exam Type</label>
-                <select id="exam-type" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen">
-                    <option value="Identification">Identification</option>
-                </select>
-            </div>
+            <a href="{% url 'create_exam_set' %}">
+                <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12" id="create-exam-set-btn">
+                    Create
+                </button>       
+            </a>
         </div>
-
-        <a href="{% url 'exam_creation' %}">
-            <button class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full mt-4 h-12" id="create-exam-set-btn">
-                Create
-            </button>
-        </a>        
-        
     </div>
-</div>
+
 
 
     

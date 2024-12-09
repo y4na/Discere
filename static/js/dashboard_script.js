@@ -1,16 +1,16 @@
 //home.js
-const menuButton = document.querySelector('#menu-button');
-const sidebarMenuButton = document.querySelector('#sidebar-menu-button');
-const sidebar = document.querySelector('#sidebar');
-const backdrop = document.querySelector('#backdrop');
+// const menuButton = document.querySelector('#menu-button');
+// const sidebarMenuButton = document.querySelector('#sidebar-menu-button');
+// const sidebar = document.querySelector('#sidebar');
+// const backdrop = document.querySelector('#backdrop');
 
-const toggleSidebar = () => {
-    sidebar.classList.toggle('-translate-x-full');
-    //backdrop.classList.toggle('hidden');
-};
+// const toggleSidebar = () => {
+//     sidebar.classList.toggle('-translate-x-full');
+//     //backdrop.classList.toggle('hidden');
+// };
 
-menuButton.addEventListener('click', toggleSidebar);
-sidebarMenuButton.addEventListener('click', toggleSidebar);
+// menuButton.addEventListener('click', toggleSidebar);
+// sidebarMenuButton.addEventListener('click', toggleSidebar);
 //backdrop.addEventListener('click', toggleSidebar);
 
 const profileMenuButton = document.getElementById('profile-menu-button');
@@ -58,24 +58,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    document.addEventListener('click', function(event) {
-        const menus = document.querySelectorAll('[id^="popupMenu-"]');
-        const buttons = document.querySelectorAll('[id^="menuButton-"]');
+    // document.addEventListener('click', function(event) {
+    //     const menus = document.querySelectorAll('[id^="popupMenu-"]');
+    //     const buttons = document.querySelectorAll('[id^="menuButton-"]');
 
-        let isClickInside = false;
+    //     let isClickInside = false;
 
-        menus.forEach(menu => {
-            if (menu.contains(event.target)) isClickInside = true;
-        });
-        buttons.forEach(button => {
-            if (button.contains(event.target)) isClickInside = true;
-        });
+    //     menus.forEach(menu => {
+    //         if (menu.contains(event.target)) isClickInside = true;
+    //     });
+    //     buttons.forEach(button => {
+    //         if (button.contains(event.target)) isClickInside = true;
+    //     });
 
-        if (!isClickInside) {
-            menus.forEach(menu => menu.style.display = 'none');
-        }
-    });
-    
+    //     if (!isClickInside) {
+    //         menus.forEach(menu => menu.style.display = 'none');
+    //     }
+    // });
+
 //library.js
 document.addEventListener("DOMContentLoaded", function() {
     function setActiveBar(button) {
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//dfsfdsd
+//exam
 document.getElementById("create-exam-set-btn").addEventListener("click", async function () {
     // Get form data
     const examSetName = document.getElementById("exam-set-name").value;
@@ -258,7 +258,6 @@ document.getElementById("create-exam-set-btn").addEventListener("click", async f
 
         const result = await response.json();
         if (result.success) {
-            alert("Exam set created successfully!");
                     examsContent.classList.remove('hidden');
                     studySetsContent.classList.add('hidden');
                     openModalBtn.innerHTML = `

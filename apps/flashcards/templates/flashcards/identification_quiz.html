@@ -1,0 +1,42 @@
+{% extends 'flashcard-base.html' %}
+{% load static %}
+
+{% block title %}Identification Quiz{% endblock %}
+
+{% block main_content %}
+<div class="quiz-container bg-white1 flex-grow px-10 py-10 rounded-3xl max-w-4xl mx-auto shadow-xl min-h-[850px]">
+    
+    <a href="{{ request.META.HTTP_REFERER }}" class="flex items-center">
+        <img src="{% static 'icons/arrow-left.svg' %}" alt="Back" class="h-10 w-10 mr-2 text-darkgreen fill-current">
+    </a>
+
+    <h1 class="text-4xl font-extrabold text-center text-[#018141] mb-8">
+        Do you have what it takes? 
+    </h1>
+    
+
+    <form method="POST" action="{% url 'identification_quiz' study_set_id=study_set_id %}">
+        {% csrf_token %}
+        
+        <div class="quiz-questions space-y-8 max-w-3xl mx-auto px-4">
+            {% for flashcard in flashcards %}
+            <div class="quiz-question border-b border-gray-200 pb-6">
+                <p class="text-lg font-semibold text-darkgreen">
+                    {{ forloop.counter }}. {{ flashcard.definition }}
+                </p>
+                <input type="text" name="answer_{{ flashcard.id }}" placeholder="Enter the term"
+                       class="border border-gray-300 rounded-lg px-4 py-2 w-full mt-4 focus:outline-none focus:ring-2 focus:ring-darkgreen focus:border-darkgreen text-lg" 
+                       required>
+            </div>
+            {% endfor %}
+        </div>
+    
+        <div class="text-center mt-8">
+            <button type="submit" class="bg-darkgreen text-white font-semibold text-xl px-8 py-4 rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+                Submit Quiz
+            </button>
+        </div>
+    </form>
+    
+</div>
+{% endblock %}

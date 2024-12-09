@@ -12,12 +12,19 @@ def flashcard_creation(request):
         'study_set': study_sets.first() if study_sets.exists() else None
     })
 
-def flashcard_viewer(request, study_set_id):
-    if request.method == 'POST':
-        return redirect('flashcard_viewer', study_set_id=study_set_id)
 
-    flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
-    return render(request, 'flashcards/flashcard-viewer.html', {'flashcards': flashcards})
+def flashcard_viewer(request, study_set_id):
+    # Ensure the study set exists
+    study_set = get_object_or_404(StudySet, id=study_set_id)
+    
+    # Get related flashcards
+    flashcards = Flashcard.objects.filter(study_set=study_set)
+
+    return render(request, 'flashcards/flashcard-viewer.html', {
+        'flashcards': flashcards,
+        'study_set': study_set,  # Pass the study_set object to the template
+    })
+
 
 def flashcard_result_viewer(request):
     flashcards = Flashcard.objects.objects.all()
@@ -109,3 +116,78 @@ def delete_study_set(request, study_set_id):
         return redirect('library')
 
     return render(request, 'flashcards/confirm_delete.html', {'study_set': study_set})
+
+
+import random
+def identification_quiz(request, study_set_id):
+    # Fetch study set and flashcards for the quiz
+    study_set = get_object_or_404(StudySet, id=study_set_id)
+    flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
+
+    if request.method == 'POST':
+        # Fetch user's answers from POST data
+        answers = {}
+        for key, value in request.POST.items():
+            if key.startswith('answer_'):
+                flashcard_id = int(key.split('_')[1])
+                answers[flashcard_id] = value.strip()
+
+        # Evaluate the answers and calculate results
+        correct_count = 0
+        results = []
+        for flashcard in flashcards:
+            user_answer = answers.get(flashcard.id, "").lower()
+            correct_answer = flashcard.term.lower()
+            is_correct = user_answer == correct_answer
+            if is_correct:
+                correct_count += 1
+            results.append({
+                'definition': flashcard.definition,
+                'correct_answer': flashcard.term,
+                'user_answer': answers.get(flashcard.id, ""),
+                'is_correct': is_correct,
+            })
+
+        # Calculate score
+        total_flashcards = len(flashcards)
+        total_questions = len(results)
+        mistake_count = total_questions - correct_count
+        overall_score = round((correct_count / total_questions) * 100) if total_questions > 0 else 0
+
+        # Determine the score message based on overall score
+        if overall_score == 100:
+            score_message = "Excellent! You got everything correct!"
+        elif overall_score >= 80:
+            score_message = "Great job! You have most of the answers correct."
+        elif overall_score >= 50:
+            score_message = "Not bad! You got about half right."
+        else:
+            score_message = "Keep practicing! You have room for improvement."
+
+        # Store results in the session
+        request.session['recent_study_set'] = {
+            'set_name': study_set.set_name,
+            'correct_count': correct_count,
+            'mistake_count': mistake_count,
+            'total_flashcards': total_flashcards,
+            'overall_score': overall_score,
+        }
+
+        # Pass the data to the results template
+        return render(request, 'flashcards/quiz_results.html', {
+            'results': results,
+            'correct_count': correct_count,
+            'mistake_count': mistake_count,
+            'overall_score': overall_score,
+            'score_message': score_message,
+            'study_set': study_set,
+        })
+
+    # Render quiz page for GET requests
+    flashcards = list(flashcards)
+    random.shuffle(flashcards)  # Shuffle the flashcards for randomness
+
+    return render(request, 'flashcards/identification_quiz.html', {
+        'flashcards': flashcards,
+        'study_set_id': study_set_id,
+    })

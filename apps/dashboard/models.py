@@ -6,7 +6,8 @@ class StudySet(models.Model):
     set_subject = models.CharField(max_length=255)
     flashcard_count = models.PositiveIntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True)
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    
     def __str__(self):
         return self.set_name
     
@@ -28,5 +29,11 @@ class ExamSet(models.Model):
     exam_type = models.CharField(max_length=50, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='exam_sets')
+    exam_card_count = models.IntegerField(default=0)
+    
     def __str__(self):
         return self.name
+    
+    def update_exam_card_count(self):
+        self.exam_card_count = self.exam_cards.count()
+        self.save()

@@ -62,5 +62,6 @@
 @layer base {
     body {
         @apply font-outfit;
+        @apply bg-darkgreen-gradient;
     }
 }
