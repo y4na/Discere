@@ -7,4 +7,5 @@ urlpatterns = [
     path('flashcard-view/', views.flashcard_view, name='flashcard_view'),
     path('library/', views.library_view, name='library_view'),
     path('delete_flashcards/', views.delete_flashcards, name='delete_flashcards'),
+    path('update_flashcard_status/', views.update_flashcard_status, name='update_flashcard_status'),
 ]

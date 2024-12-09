@@ -73,3 +73,23 @@ def delete_flashcards(request):
             return JsonResponse({'success': True})
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)}, status=400)
+        
+def update_flashcard_status(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        flashcard_id = data.get('flashcard_id')
+        status_key = data.get('status_key')
+        status_value = data.get('status_value')
+
+        flashcard = Flashcard.objects.get(id=flashcard_id)
+        
+        if status_key == 'isNotSure':
+            flashcard.isNotSure = status_value
+        elif status_key == 'isGotIt':
+            flashcard.isGotIt = status_value
+        
+        flashcard.save()
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False}, status=400)
