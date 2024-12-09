@@ -13,8 +13,15 @@ def flashcard_creation(request):
     })
 
 def flashcard_viewer(request, study_set_id):
+    if request.method == 'POST':
+        return redirect('flashcard_viewer', study_set_id=study_set_id)
+
     flashcards = Flashcard.objects.filter(study_set_id=study_set_id)
     return render(request, 'flashcards/flashcard-viewer.html', {'flashcards': flashcards})
+
+def flashcard_result_viewer(request):
+    flashcards = Flashcard.objects.objects.all()
+    return render(request, 'flashcards/flashcard-result.html', {'flashcards': flashcards})
 
 def flashcard_view(request):
     if request.method == 'POST':

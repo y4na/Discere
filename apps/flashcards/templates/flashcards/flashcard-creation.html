@@ -20,17 +20,19 @@
                     onmouseover="this.style.backgroundColor='#012d19'; this.style.color='white';"
                     onmouseout="this.style.backgroundColor='#faf9f6'; this.style.color='#012d19'">
                 <i class="fa fa-magic" style="margin-right: 10px; font-size: 15px;"></i>
-                Create Flashcard 
+                Create Flashcard
             </button>
 
-            <button id="start-learning"
-                    class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center"
-                    style="font-size: 18px;"
-                    onmouseover="this.style.backgroundColor='#07663a'; this.style.color='white';"
-                    onmouseout="this.style.backgroundColor='#012d19'; this.style.color='white'">
-                <img src="{% static 'icons/play.svg' %}" alt="icon" class="h-7 w-7 mr-2">
-                Start Learning
-            </button>
+            <a href="{% url 'flashcard_viewer' study_set_id=study_set.id %}" id="start-learning-link">
+                <button id="start-learning"
+                        class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center"
+                        style="font-size: 18px;"
+                        onmouseover="this.style.backgroundColor='#07663a'; this.style.color='white';"
+                        onmouseout="this.style.backgroundColor='#012d19'; this.style.color='white'">
+                    <img src="{% static 'icons/play.svg' %}" alt="icon" class="h-7 w-7 mr-2">
+                    Start Learning
+                </button>
+            </a>
 
             <div style="height: 65px; border: 1px solid transparent; margin-left: 40px;"> </div>
 
@@ -165,5 +167,18 @@
         </div>
 
         <script src="{% static 'flashcards/js/flashcards.js' %}"></script>
+        <script>
+            document.getElementById("open-modal").addEventListener("click", function() {
+                document.querySelector("form").submit();
+            });
+            
+            document.getElementById("start-learning").addEventListener("click", function(e) {
+                e.preventDefault();
+                document.querySelector("form").submit();  
+                setTimeout(function() {
+                    window.location.href = document.getElementById("start-learning-link").href;
+                }, 100);
+            });
+        </script>
     </div> 
 {% endblock %}
