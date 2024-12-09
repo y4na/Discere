@@ -4,150 +4,133 @@
 {% block title %}Discere{% endblock %}
 
 {% block main_content %}
-    <div class="flex items-center justify-between">
-        <h1 class="text-xl font-bold mb-4" style="font-size: 36px">Your Library</h1>
-        <button id="open-modal"
-                class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center"
-                style="font-size: 18px;"
-                onmouseover="this.style.backgroundColor='#07663a'; this.style.color='white';"
-                onmouseout="this.style.backgroundColor='#012d19'; this.style.color='white'">
-            <img src="{% static 'icons/plus.svg' %}" alt="icon" class="h-5 w-5 mr-2">
-            Create Study Set
-        </button>
+<div class="flex items-center justify-between">
+    <h1 class="text-xl font-bold mb-4" style="font-size: 36px">Your Library</h1>
+    <button id="open-modal"
+            class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-full w-64 h-16 flex items-center justify-center"
+            style="font-size: 18px;"
+            onmouseover="this.style.backgroundColor='#07663a'; this.style.color='white';"
+            onmouseout="this.style.backgroundColor='#012d19'; this.style.color='white'">
+        <img src="{% static 'icons/plus.svg' %}" alt="icon" class="h-5 w-5 mr-2">
+        Create Study Set
+    </button>
+</div>
+
+<div class="relative mb-6">
+    <div class="flex items-center space-x-4 mb-4">
+        <button id="study-sets" class="text-darkgreen font-semibold focus:outline-none active inline-block opacity-100" onclick="showTab('study-sets')">Study Sets</button>
+        <button id="exams" class="text-darkgreen font-semibold focus:outline-none inline-block opacity-50" onclick="showTab('exams')">Exams</button>
+    </div> 
+    <div class="absolute left-0 bottom-px h-1 bg-darkgreen transition-all duration-300 active-bar z-10"></div>
+    <div class="w-full h-px bg-black bg-opacity-10 mb-4"></div>
+</div>
+
+<div id="study-sets-content" class="tab-content">
+    <div class="relative" style="margin-left: 20px; margin-top: 40px; margin-bottom: 10px;">
+        <select id="subject-filter" 
+                class="border border-gray-300 rounded-lg p-2 bg-darkgreen text-white text-lg font-medium appearance-none pr-10 hover-bg-gray"
+                onchange="filterBySubject()" 
+                style="font-size: 20px; padding: 20px 30px; background-color: #002f19; color: white; width: 300px;">
+            <option value="all" class="hover:bg-gray-600" style="background-color: white; color: #002f19;">All Subjects</option>
+            {% for subject in unique_subjects %}
+                <option value="{{ subject }}" class="hover:bg-gray-600" style="background: white; color: #002f19;">{{ subject }}</option>
+            {% endfor %}
+        </select>
     </div>
 
-    <div class="relative mb-6">
-        <div class="flex items-center space-x-4 mb-4">
-            <button id="study-sets" class="text-darkgreen font-semibold focus:outline-none active inline-block opacity-100" onclick="showTab('study-sets')">Study Sets</button>
-            <button id="exams" class="text-darkgreen font-semibold focus:outline-none inline-block opacity-50" onclick="showTab('exams')">Exams</button>
-        </div> 
-        <div class="absolute left-0 bottom-px h-1 bg-darkgreen transition-all duration-300 active-bar z-10"></div>
-        <div class="w-full h-px bg-black bg-opacity-10 mb-4"></div>
-    </div>
+    {% if study_sets %}
+    <div style="display: flex; 
+            flex-wrap: wrap; 
+            gap: 45px; 
+            padding-top: 30px; 
+            padding-bottom: 50px;
+            margin-left: 1.1%;">
+    {% for study_set in study_sets %}
+        <div class="study-set-card" data-subject="{{ study_set.set_subject }}" style="border: 3px solid #002f19; 
+                    border-radius: 20px; 
+                    flex: 1 1 calc(25% - 40px);
+                    cursor: pointer;
+                    max-width: calc(25% - 40px);"
+             onmouseover="this.style.boxShadow = '0 0px 10px 0 #012f19'"
+             onmouseout="this.style.boxShadow = 'none'"
+             onclick="window.location.href='{% url 'flashcard_viewer' study_set.id %}';">
+            
+            <div style="background-color: #00ff7f; 
+                        height: 16px; 
+                        border-top-left-radius: 20px; 
+                        border-top-right-radius: 20px;"></div>
 
-    <div id="study-sets-content" class="tab-content">
-        {% if study_sets %}
-        <div style="display: flex; 
-                flex-wrap: wrap; 
-                gap: 45px; 
-                padding-top: 30px; 
-                padding-bottom: 20px;
-                margin-left: 1.1%;">
-        {% for study_set in study_sets %}
-            <div style="border: 3px solid #002f19; 
-                        border-radius: 20px; 
-                        flex: 1 1 calc(25% - 40px);
-                        cursor: pointer;
-                        max-width: calc(25% - 40px);"
-                 onmouseover="this.style.boxShadow = '0 0px 10px 0 #012f19'"
-                 onmouseout="this.style.boxShadow = 'none'"
-                 onclick="window.location.href='{% url 'flashcard_viewer' study_set.id %}';">
-                
-                <div style="background-color: #00ff7f; 
-                            height: 16px; 
-                            border-top-left-radius: 20px; 
-                            border-top-right-radius: 20px;"></div>
-
-                <div style="padding: 20px;">
-                    <h3 class="font-outfit" 
-                        style="color: #012e19; 
-                               font-size: 40px; 
-                               padding: 0; 
-                               margin: 0; 
-                               line-height: 1.1;
-                               margin-bottom: 10px;
-                               font-weight: 600;
-                               height: 100px;
-                               display: flex;
-                               align-items: center;">
-                        {{ study_set.set_name }}
-                    </h3> 
-                    <p style="font-size: 20px; color: #018141; font-weight: 600; margin-bottom: 10px">{{ study_set.set_subject }}</p>
-                    <p style="font-size: 20px; color: #012e19; font-weight: 600; margin-bottom: 10px;"> {{ study_set.flashcard_count }} Flashcards</p>
-                </div>
+            <div style="padding: 20px;">
+                <h3 class="font-outfit" 
+                    style="color: #012e19; 
+                           font-size: 40px; 
+                           padding: 0; 
+                           margin: 0; 
+                           line-height: 1.1;
+                           margin-bottom: 10px;
+                           font-weight: 600;
+                           height: 100px;
+                           display: flex;
+                           align-items: center;">
+                    {{ study_set.set_name }}
+                </h3> 
+                <p style="font-size: 20px; color: #018141; font-weight: 600; margin-bottom: 10px">{{ study_set.set_subject }}</p>
+                <p style="font-size: 20px; color: #012e19; font-weight: 600; margin-bottom: 10px;"> {{ study_set.flashcard_count }} Flashcards</p>
             </div>
-        {% endfor %}
         </div>
-        {% else %}
-            <div class="flex flex-col items-center justify-center h-full">
-                <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
-                <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Nothing here yet...</h2>
+    {% endfor %}
+    </div>
+    {% else %}
+        <div class="flex flex-col items-center justify-center h-full">
+            <img src="{% static 'icons/filler-1.svg' %}" alt="Placeholder image" class="bottom-px w-80 h-80 mt-48" />
+            <h2 class="text-center text-darkgreen font-bold text-xl mt-[-40px]">Nothing here yet...</h2>
+        </div>
+    {% endif %}
+</div>
+
+<div id="exams-content" class="tab-content hidden">
+    <p>Your exams will be displayed here.</p>
+</div>
+
+<div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-10"></div>
+    <form action="{% url 'create_study_set' %}" method="POST" class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between z-10" style="width: 400px;">
+        {% csrf_token %}
+        <div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold">Create Study Set</h2>
+                <button type="button" id="close-modal">
+                    <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
+                </button>
             </div>
-        {% endif %}
-    </div>
-    
-    <div id="exams-content" class="tab-content hidden">
-        <p>Your exams will be displayed here.</p>
-    </div>
 
-        {% comment %} <button class="bg-darkgreen text-white font-semibold py-2 px-4 rounded-lg w-48 h-16 flex items-center justify-center" style="font-size: 20px;">
-            All subjects
-            <img src="{% static 'icons/angle-down.svg' %}" alt="icon" class="h-5 w-5 mr-2">
-        </button> {% endcomment %}
-
-    <!-- CREATE POP UP-->
-    <div id="create-study-set-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-        
-        <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-10"></div>
-
-        <form action="{% url 'create_study_set' %}" method="POST" class="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between z-10" style="width: 400px;">
-            {% csrf_token %}
-            <div>
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-3xl font-bold">Create Study Set</h2>
-                    <button type="button" id="close-modal">
-                        <img src="{% static 'icons/close.svg' %}" alt="Close" class="h-5 w-5">
-                    </button>
-                </div>
-    
-                <div class="mb-4">
-                    <label for="study-set-name" class="block text-lg font-semibold mb-1">Study Set Name</label>
-                    <input type="text" id="study-set-name" name="study_set_name" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Name" required>
-                </div>
-                <div class="mb-4">
-                    <label for="subject" class="block text-lg font-semibold mb-1">Subject</label>
-                    <input type="text" id="subject" name="subject" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject" required>
-                </div>
+            <div class="mb-4">
+                <label for="study-set-name" class="block text-lg font-semibold mb-1">Study Set Name</label>
+                <input type="text" id="study-set-name" name="study_set_name" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Name" required>
             </div>
-            <button type="submit" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full" style="margin-top: 15px;">Create</button>
-        </form>
-    </div>
+            <div class="mb-4">
+                <label for="subject" class="block text-lg font-semibold mb-1">Subject</label>
+                <input type="text" id="subject" name="subject" class="border border-gray-300 rounded-lg w-full h-[52px] p-4 font-medium focus:border-darkgreen focus:ring-darkgreen" placeholder="Subject" required>
+            </div>
+        </div>
+        <button type="submit" class="bg-darkgreen text-white font-medium py-2 px-4 rounded-full w-full" style="margin-top: 15px;">Create</button>
+    </form>
+</div>
 
-    <script>
-        function toggleMenu(menuId) {
-            const menu = document.getElementById(menuId);
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
-        }
-
-        function handleAction(action) {
-            alert(`Action selected: ${action}`);
-            if (action === 'archive') {
-                console.log("Adding to Archive...");
-            } else if (action === 'favorite') {
-                console.log("Adding to Favorites...");
-            } else if (action === 'delete') {
-                console.log("Deleting Set...");
-            }
-        }
-
-        document.addEventListener('click', function(event) {
-            const menus = document.querySelectorAll('[id^="popupMenu-"]');
-            const buttons = document.querySelectorAll('[id^="menuButton-"]');
-
-            let isClickInside = false;
-
-            menus.forEach(menu => {
-                if (menu.contains(event.target)) isClickInside = true;
-            });
-            buttons.forEach(button => {
-                if (button.contains(event.target)) isClickInside = true;
-            });
-
-            if (!isClickInside) {
-                menus.forEach(menu => menu.style.display = 'none');
+<script>
+    function filterBySubject() {
+        const selectedSubject = document.getElementById('subject-filter').value;
+        const cards = document.querySelectorAll('.study-set-card');
+        cards.forEach(card => {
+            const subject = card.getAttribute('data-subject');
+            if (selectedSubject === 'all' || subject === selectedSubject) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
             }
         });
-    </script>
+    }
+</script>
 
-    <script src="{% static 'dashboard/js/library.js' %}"></script>
+<script src="{% static 'dashboard/js/library.js' %}"></script>
 {% endblock %}

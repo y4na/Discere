@@ -27,7 +27,11 @@ def user_profile(request):
 # Library Views
 def library(request):
     study_sets = StudySet.objects.all()
-    return render(request, 'dashboard/library.html', {'study_sets': study_sets})
+    unique_subjects = study_sets.values_list('set_subject', flat=True).distinct()
+    return render(request, 'dashboard/library.html', {
+        'study_sets': study_sets,
+        'unique_subjects': unique_subjects,
+    })
 
 def studysets_view(request):
     study_sets = StudySet.objects.all() 
