@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from apps.dashboard.models import Profile
 from django import forms
 from django.contrib import messages
-
 # Login view
 def login_view(request):
     if request.user.is_authenticated:
@@ -102,3 +101,75 @@ def home_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+from django.core.mail import send_mail
+import random
+
+verification_codes = {}
+
+def send_verification_code(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+
+        if email:
+            code = random.randint(100000, 999999)  # Generate random 6-digit code
+            verification_codes[email] = code
+            request.session['email'] = email  # Save email in session for later use
+
+            try:
+                send_mail(
+                    'Your Password Reset Code',
+                    f'Your verification code is: {code}',
+                    'noreply@discere.com',
+                    [email],
+                    fail_silently=False,
+                )
+                messages.success(request, 'Verification code sent to your email.')
+                return redirect('verify_code')
+            except Exception as e:
+                messages.error(request, f'Error: {e}')
+        else:
+            messages.error(request, 'Email is required.')
+    return render(request, 'auth/password_reset.html')
+
+def verify_code(request):
+    if request.method == 'POST':
+        print("POST Data:", request.POST)  # Debugging line
+        verification_code = request.POST.get('verification_code')  # Only retrieve the entered code
+        email = request.session.get('email')  # Get email from session
+
+        if email and verification_code:
+            # Compare the code
+            if int(verification_code) == verification_codes.get(email):
+                messages.success(request, 'Verification successful!')
+                del verification_codes[email]
+                del request.session['email']  # Clear session data
+                return redirect('update_password', email=email)
+            else:
+                messages.error(request, 'Invalid verification code. Please try again.')
+        else:
+            messages.error(request, 'Both email and verification code are required.')
+
+    return render(request, 'auth/verify_code.html')
+
+
+def update_password(request, email):
+    if request.method == 'POST':
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Check if the new passwords match
+        if new_password == confirm_password:
+            try:
+                user = User.objects.get(email=email)  # Find the user by email
+                user.set_password(new_password)  # Set the new password
+                user.save()
+                messages.success(request, 'Your password has been updated successfully.')
+                return redirect('login')  # Redirect to login page
+            except User.DoesNotExist:
+                messages.error(request, 'User not found.')
+        else:
+            messages.error(request, 'Passwords do not match. Please try again.')
+
+    return render(request, 'auth/reset_password.html', {'email': email})
+

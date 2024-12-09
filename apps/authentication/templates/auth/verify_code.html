@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Code - Discere</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'auth/css/login-css.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <img src="{% static 'auth/images/discere-logo.png' %}" alt="Logo">
+            <h1>Welcome to Discere!</h1>
+            <i class="fas fa-ellipsis-h"></i>
+            <hr class="custom-hr-3"/>
+            <span>We have sent a verification code to your email. Please enter it below to reset your password.</span>
+            <hr class="custom-hr-3"/>
+            <i class="fas fa-ellipsis-h"></i>
+        </div>
+
+        <div class="right-section">
+            <h1 class="auth-header">Enter Verification Code</h1>
+            <hr class="custom-hr"/>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="error-message">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post" action="{% url 'verify_code' %}" id="verify-form">
+                {% csrf_token %}
+                <div class="input-icon">
+                    <i class="fa fa-key"></i>
+                    <input type="text" name="verification_code" placeholder="Enter the code sent to your email" required>
+                </div>
+                <button type="submit" class="submit-btn">Verify Code</button>
+            </form>
+            <hr class="custom-hr-2"/>
+            <div class="signup-link">
+                Didn't receive the code? <a href="{% url 'send_verification_code' %}">Resend code</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
