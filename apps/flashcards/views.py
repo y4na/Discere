@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Flashcard
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from apps.dashboard.models import StudySet
 
 def flashcard_creation(request):
@@ -10,7 +12,7 @@ def flashcard_creation(request):
     })
 
 def flashcard_viewer(request):
-    flashcards = Flashcard.objects.all()
+    flashcards = Flashcard.objects.filter(study_set_id=762)
     return render(request, 'flashcards/flashcard-viewer.html', {'flashcards': flashcards})
 
 def flashcard_view(request):
@@ -52,3 +54,16 @@ def flashcard_view(request):
 def library_view(request):
     study_sets = StudySet.objects.all()
     return render(request, 'dashboard/library.html', {'study_sets': study_sets})
+
+@csrf_exempt
+def delete_flashcards(request):
+    if request.method == 'POST':
+        # Get study_set_id from the request
+        data = json.loads(request.body)
+        study_set_id = data.get('study_set_id')
+
+        if study_set_id:
+            # Delete all flashcards associated with the study_set_id
+            Flashcard.objects.filter(study_set_id=study_set_id).delete()
+            return JsonResponse({'success': True})
+        return JsonResponse({'success': False})
