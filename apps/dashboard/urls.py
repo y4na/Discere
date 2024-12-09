@@ -12,5 +12,6 @@ urlpatterns = [
     path("change-email/", request_email_change, name="change_email"),
     path("confirm-email-change/", confirm_email_change, name="confirm_email_change"),
     path('update-profile/', views.update_profile, name='update_profile'),
-
+    path('logout/', views.logout_view, name='logout'),
+    path('delete_account/', views.delete_account, name='delete_account'),
 ]

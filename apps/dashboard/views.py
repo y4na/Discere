@@ -13,6 +13,9 @@ import random
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import logout
+from django.contrib.auth import login
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -200,3 +203,28 @@ def update_profile(request):
         return redirect("user_settings") 
 
     return render(request, "dashboard/user_settings.html")
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+
+def delete_account(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        
+        # Authenticate the user with the provided credentials
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            user.delete()
+            messages.success(request, "Your account has been deleted successfully.")
+            return redirect('home')  # Redirect to the homepage or another page after successful deletion
+        else:
+            messages.error(request, "Invalid username or password. Please try again.")
+            return redirect('delete_account')
+
+    return redirect('user_settings')
