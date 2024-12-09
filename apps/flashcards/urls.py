@@ -9,5 +9,5 @@ urlpatterns = [
     path('library/', views.library_view, name='library_view'),
     path('delete_flashcards/', views.delete_flashcards, name='delete_flashcards'),
     path('delete-study-set/<int:study_set_id>/', views.delete_study_set, name='delete_study_set'),
-    path('update-flashcards/<int:study_set_id>/', views.update_flashcards, name='update_flashcards'),
+    path('study-set/<int:study_set_id>/update/', views.update_flashcards, name='update_flashcards'),
 ]

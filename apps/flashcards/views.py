@@ -103,6 +103,9 @@ def update_flashcards(request, study_set_id):
 
     if request.method == 'POST':
         flashcard_count = 0
+
+        flashcards.delete()
+
         for key in request.POST:
             if key.startswith('term_'):
                 term_index = key.split('_')[1]
@@ -111,19 +114,11 @@ def update_flashcards(request, study_set_id):
                 definition = request.POST.get(definition_key)
 
                 if term and definition:
-                    # Check if flashcard exists
-                    flashcard = Flashcard.objects.filter(study_set=study_set, term=term).first()
-
-                    if flashcard:
-                        flashcard.definition = definition
-                        flashcard.save()
-                    else:
-                        # If no existing flashcard found, create a new one
-                        Flashcard.objects.create(
-                            study_set=study_set,
-                            term=term,
-                            definition=definition
-                        )
+                    Flashcard.objects.create(
+                        study_set=study_set,
+                        term=term,
+                        definition=definition
+                    )
                     flashcard_count += 1
 
         study_set.flashcard_count = flashcard_count
