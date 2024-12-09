@@ -130,3 +130,10 @@ def update_flashcards(request, study_set_id):
         'flashcards': flashcards,
         'study_set': study_set
     })
+
+def singleflashcarddelete(request, flashcard_id):
+    if request.method == 'DELETE':
+        flashcard = get_object_or_404(Flashcard, id=flashcard_id)
+        flashcard.delete()
+        return JsonResponse({'message': 'Flashcard deleted successfully.'}, status=200)
+    return JsonResponse({'message': 'Invalid request method.'}, status=400)

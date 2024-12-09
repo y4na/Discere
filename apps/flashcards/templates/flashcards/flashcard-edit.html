@@ -112,7 +112,7 @@
                 <div class="flashcard">
                     <div class="flashcard-header">
                         <span class="flashcard-number">{{ forloop.counter }}</span>
-                        <button type="button" class="delete-btn">
+                        <button type="button" class="delete-flashcard-btn">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -138,14 +138,6 @@
                     </div>
                 </div>
                 {% endfor %}
-            </div>
-        
-            <div class="add-card-section">
-                <div class="add-card">
-                    <button type="button" class="add-card-btn">
-                        <i class="fas fa-plus"></i> ADD CARD
-                    </button>
-                </div>
             </div>
         
             <div style="display: flex; justify-content: right; align-items: center; margin-right: 145px; margin-bottom: 10px;">
@@ -322,7 +314,39 @@
                     console.error("Error deleting study set:", error);
                     alert("An error occurred.");
                 });
-            });            
+            });
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                const flashcardsContainer = document.getElementById('flashcards');
+            
+                flashcardsContainer.addEventListener('click', (event) => {
+                    if (event.target.closest('.delete-flashcard-btn')) {
+                        const flashcard = event.target.closest('.flashcard');  
+                        const flashcardId = flashcard.dataset.id;  
+            
+                        fetch(`/delete-flashcard/${flashcardId}/`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,  
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message === 'Flashcard deleted successfully.') {
+                                flashcard.remove();
+                            } else {
+                                alert('Error deleting flashcard');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while deleting the flashcard.');
+                        });
+                    }
+                });
+            });
+            
         </script>
     </div> 
 {% endblock %}

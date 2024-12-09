@@ -10,4 +10,5 @@ urlpatterns = [
     path('delete_flashcards/', views.delete_flashcards, name='delete_flashcards'),
     path('delete-study-set/<int:study_set_id>/', views.delete_study_set, name='delete_study_set'),
     path('study-set/<int:study_set_id>/update/', views.update_flashcards, name='update_flashcards'),
+    path('delete-flashcard/<int:flashcard_id>/', views.singleflashcarddelete, name='singleflashcarddelete'),
 ]
