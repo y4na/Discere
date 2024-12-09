@@ -8,4 +8,5 @@ urlpatterns = [
     path('flashcards/<int:study_set_id>/viewer/', views.flashcard_viewer, name='flashcard_viewer'),
     path('library/', views.library_view, name='library_view'),
     path('delete_flashcards/', views.delete_flashcards, name='delete_flashcards'),
+    path('delete-study-set/<int:study_set_id>/', views.delete_study_set, name='delete_study_set'),
 ]

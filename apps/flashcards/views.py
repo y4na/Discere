@@ -80,3 +80,10 @@ def delete_flashcards(request):
             return JsonResponse({'success': True})
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)}, status=400)
+
+def delete_study_set(request, study_set_id):
+    if request.method == "DELETE":
+        study_set = get_object_or_404(StudySet, id=study_set_id)
+        study_set.delete()
+        return JsonResponse({"message": "Study set deleted successfully"}, status=200)
+    return JsonResponse({"error": "Invalid request method"}, status=400)

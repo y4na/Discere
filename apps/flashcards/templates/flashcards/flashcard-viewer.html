@@ -111,11 +111,21 @@
     <div id="delete-confirmation" class="hidden fixed inset-0 bg-opacity-500 flex justify-center items-center" style="position: fixed; z-index: 20;">
         <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-10"></div>
         <div class="bg-white p-6 rounded-lg w-96 text-center" style="border-radius: 20px; border: 2px solid #012d19; user-select: none; z-index: 1000">
-            <h2 class="text-xl mb-4" style="margin-bottom: 40px;">Are you sure you want to delete all flashcards for this set?</h2>
-            <button id="confirm-delete" class="bg-red-600 px-4 py-2 rounded" style="border: 2px solid #8B0000; color: red; margin-right: 20px;" onmouseover="this.style.backgroundColor='#8B0000'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='red';">Yes, Delete</button>
-            <button id="cancel-delete" class="bg-gray-400 px-4 py-2 rounded ml-4" style="border: 2px solid #00008B; color: #00008B" onmouseover="this.style.backgroundColor='#00008B'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#00008B';">No, Cancel</button>
+            <div style="margin-bottom: 20px;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 50px; color: #a12d1a;"></i>
+            </div>
+            <h2 class="text-xl mb-4" style="margin-bottom: 20px; color: #02311b; padding: 0px 30px;">Are you sure you want to delete all<br/>flashcards for this set?</h2>
+            <div style="display: flex; justify-content: center; gap: 15px;">
+                <button id="confirm-delete" class="bg-red-600 px-4 py-2 rounded" style="padding: 12px 20px; background-color: #a12d1a; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                    Yes, Delete
+                </button>
+                <button id="cancel-delete" class="bg-gray-400 px-4 py-2 rounded" style="padding: 12px 20px; background-color: #012d19; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                    No, Cancel
+                </button>
+            </div>
         </div>
     </div>
+    
 
     <script>
         var currentFlashcardIndex = 0;
