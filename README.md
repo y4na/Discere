@@ -1,45 +1,63 @@
-# Discere Project Development
+# 📚 Discere: Interactive Learning Web App
 
-Discere is a web app designed to enhance learning through customizable flashcards, study sets, and quizzes. Built for students and lifelong learners, Discere makes studying interactive and efficient.
+**Discere** is a modern web application designed to make studying 📖 interactive, efficient, and fun. With customizable flashcards, study sets, and quizzes, it helps students and lifelong learners achieve their educational goals. 🎯
 
-## Functional Requirements
+---
 
-### User Registration and Authentication
-- **User Registration** - Users can sign up with email and password.
-- **User Login** - Users can log in with registered credentials.
-- **Password Recovery** - Users can reset passwords via email.
+## ✨ Features
 
-### Flashcard Creation and Management
-- **Create Flashcards** - Users can create flashcards with terms and definitions.
-- **Edit Flashcards** - Users can modify existing flashcards.
-- **Delete Flashcards** - Users can remove flashcards.
+### 🔐 User Management
+- **🔑 User Registration**: Sign up with an email and password to access the app's features.
+- **🔒 User Login**: Secure authentication using registered credentials.
+- **🔄 Password Recovery**: Easily reset your password via email.
 
-### Flashcard Organization
-- **Create Decks** - Users can organize flashcards into subject-based decks.
-- **Edit Decks** - Users can edit deck titles or descriptions.
-- **Delete Decks** - Users can delete entire decks.
+### 📝 Flashcard Creation and Management
+- **➕ Create Flashcards**: Quickly create terms and definitions to aid learning.
+- **✏️ Edit Flashcards**: Modify existing flashcards for updates or corrections.
+- **🗑️ Delete Flashcards**: Remove unwanted or outdated flashcards.
 
-### Study Mode
-- **Study Flashcards** - Users can review flashcards and flip for answers.
-- **Shuffle Flashcards** - Users can randomize the order of flashcards.
+### 📂 Deck Organization
+- **🆕 Create Decks**: Organize flashcards by subject or category.
+- **🛠️ Edit Decks**: Update deck titles or descriptions as needed.
+- **❌ Delete Decks**: Remove decks for streamlined organization.
 
-### Quiz Mode
-- **Create Quizzes** - Users can generate quizzes from selected flashcards.
-- **Take Quizzes** - Quizzes can be in multiple-choice or fill-in-the-blank format.
-- **View Quiz Results** - Users can view quiz scores with correct/incorrect answers.
+### 🔄 Study Mode
+- **👀 Review Flashcards**: Flip flashcards to reveal answers.
+- **🔀 Shuffle Flashcards**: Randomize the order of flashcards for variety.
 
-### User Profile and Progress Tracking
-- **User Profile** - Users can view and update account details.
-- **Track Progress** - The system tracks progress (e.g., flashcards reviewed, quizzes taken, average scores).
+### 🧠 Quiz Mode
+- **🛠️ Generate Quizzes**: Create quizzes based on selected flashcards.
+- **✅ Multiple-Choice and Fill-in-the-Blank Questions**: Choose from different quiz formats.
+- **📊 View Results**: Get feedback on quiz performance, including correct/incorrect answers and scores.
 
-<b> FRD Full version: </b> [here](https://docs.google.com/document/d/1y04sf48MhNzhfLhh1lXd898y4QhfBeqL2McGGTMSZl8/edit?usp=sharing).
+### 📈 Progress Tracking
+- **👤 User Profile**: View and update your account details.
+- **📊 Performance Tracking**: Monitor progress such as:
+  - 📄 Flashcards reviewed
+  - 📝 Quizzes taken
+  - 🏆 Average scores
 
-## ERD
-![DISCERE ERD](https://github.com/user-attachments/assets/1409af27-8742-496b-a1f6-dd182f8f1014)
+---
 
+## 🛠️ Tech Stack
 
-## LINKS
-- **FRD**: [DISCERE FRD](https://docs.google.com/document/d/1y04sf48MhNzhfLhh1lXd898y4QhfBeqL2McGGTMSZl8/edit?usp=sharing).
-- **ERD**: [DISCERE ERD](https://lucid.app/lucidchart/cee764b3-f2ec-47c3-b802-6694dcdbac45/edit?viewport_loc=159%2C-33%2C2219%2C1146%2C0_0&invitationId=inv_4e52a143-5f64-4c9d-b43c-c3e1380901ff).
-- **Gantt Chart**: [DISCERE Gantt Chart](https://docs.google.com/spreadsheets/d/1k9_1aSfEuqUdnKwqAEZfxAhPOb5lRtC0agCvcpO24u0/edit?usp=sharing).
-- **UI/UX**: [DISCERE UI/UX](https://www.figma.com/design/4BOV3qSun2zVaIr0Nu4g7h/Project-Discere?node-id=0-1&t=s4cKhzSjif9uiWAi-1).
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Python, Django Framework
+- **Database**: SQLite
+- **Version Control**: Git
+
+---
+
+## 🚀 Installation and Setup
+
+### Prerequisites
+- 🐍 Python (version 3.8 or later)
+- 📦 SQLite (pre-installed with Python)
+- 🖥️ Git
+
+### Steps to Run Locally
+
+1. **📥 Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/discere.git
+   cd discere
