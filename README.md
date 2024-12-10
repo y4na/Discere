@@ -54,14 +54,14 @@
 ## 📂 Resources
 
 ### Gantt Chart
-- 
+- [Resources/Project Discere_Gantt Chart.xlsx](./Resources/Project%20Discere_Gantt%20Chart.xlsx)
 
 ### ERD
 - ![ERD_Project Discere](https://github.com/user-attachments/assets/cbb6a30c-1098-437a-bf54-14c20dfb2731)
 
 
-### UI/UX Design
-- 
+### UI/UX Design - Figma
+- [Resources/Figma Compilation](./Resources/Figma%20Compilation/)
 
 ---
 
