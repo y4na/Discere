@@ -78,52 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //library.js
 document.addEventListener("DOMContentLoaded", function() {
-    function setActiveBar(button) {
-        activeBar.style.width = `${button.offsetWidth}px`;
-        activeBar.style.left = `${button.offsetLeft}px`;
-    }
 
-    function setButtonOpacity(activeButton, inactiveButton) {
-        activeButton.classList.remove('opacity-50');
-        activeButton.classList.add('opacity-100');
-        inactiveButton.classList.remove('opacity-100');
-        inactiveButton.classList.add('opacity-50');
-    }
-
-    function showTab(tab) {
-        if (tab === 'study-sets') {
-            studySetsContent.classList.remove('hidden');
-            examsContent.classList.add('hidden');
-            openModalBtn.innerHTML = `
-                <img src="/static/icons/plus.svg" alt="icon" class="h-5 w-5 mr-2">
-                Create Study Set
-            `;
-        } else if (tab === 'exams') {
-            examsContent.classList.remove('hidden');
-            studySetsContent.classList.add('hidden');
-            openModalBtn.innerHTML = `
-                <img src="/static/icons/plus.svg" alt="icon" class="h-5 w-5 mr-2">
-                Create Exam
-            `;
-        }
-    }
-
-    setActiveBar(studySetsButton);
-    setButtonOpacity(studySetsButton, examsButton);
-
-    studySetsButton.addEventListener('click', function() {
-        setActiveBar(studySetsButton);
-        setButtonOpacity(studySetsButton, examsButton);
-        showTab('study-sets');
-    });
-
-    examsButton.addEventListener('click', function() {
-        setActiveBar(examsButton);
-        setButtonOpacity(examsButton, studySetsButton);
-        showTab('exams');
-    });
-
-    // Helper functions to disable and enable scrolling
     function disableScrolling() {
         document.body.style.overflow = 'hidden';
     }
