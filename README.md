@@ -42,14 +42,26 @@
 ## 🛠️ Tech Stack
 
 - **Frontend**:
-  ![HTML](https://img.shields.io/badge/-HTML5-orange?logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/-CSS3-blue?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white)
+  - ![HTML](https://img.shields.io/badge/-HTML5-orange?logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/-CSS3-blue?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow?logo=javascript&logoColor=white)
 - **Backend**:
-  ![Python](https://img.shields.io/badge/-Python-blue?logo=python&logoColor=white) ![Django](https://img.shields.io/badge/-Django-green?logo=django&logoColor=white)
+  - ![Python](https://img.shields.io/badge/-Python-blue?logo=python&logoColor=white) ![Django](https://img.shields.io/badge/-Django-green?logo=django&logoColor=white)
 - **Database**:
-  ![SQLite](https://img.shields.io/badge/-SQLite-lightblue?logo=sqlite&logoColor=white)
+  - ![SQLite](https://img.shields.io/badge/-SQLite-lightblue?logo=sqlite&logoColor=white)
 - **Version Control**:
-- ![Git](https://img.shields.io/badge/-Git-orange?logo=git&logoColor=white)
+  - ![Git](https://img.shields.io/badge/-Git-orange?logo=git&logoColor=white)
 
+---
+## 📂 Resources
+
+### Gantt Chart
+- 
+
+### ERD
+- ![ERD_Project Discere](https://github.com/user-attachments/assets/cbb6a30c-1098-437a-bf54-14c20dfb2731)
+
+
+### UI/UX Design
+- 
 
 ---
 
